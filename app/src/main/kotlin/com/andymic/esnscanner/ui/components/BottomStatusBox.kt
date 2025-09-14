@@ -20,8 +20,10 @@ fun BottomStatusBox(modifier: Modifier, uiState: ScanUIState) {
         is ScanUIState.Success -> {
             when (uiState.result.result) {
                 "Valid" -> Color.Green
+                "Valid/Not Registered" -> Color.Yellow
                 "Already Scanned" -> Color.Red
                 "Not in our System" -> Color.Yellow
+                "Not in our System/Not Verified" -> Color.Red
                 "Foreign Card" -> Color.Yellow
                 "Valid Locally. Check Number" -> Color.Yellow
                 "Expired" -> Color.Red
@@ -33,7 +35,9 @@ fun BottomStatusBox(modifier: Modifier, uiState: ScanUIState) {
         is ScanUIState.Idle -> Color.Black
     }
     Box(
-        modifier = modifier.background(backgroundColor).padding(horizontal = 16.dp),
+        modifier = modifier
+            .background(backgroundColor)
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         val text = when (uiState) {

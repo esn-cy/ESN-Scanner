@@ -64,16 +64,32 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
             }
 
             if (internationalInfo != null) {
-                var issuingSection = "Unknown Section"
-                if (internationalInfo.sectionCode.lowercase() == "cy-nico-esa")
-                    issuingSection = "ESN Nicosia"
-                else {
-                    for (section in Sections(application).sections) {
-                        if (section.code == internationalInfo.sectionCode.lowercase()) {
-                            issuingSection = section.name
-                            break
+                var issuingSection: String
+                var cardStatus: String
+                var expirationDate: String
+
+                if (internationalInfo.status != "available") {
+                    cardStatus =
+                        internationalInfo.status[0].uppercase() + internationalInfo.status.substring(
+                            1
+                        )
+                    issuingSection = "UNKNOWN"
+                    expirationDate = LocalDate.parse(internationalInfo.expirationDate)
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    if (internationalInfo.sectionCode.lowercase() == "cy-nico-esa")
+                        issuingSection = "ESN Nicosia"
+                    else {
+                        for (section in Sections(application).sections) {
+                            if (section.code == internationalInfo.sectionCode.lowercase()) {
+                                issuingSection = section.name
+                                break
+                            }
                         }
                     }
+                } else {
+                    cardStatus = "NOT REGISTERED"
+                    issuingSection = "N/A"
+                    expirationDate = "N/A"
                 }
 
                 var result: String
@@ -85,9 +101,9 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
                     homeCountry = "UNKNOWN",
                     lastScanDate = "UNKNOWN",
                     result = "TBD",
-                    cardStatus = internationalInfo.status[0].uppercase() + internationalInfo.status.substring(1),
+                    cardStatus = cardStatus,
                     issuingSection = issuingSection,
-                    expirationDate = LocalDate.parse(internationalInfo.expirationDate).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    expirationDate = expirationDate,
                     profileImageURL = "UNKNOWN"
                 )
 
@@ -99,16 +115,22 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
                     response.profileImageURL = localInfo.profileImageURL
 
                     result = if (LocalDate.now().toEpochDay() - LocalDate.parse(localInfo.lastScanDate).toEpochDay() > 1)
-                        "Valid"
+                        if (cardStatus != "NOT REGISTERED") "Valid" else "Valid/Not Registered"
                     else
                         "Already Scanned"
                 } else {
-                    result = if (issuingSection == "ESN Nicosia")
-                        "Not in our System"
-                    else
-                        "Foreign Card"
+                    result = if (cardStatus != "NOT REGISTERED") {
+                        if (issuingSection == "ESN Nicosia")
+                            "Not in our System"
+                        else
+                            "Foreign Card"
+                    } else
+                        "Not in our System/Not Verified"
                 }
-                if (LocalDate.now().toEpochDay() > LocalDate.parse(internationalInfo.expirationDate).toEpochDay())
+                if (internationalInfo.expirationDate != "N/A" && LocalDate.now()
+                        .toEpochDay() > LocalDate.parse(internationalInfo.expirationDate)
+                        .toEpochDay()
+                )
                     result = "Expired"
                 response.result = result
                 _scanState.value = ScanUIState.Success(response, scannedString)

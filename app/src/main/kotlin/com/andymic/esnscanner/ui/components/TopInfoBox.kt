@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
@@ -28,16 +29,30 @@ fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
     Box(modifier = modifier) {
         if (uiState is ScanUIState.Success) {
             Row(modifier = Modifier.fillMaxSize()) {
-                Image(
-                    painter = rememberAsyncImagePainter(uiState.result.profileImageURL),
-                    contentDescription = "Cardholder Picture",
+                Box(
                     modifier = Modifier
                         .fillMaxHeight(0.5f)
                         .align(Alignment.CenterVertically)
                         .aspectRatio(2f / 3f)
-                        .background(Color.Gray),
-                    contentScale = ContentScale.Crop
+                        .background(Color.Gray)
                 )
+                {
+                    Image(
+                        painter = rememberAsyncImagePainter(uiState.result.profileImageURL),
+                        contentDescription = "Cardholder Picture",
+                        contentScale = ContentScale.Crop
+                    )
+                    if (uiState.result.profileImageURL == "UNKNOWN") {
+                        Text(
+                            text = "?",
+                            color = Color.Yellow,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 64.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.width(16.dp))
 
@@ -57,7 +72,7 @@ fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
 @Composable
 fun InfoRow(label: String, value: String) {
     val textColor =
-        if (value.contains("UNKNOWN")) Color.Yellow else if (value == "Expired") Color.Red else Color.White
+        if (value.contains("UNKNOWN") || value == "N/A" || value == "NOT REGISTERED") Color.Yellow else if (value == "Expired") Color.Red else Color.White
     Column {
         Text(text = label, color = Color.LightGray, fontSize = 12.sp)
         Text(text = value, color = textColor, fontWeight = FontWeight.Bold, fontSize = 16.sp)

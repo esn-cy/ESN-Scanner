@@ -25,7 +25,7 @@ class ApiServiceImplementation(
             if (body.isEmpty())
                 return null
             return body[0]
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             return null
         }
     }

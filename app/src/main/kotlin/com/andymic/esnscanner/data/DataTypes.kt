@@ -16,11 +16,14 @@ data class LocalResponse(
 data class InternationalResponse(
     val code: String,
     val tid: String,
+    @Serializable(InternationalSerializer::class)
     @SerialName("expiration-date")
     val expirationDate: String,
     val status: String,
+    @Serializable(InternationalSerializer::class)
     @SerialName("section-code")
     val sectionCode: String,
+    @Serializable(InternationalSerializer::class)
     @SerialName("activation date")
     val activationDate: String? = null
 )
