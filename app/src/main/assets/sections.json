@@ -1,0 +1,2572 @@
+[
+  {
+    "code": "al-tira-esn",
+    "name": "ESN Tirana",
+    "city": "Tirana"
+  },
+  {
+    "code": "am-yere-esn",
+    "name": "ESN Yerevan",
+    "city": "Yerevan"
+  },
+  {
+    "code": "at-graz-tun",
+    "name": "ESN TU Graz",
+    "city": "Graz"
+  },
+  {
+    "code": "at-graz-uni",
+    "name": "ESN Uni Graz",
+    "city": "Graz"
+  },
+  {
+    "code": "at-inns-esn",
+    "name": "ESN Innsbruck",
+    "city": "Innsbruck"
+  },
+  {
+    "code": "at-klag-esn",
+    "name": "ESN Klagenfurt",
+    "city": "Klagenfurt"
+  },
+  {
+    "code": "at-kufs-esn",
+    "name": "ESN Kufstein",
+    "city": "Kufstein"
+  },
+  {
+    "code": "at-linz-esn",
+    "name": "ESN Linz",
+    "city": "Linz"
+  },
+  {
+    "code": "at-salz-uni",
+    "name": "ESN Salzburg",
+    "city": "Salzburg"
+  },
+  {
+    "code": "at-stpo-esn",
+    "name": "ESN St. Pölten",
+    "city": "St.Pölten"
+  },
+  {
+    "code": "at-wien-bok",
+    "name": "ESN BOKU Wien",
+    "city": "Vienna"
+  },
+  {
+    "code": "at-wien-tec",
+    "name": "ESN Technikum Wien",
+    "city": "Vienna"
+  },
+  {
+    "code": "at-wien-tun",
+    "name": "ESN Buddynetwork TU Wien",
+    "city": "Vienna"
+  },
+  {
+    "code": "at-wien-uas",
+    "name": "ESN BFI Vienna",
+    "city": "Vienna"
+  },
+  {
+    "code": "at-wien-uni",
+    "name": "ESN Uni Wien",
+    "city": "Vienna"
+  },
+  {
+    "code": "at-wien-wkw",
+    "name": "ESN FH Wien WKW",
+    "city": "Vienna"
+  },
+  {
+    "code": "az-baku-esn",
+    "name": "ESN ADA Baku",
+    "city": "Baku"
+  },
+  {
+    "code": "ba-most-esn",
+    "name": "ESN Mostar",
+    "city": "Mostar"
+  },
+  {
+    "code": "ba-sara-esn",
+    "name": "ESN Sarajevo",
+    "city": "Sarajevo"
+  },
+  {
+    "code": "be-antw-esn",
+    "name": "ESN Antwerp",
+    "city": "Antwerp"
+  },
+  {
+    "code": "be-brus-ehs",
+    "name": "ESN KULBrussels",
+    "city": "Brussels"
+  },
+  {
+    "code": "be-brus-esn",
+    "name": "ESN VUB EhB Brussels",
+    "city": "Brussels"
+  },
+  {
+    "code": "be-brus-hec",
+    "name": "ESN ICHEC ECAM Brussels",
+    "city": "Brussels"
+  },
+  {
+    "code": "be-brus-slu",
+    "name": "ESN Saint-Louis Brussels",
+    "city": "Brussels"
+  },
+  {
+    "code": "be-brus-ulb",
+    "name": "ESN ULB Brussels",
+    "city": "Brussels, Brussels"
+  },
+  {
+    "code": "be-diep-esn",
+    "name": "ESN Hasselt",
+    "city": "Hasselt, Diepenbeek, Genk"
+  },
+  {
+    "code": "be-geel-esn",
+    "name": "ESN Geel",
+    "city": "Geel"
+  },
+  {
+    "code": "be-gent-esn",
+    "name": "ESN Gent",
+    "city": "Ghent"
+  },
+  {
+    "code": "be-kort-esn",
+    "name": "ESN Leonardo Kortrijk",
+    "city": "Kortrijk"
+  },
+  {
+    "code": "be-leuv-esn",
+    "name": "ESN Leuven",
+    "city": "Leuven"
+  },
+  {
+    "code": "be-lieg-esn",
+    "name": "ESN ULiège",
+    "city": "Liège"
+  },
+  {
+    "code": "be-lieg-hec",
+    "name": "ESN HEC Liege",
+    "city": "Liège"
+  },
+  {
+    "code": "be-lieg-hel",
+    "name": "ESN HELMo",
+    "city": "Liège"
+  },
+  {
+    "code": "be-lieg-hep",
+    "name": "ESN HEPL",
+    "city": "Liège"
+  },
+  {
+    "code": "be-llne-esn",
+    "name": "ESN Louvain-la-Neuve",
+    "city": "Louvain-la-Neuve"
+  },
+  {
+    "code": "be-mech-esn",
+    "name": "ESN Mechelen",
+    "city": "Mechelen"
+  },
+  {
+    "code": "be-mons-esn",
+    "name": "ESN Mons",
+    "city": "Mons"
+  },
+  {
+    "code": "bg-blag-aub",
+    "name": "ESN AUBG",
+    "city": "Blagoevgrad"
+  },
+  {
+    "code": "bg-burg-esn",
+    "name": "ESN Burgas",
+    "city": "Burgas"
+  },
+  {
+    "code": "bg-plov-esn",
+    "name": "ESN Plovdiv",
+    "city": "Plovdiv"
+  },
+  {
+    "code": "bg-ruse-esn",
+    "name": "ESN UR",
+    "city": "Ruse"
+  },
+  {
+    "code": "bg-sofi-ctm",
+    "name": "ESN UCTM",
+    "city": "Sofia"
+  },
+  {
+    "code": "bg-sofi-esn",
+    "name": "ESN Sofia University",
+    "city": "Sofia"
+  },
+  {
+    "code": "bg-sofi-nbu",
+    "name": "ESN - New Bulgarian University",
+    "city": "Sofia"
+  },
+  {
+    "code": "bg-sofi-uac",
+    "name": "ESN UACEG",
+    "city": "Sofia"
+  },
+  {
+    "code": "bg-sofi-unw",
+    "name": "ESN UNWE",
+    "city": "Sofia"
+  },
+  {
+    "code": "bg-svis-esn",
+    "name": "ESN Svishtov",
+    "city": "Svishtov"
+  },
+  {
+    "code": "bg-varn-esn",
+    "name": "ESN Varna",
+    "city": "Varna"
+  },
+  {
+    "code": "bg-veta-esn",
+    "name": "ESN Veliko Tarnovo",
+    "city": "Veliko Tarnovo"
+  },
+  {
+    "code": "ch-base-esn",
+    "name": "ESN Basel",
+    "city": "Basel"
+  },
+  {
+    "code": "ch-bern-esn",
+    "name": "ESN Bern",
+    "city": "Bern"
+  },
+  {
+    "code": "ch-chur-htw",
+    "name": "ESN Chur",
+    "city": "Chur"
+  },
+  {
+    "code": "ch-frib-esn",
+    "name": "ESN Fribourg",
+    "city": "Fribourg"
+  },
+  {
+    "code": "ch-gene-uni",
+    "name": "ESN Genève",
+    "city": "Geneva"
+  },
+  {
+    "code": "ch-laus-xep",
+    "name": "ESN EPF Lausanne",
+    "city": "Lausanne"
+  },
+  {
+    "code": "ch-laus-xul",
+    "name": "ESN Uni Lausanne",
+    "city": "Lausanne"
+  },
+  {
+    "code": "ch-luga-esn",
+    "name": "ESN Lugano",
+    "city": "Lugano"
+  },
+  {
+    "code": "ch-luze-esn",
+    "name": "ESN Luzern",
+    "city": "Luzern"
+  },
+  {
+    "code": "ch-neuc-esn",
+    "name": "ESN Neuchâtel",
+    "city": "Neuchâtel"
+  },
+  {
+    "code": "ch-olte-esn",
+    "name": "ESN FHNW",
+    "city": "Olten, Brugg, Basel"
+  },
+  {
+    "code": "ch-sgal-esn",
+    "name": "ESN St Gallen",
+    "city": "St Gallen"
+  },
+  {
+    "code": "ch-wint-esn",
+    "name": "ESN Winterthur",
+    "city": "Winterthur"
+  },
+  {
+    "code": "ch-zuri-uni",
+    "name": "ESN Zurich",
+    "city": "Zurich"
+  },
+  {
+    "code": "cy-nico-esa",
+    "name": "ESN Nicosia",
+    "city": "Nicosia"
+  },
+  {
+    "code": "cz-brno-isc",
+    "name": "ESN MUNI Brno",
+    "city": "Brno"
+  },
+  {
+    "code": "cz-brno-vut",
+    "name": "ESN VUT Brno",
+    "city": "Brno"
+  },
+  {
+    "code": "cz-cbud-vst",
+    "name": "ESN VSTE Budweis",
+    "city": "České Budějovice"
+  },
+  {
+    "code": "cz-eske-usb",
+    "name": "ESN USB Budweis",
+    "city": "České Budějovice"
+  },
+  {
+    "code": "cz-hrkr-esn",
+    "name": "ESN Hradec Kralove",
+    "city": "Hradec Králové"
+  },
+  {
+    "code": "cz-libe-esn",
+    "name": "ESN Liberec",
+    "city": "Liberec"
+  },
+  {
+    "code": "cz-mzlu-esn",
+    "name": "ESN MENDELU Brno",
+    "city": "Brno"
+  },
+  {
+    "code": "cz-olom-upa",
+    "name": "ESN UP OLOMOUC",
+    "city": "Olomouc"
+  },
+  {
+    "code": "cz-ostr-isc",
+    "name": "ESN Ostravská",
+    "city": "Ostrava"
+  },
+  {
+    "code": "cz-ostr-vsb",
+    "name": "ESN VSB - TU Ostrava",
+    "city": "Ostrava"
+  },
+  {
+    "code": "cz-pard-esn",
+    "name": "ESN Pardubice",
+    "city": "Pardubice"
+  },
+  {
+    "code": "cz-pils-esn",
+    "name": "ESN UWB Pilsen",
+    "city": "Pilsen - Plzeň"
+  },
+  {
+    "code": "cz-prag-ctu",
+    "name": "ESN CTU in Prague",
+    "city": "Prague"
+  },
+  {
+    "code": "cz-prag-cul",
+    "name": "ESN CZU Prague",
+    "city": "Prague"
+  },
+  {
+    "code": "cz-prag-cun",
+    "name": "ESN CU Prague",
+    "city": "Prague"
+  },
+  {
+    "code": "cz-prag-ict",
+    "name": "ESN UCT Prague",
+    "city": "Prague"
+  },
+  {
+    "code": "cz-prag-vse",
+    "name": "ESN VSE Prague",
+    "city": "Prague"
+  },
+  {
+    "code": "cz-usti-esn",
+    "name": "ESN Usti",
+    "city": "Usti nad Labem"
+  },
+  {
+    "code": "cz-zlin-esn",
+    "name": "ESN Zlin",
+    "city": "Zlín"
+  },
+  {
+    "code": "de-augs-esn",
+    "name": "ESN Augsburg",
+    "city": "Augsburg"
+  },
+  {
+    "code": "de-bayr-esn",
+    "name": "ESN Bayreuth",
+    "city": "Bayreuth"
+  },
+  {
+    "code": "de-berl-ber",
+    "name": "ESN Berlin",
+    "city": "Berlin"
+  },
+  {
+    "code": "de-biel-esn",
+    "name": "ESN Bielefeld",
+    "city": "Bielefeld"
+  },
+  {
+    "code": "de-boch-esn",
+    "name": "ESN Bochum",
+    "city": "Bochum"
+  },
+  {
+    "code": "de-bonn-esn",
+    "name": "ESN Bonn e.V.",
+    "city": "Bonn"
+  },
+  {
+    "code": "de-brau-isn",
+    "name": "ESN Braunschweig",
+    "city": "Braunschweig"
+  },
+  {
+    "code": "de-darm-esn",
+    "name": "ESN Darmstadt",
+    "city": "Darmstadt"
+  },
+  {
+    "code": "de-degg-aki",
+    "name": "ESN Deggendorf",
+    "city": "Deggendorf"
+  },
+  {
+    "code": "de-dort-esn",
+    "name": "ESN Dortmund",
+    "city": "Dortmund"
+  },
+  {
+    "code": "de-dres-htw",
+    "name": "ESN HTW Dresden",
+    "city": "Dresden"
+  },
+  {
+    "code": "de-dres-tun",
+    "name": "ESN TU Dresden",
+    "city": "Dresden"
+  },
+  {
+    "code": "de-dues-esn",
+    "name": "ESN Düsseldorf",
+    "city": "Düsseldorf"
+  },
+  {
+    "code": "de-fran-esn",
+    "name": "ESN Frankfurt (Oder)",
+    "city": "Frankfurt (Oder)"
+  },
+  {
+    "code": "de-frei-esn",
+    "name": "ESN Freiburg e.V.",
+    "city": "Freiburg"
+  },
+  {
+    "code": "de-frma-uni",
+    "name": "ESN Frankfurt am Main",
+    "city": "Frankfurt am Main"
+  },
+  {
+    "code": "de-gies-esn",
+    "name": "ESN Gießen",
+    "city": "Gießen"
+  },
+  {
+    "code": "de-gott-esn",
+    "name": "ESN Göttingen",
+    "city": "Göttingen"
+  },
+  {
+    "code": "de-grei-esn",
+    "name": "ESN LEI Greifswald",
+    "city": "Greifswald"
+  },
+  {
+    "code": "de-hall-esn",
+    "name": "ESN Halle (Saale)",
+    "city": "Halle (Saale)"
+  },
+  {
+    "code": "de-hamb-har",
+    "name": "ESN Hamburg",
+    "city": "Hamburg"
+  },
+  {
+    "code": "de-hann-esn",
+    "name": "ESN Hannover",
+    "city": "Hannover"
+  },
+  {
+    "code": "de-heid-esn",
+    "name": "ESN Heidelberg",
+    "city": "Heidelberg"
+  },
+  {
+    "code": "de-hild-eot",
+    "name": "ESN Hildesheim",
+    "city": "Hildesheim"
+  },
+  {
+    "code": "de-ingo-esn",
+    "name": "ESN Ingolstadt",
+    "city": "Ingolstadt"
+  },
+  {
+    "code": "de-jena-esn",
+    "name": "ESN Jena",
+    "city": "Jena"
+  },
+  {
+    "code": "de-kais-esn",
+    "name": "ESN Kaiserslautern",
+    "city": "Kaiserslautern"
+  },
+  {
+    "code": "de-karl-ake",
+    "name": "ESN Karlsruhe",
+    "city": "Karlsruhe"
+  },
+  {
+    "code": "de-kiel-esn",
+    "name": "ESN Kiel",
+    "city": "Kiel"
+  },
+  {
+    "code": "de-kobl-esn",
+    "name": "ESN Koblenz",
+    "city": "koblenz"
+  },
+  {
+    "code": "de-koln-esn",
+    "name": "ESN Köln",
+    "city": "Köln"
+  },
+  {
+    "code": "de-kons-lei",
+    "name": "ESN Konstanz",
+    "city": "Konstanz"
+  },
+  {
+    "code": "de-land-ipa",
+    "name": "ESN IPAS Landau",
+    "city": "Landau in der Pfalz"
+  },
+  {
+    "code": "de-lbec-lub",
+    "name": "ESN Lübeck",
+    "city": "Lübeck"
+  },
+  {
+    "code": "de-main-esn",
+    "name": "ESN Mainz",
+    "city": "Mainz"
+  },
+  {
+    "code": "de-mann-esn",
+    "name": "ESN Mannheim",
+    "city": "Mannheim"
+  },
+  {
+    "code": "de-muni-mes",
+    "name": "ESN MESA München",
+    "city": "Munich"
+  },
+  {
+    "code": "de-muni-tum",
+    "name": "ESN TUMi München",
+    "city": "Munich"
+  },
+  {
+    "code": "de-pfor-esn",
+    "name": "ESN Pforzheim",
+    "city": "Pforzheim"
+  },
+  {
+    "code": "de-pots-lei",
+    "name": "ESN Potsdam",
+    "city": "Potsdam"
+  },
+  {
+    "code": "de-rege-esn",
+    "name": "ESN Regensburg",
+    "city": "Regensburg"
+  },
+  {
+    "code": "de-rost-esn",
+    "name": "ESN LEI Rostock",
+    "city": "Rostock"
+  },
+  {
+    "code": "de-saar-esn",
+    "name": "ESN Saarbrücken",
+    "city": "Saarbrücken"
+  },
+  {
+    "code": "de-sieg-esn",
+    "name": "ESN Siegen",
+    "city": "Siegen"
+  },
+  {
+    "code": "de-stut-esn",
+    "name": "ESN Stuttgart",
+    "city": "Stuttgart"
+  },
+  {
+    "code": "de-witt-her",
+    "name": "ESN Witten/Herdecke",
+    "city": "Witten"
+  },
+  {
+    "code": "dk-aarh-esn",
+    "name": "ESN Aarhus",
+    "city": "Aarhus"
+  },
+  {
+    "code": "dk-cope-esn",
+    "name": "ESN Copenhagen",
+    "city": "Copenhagen"
+  },
+  {
+    "code": "dk-hade-esn",
+    "name": "ESN Haderslev",
+    "city": "Haderslev"
+  },
+  {
+    "code": "dk-kold-esn",
+    "name": "ESN Kolding",
+    "city": "Kolding"
+  },
+  {
+    "code": "dk-lyng-dtu",
+    "name": "ESN DTU",
+    "city": "Copenhagen"
+  },
+  {
+    "code": "dk-oden-esn",
+    "name": "ESN Odense",
+    "city": "Odense"
+  },
+  {
+    "code": "ee-tall-ebs",
+    "name": "ESN EBS",
+    "city": "Tallinn"
+  },
+  {
+    "code": "ee-tall-esn",
+    "name": "ESN Tallinn",
+    "city": "Tallinn"
+  },
+  {
+    "code": "ee-tall-tlu",
+    "name": "ESN TLU IC",
+    "city": "Tallinn"
+  },
+  {
+    "code": "ee-tall-tut",
+    "name": "ESN TalTech IC",
+    "city": "Tallinn"
+  },
+  {
+    "code": "ee-tart-esn",
+    "name": "ESN Tartu",
+    "city": "Tartu"
+  },
+  {
+    "code": "es-alca-esn",
+    "name": "ESN Alcala",
+    "city": "Alcalá de Henares"
+  },
+  {
+    "code": "es-alic-esn",
+    "name": "ESN ALICANTE",
+    "city": "Alicante"
+  },
+  {
+    "code": "es-alme-esn",
+    "name": "ESN Almeria",
+    "city": "Almería, Almería"
+  },
+  {
+    "code": "es-bada-esn",
+    "name": "ESN UEx",
+    "city": "Badajoz, Cáceres, Mérida"
+  },
+  {
+    "code": "es-barc-esn",
+    "name": "ESN Barcelona UB",
+    "city": "Barcelona"
+  },
+  {
+    "code": "es-barc-pom",
+    "name": "ESN Barcelona UPF",
+    "city": "Barcelona"
+  },
+  {
+    "code": "es-barc-uab",
+    "name": "ESN UAB Barcelona",
+    "city": "Barcelona"
+  },
+  {
+    "code": "es-barc-upc",
+    "name": "ESN UPC Barcelona",
+    "city": "Barcelona"
+  },
+  {
+    "code": "es-bilb-esn",
+    "name": "ESN Bilbao",
+    "city": "Bilbao, San Sebastian"
+  },
+  {
+    "code": "es-burg-esn",
+    "name": "ESN Burgos",
+    "city": "Burgos"
+  },
+  {
+    "code": "es-cadi-esn",
+    "name": "ESN Cadiz",
+    "city": "Cádiz, Jerez"
+  },
+  {
+    "code": "es-cart-esn",
+    "name": "ESN Cartagena",
+    "city": "Cartagena"
+  },
+  {
+    "code": "es-cast-esn",
+    "name": "ESN Castellón",
+    "city": "Castellon de la Plana"
+  },
+  {
+    "code": "es-cord-esn",
+    "name": "ESN Córdoba",
+    "city": "Córdoba"
+  },
+  {
+    "code": "es-coru-esn",
+    "name": "ESN Coruna",
+    "city": "A Coruña"
+  },
+  {
+    "code": "es-gran-esn",
+    "name": "ESN Granada",
+    "city": "Granada"
+  },
+  {
+    "code": "es-jaen-esn",
+    "name": "ESN Jaén",
+    "city": "Jaén"
+  },
+  {
+    "code": "es-madr-ca3",
+    "name": "ESN UC3M",
+    "city": "Madrid"
+  },
+  {
+    "code": "es-madr-rjc",
+    "name": "ESN URJC",
+    "city": "Madrid"
+  },
+  {
+    "code": "es-madr-uam",
+    "name": "ESN UAM Madrid",
+    "city": "Madrid"
+  },
+  {
+    "code": "es-madr-ucm",
+    "name": "ESN UCM Madrid",
+    "city": "Madrid"
+  },
+  {
+    "code": "es-madr-upm",
+    "name": "ESN Madrid UPM",
+    "city": "Madrid"
+  },
+  {
+    "code": "es-mala-esn",
+    "name": "ESN Málaga",
+    "city": "Malaga"
+  },
+  {
+    "code": "es-murc-esn",
+    "name": "ESN Murcia",
+    "city": "Murcia"
+  },
+  {
+    "code": "es-ovie-esn",
+    "name": "ESN Oviedo",
+    "city": "Oviedo, Gijon"
+  },
+  {
+    "code": "es-palm-esn",
+    "name": "ESN Baleares",
+    "city": "Baleares"
+  },
+  {
+    "code": "es-palm-las",
+    "name": "ESN Las Palmas",
+    "city": "PALMAS DE GRAN CANARIA"
+  },
+  {
+    "code": "es-sala-esn",
+    "name": "ESN Salamanca",
+    "city": "Salamanca"
+  },
+  {
+    "code": "es-sant-com",
+    "name": "ESN Santiago de Compostela",
+    "city": "Santiago de Compostela"
+  },
+  {
+    "code": "es-sant-esn",
+    "name": "ESN Santander",
+    "city": "Santander"
+  },
+  {
+    "code": "es-sevi-esn",
+    "name": "ESN Sevilla",
+    "city": "Sevilla"
+  },
+  {
+    "code": "es-sevi-upo",
+    "name": "ESN UPO",
+    "city": "Sevilla"
+  },
+  {
+    "code": "es-uclm-esn",
+    "name": "ESN UCLM",
+    "city": "Albacete, Ciudad Real, Cuenca and Toledo"
+  },
+  {
+    "code": "es-vale-esn",
+    "name": "ESN en UV",
+    "city": "Valencia"
+  },
+  {
+    "code": "es-vale-ucv",
+    "name": "ESN UCV",
+    "city": "Valencia"
+  },
+  {
+    "code": "es-vale-upv",
+    "name": "ESN Valencia UPV",
+    "city": "Valencia"
+  },
+  {
+    "code": "es-vall-esn",
+    "name": "ESN Valladolid",
+    "city": "Valladolid"
+  },
+  {
+    "code": "es-vigo-esn",
+    "name": "ESN Vigo",
+    "city": "Vigo, Ourense, Pontevedra"
+  },
+  {
+    "code": "fi-hels-hyy",
+    "name": "ESN Uni Helsinki",
+    "city": "Helsinki"
+  },
+  {
+    "code": "fi-hels-kan",
+    "name": "ESN Haaga-Helia",
+    "city": "Helsinki"
+  },
+  {
+    "code": "fi-hels-met",
+    "name": "ESN Metropolia",
+    "city": "Vantaa"
+  },
+  {
+    "code": "fi-hels-tky",
+    "name": "ESN Aalto",
+    "city": "Espoo"
+  },
+  {
+    "code": "fi-jyva-jyy",
+    "name": "ESN Jyväskylä",
+    "city": "Jyväskylä"
+  },
+  {
+    "code": "fi-kuop-kis",
+    "name": "ESN KISA",
+    "city": "Kuopio"
+  },
+  {
+    "code": "fi-laht-esn",
+    "name": "ESN Lahti",
+    "city": "Lahti"
+  },
+  {
+    "code": "fi-lapp-esn",
+    "name": "ESN Lappeenranta",
+    "city": "Lappeenranta"
+  },
+  {
+    "code": "fi-laur-esn",
+    "name": "ESN Laureamko",
+    "city": "Vantaa"
+  },
+  {
+    "code": "fi-oulu-oyy",
+    "name": "ESN Oulu",
+    "city": "Oulu"
+  },
+  {
+    "code": "fi-rova-lyy",
+    "name": "ESN Lapland",
+    "city": "Rovaniemi"
+  },
+  {
+    "code": "fi-tamp-tam",
+    "name": "ESN FINT",
+    "city": "Tampere"
+  },
+  {
+    "code": "fi-turk-aau",
+    "name": "ESN Åbo Akademi",
+    "city": "Turku"
+  },
+  {
+    "code": "fi-turk-tyy",
+    "name": "ESN Uni Turku",
+    "city": "Turku"
+  },
+  {
+    "code": "fi-vaas-esn",
+    "name": "ESN Vaasa",
+    "city": "Vaasa"
+  },
+  {
+    "code": "fr-amie-esn-0",
+    "name": "ESN Amiens",
+    "city": "Amiens"
+  },
+  {
+    "code": "fr-ange-esn",
+    "name": "ESN Angers",
+    "city": "Angers"
+  },
+  {
+    "code": "fr-belf-esn",
+    "name": "ESN Belfort-Montbeliard",
+    "city": "Belfort"
+  },
+  {
+    "code": "fr-besa-aei",
+    "name": "ESN Besançon",
+    "city": "Besancon"
+  },
+  {
+    "code": "fr-bord-esn",
+    "name": "ESN Bordeaux",
+    "city": "Bordeaux"
+  },
+  {
+    "code": "fr-bres-esn",
+    "name": "ESN Brest",
+    "city": "Brest"
+  },
+  {
+    "code": "fr-caen-esn",
+    "name": "ESN Caen",
+    "city": "Caen"
+  },
+  {
+    "code": "fr-cham-esn",
+    "name": "ESN Chambéry",
+    "city": "Chambery"
+  },
+  {
+    "code": "fr-cler-wor",
+    "name": "ESN Worldtop Clermont-Ferrand",
+    "city": "Clermont-Ferrand"
+  },
+  {
+    "code": "fr-cort-esn",
+    "name": "ASSOCIU ERASMUS DI A CORSICA",
+    "city": "Corte"
+  },
+  {
+    "code": "fr-cour-vin",
+    "name": "ESN De Vinci",
+    "city": "Courbevoie"
+  },
+  {
+    "code": "fr-dijo-esn",
+    "name": "ESN Dijon",
+    "city": "Dijon"
+  },
+  {
+    "code": "fr-lill-esl",
+    "name": "ESN Lille",
+    "city": "Lille"
+  },
+  {
+    "code": "fr-lyon-esn",
+    "name": "ESN Lyon",
+    "city": "Lyon"
+  },
+  {
+    "code": "fr-mans-esn",
+    "name": "ESN Le Mans",
+    "city": "Le Mans"
+  },
+  {
+    "code": "fr-mars-esn",
+    "name": "ESN Marseille",
+    "city": "Marseille"
+  },
+  {
+    "code": "fr-mont-esn",
+    "name": "ESN Montpellier",
+    "city": "Montpellier"
+  },
+  {
+    "code": "fr-nanc-esn",
+    "name": "ESN Nancy",
+    "city": "Nancy"
+  },
+  {
+    "code": "fr-nant-aut",
+    "name": "Autour du Monde - ESN Nantes",
+    "city": "Nantes"
+  },
+  {
+    "code": "fr-nice-esn",
+    "name": "ESN Nice",
+    "city": "Nice"
+  },
+  {
+    "code": "fr-orle-esn",
+    "name": "ESN Orleans",
+    "city": "Orléans"
+  },
+  {
+    "code": "fr-pari-ass",
+    "name": "ESN-Paris",
+    "city": "Paris"
+  },
+  {
+    "code": "fr-poit-esn",
+    "name": "ESN Poitiers",
+    "city": "Poitiers"
+  },
+  {
+    "code": "fr-prov-aix",
+    "name": "ESN Aix-En-Provence",
+    "city": "Aix-en-Provence"
+  },
+  {
+    "code": "fr-reim-esn",
+    "name": "ESN Reims",
+    "city": "Reims"
+  },
+  {
+    "code": "fr-renn-esn",
+    "name": "ESN Rennes",
+    "city": "Rennes"
+  },
+  {
+    "code": "fr-roch-esn",
+    "name": "ESN La Rochelle",
+    "city": "La Rochelle"
+  },
+  {
+    "code": "fr-scea-esn",
+    "name": "ESN EPF",
+    "city": "Paris"
+  },
+  {
+    "code": "fr-stra-esn",
+    "name": "ESN Strasbourg",
+    "city": "Strasbourg"
+  },
+  {
+    "code": "fr-toul-ase",
+    "name": "ESN Toulouse",
+    "city": "Toulouse"
+  },
+  {
+    "code": "fr-tour-esn",
+    "name": "ESN Tours",
+    "city": "Tours"
+  },
+  {
+    "code": "fr-vale-esn",
+    "name": "ESN Valenciennes",
+    "city": "Valenciennes"
+  },
+  {
+    "code": "fr-vill-bis",
+    "name": "ESN BISE - Saint-Etienne",
+    "city": "Saint Etienne"
+  },
+  {
+    "code": "gb-aber-abd",
+    "name": "ESN Aberdeen",
+    "city": "Aberdeen"
+  },
+  {
+    "code": "gb-aber-abe",
+    "name": "ESN Aberystwyth",
+    "city": "Aberystwyth"
+  },
+  {
+    "code": "gb-aber-esn",
+    "name": "ESN RGU",
+    "city": "Aberdeen"
+  },
+  {
+    "code": "gb-birm-esn",
+    "name": "ESN Aston",
+    "city": "Birmingham"
+  },
+  {
+    "code": "gb-durh-esn",
+    "name": "ESN Durham",
+    "city": "Durham"
+  },
+  {
+    "code": "gb-edin-esn",
+    "name": "ESN Edinburgh",
+    "city": "Edinburgh"
+  },
+  {
+    "code": "gb-glas-esn",
+    "name": "ESN UofG",
+    "city": "Glasgow"
+  },
+  {
+    "code": "gb-glas-str",
+    "name": "ESN Strathclyde",
+    "city": "Glasgow"
+  },
+  {
+    "code": "gb-leed-esn",
+    "name": "ESN Leeds",
+    "city": "Leeds"
+  },
+  {
+    "code": "gb-lond-esn",
+    "name": "ESN City London",
+    "city": "London"
+  },
+  {
+    "code": "gb-lond-imp",
+    "name": "ESN Imperial",
+    "city": "London"
+  },
+  {
+    "code": "gb-newc-esn",
+    "name": "ESN Newcastle",
+    "city": "Newcastle"
+  },
+  {
+    "code": "gb-qmul-esn",
+    "name": "ESN QMUL",
+    "city": "London, London"
+  },
+  {
+    "code": "gb-sout-esn",
+    "name": "ESN Southampton",
+    "city": "Southampton"
+  },
+  {
+    "code": "ge-tbil-isu",
+    "name": "ESN Tbilisi",
+    "city": "Tbilisi"
+  },
+  {
+    "code": "gr-athe-aua",
+    "name": "ESN AUA Athens",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-athe-esn",
+    "name": "ESN Athens AUEB",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-athe-har",
+    "name": "ESN HARO",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-athe-kap",
+    "name": "ESN KAPA Athens",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-athe-pan",
+    "name": "ESN Panteion",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-athe-tei",
+    "name": "ESN West Attica",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-chan-esn",
+    "name": "ESN TUC",
+    "city": "Chania"
+  },
+  {
+    "code": "gr-corf-esn",
+    "name": "ESN Ionian",
+    "city": "Corfu"
+  },
+  {
+    "code": "gr-hera-tei",
+    "name": "ESN Hellenic Mediterranean University",
+    "city": "Heraklion"
+  },
+  {
+    "code": "gr-hera-uoc",
+    "name": "ESN UOC",
+    "city": "Rethymnon, Heraklion"
+  },
+  {
+    "code": "gr-ioan-esn",
+    "name": "ESN Ioannina",
+    "city": "Ioannina"
+  },
+  {
+    "code": "gr-komo-esn",
+    "name": "ESN DUTH",
+    "city": "Komotini"
+  },
+  {
+    "code": "gr-koza-tei",
+    "name": "ESN Western Macedonia",
+    "city": "Kozani, Kastoria, Grevena, Florina, Ptolemaida"
+  },
+  {
+    "code": "gr-ntua-esn",
+    "name": "ESN NTUA Athens",
+    "city": "Athens"
+  },
+  {
+    "code": "gr-patr-esn",
+    "name": "ESN UOPA",
+    "city": "Patras"
+  },
+  {
+    "code": "gr-pira-esn",
+    "name": "ESN UniPi",
+    "city": "Piraeus"
+  },
+  {
+    "code": "gr-thes-aut",
+    "name": "ESN AUTH",
+    "city": "Thessaloniki, Thessaloniki"
+  },
+  {
+    "code": "gr-thes-esn",
+    "name": "ESN UOM Thessaloniki",
+    "city": "Thessaloniki"
+  },
+  {
+    "code": "gr-thes-tei",
+    "name": "ESN IHU",
+    "city": "Thessaloniki"
+  },
+  {
+    "code": "gr-uthx-esn",
+    "name": "ESN UTH",
+    "city": "Volos, Larissa, Lamia, Karditsa, Trikala"
+  },
+  {
+    "code": "hr-cako-esn",
+    "name": "ESN Čakovec",
+    "city": "CAKOVEC"
+  },
+  {
+    "code": "hr-dubr-esn",
+    "name": "ESN Dubrovnik",
+    "city": "Dubrovnik"
+  },
+  {
+    "code": "hr-osij-esn",
+    "name": "ESN Osijek",
+    "city": "Osijek"
+  },
+  {
+    "code": "hr-rije-esn",
+    "name": "ESN Rijeka",
+    "city": "Rijeka"
+  },
+  {
+    "code": "hr-spli-esn",
+    "name": "ESN Split",
+    "city": "Split"
+  },
+  {
+    "code": "hr-zada-esn",
+    "name": "ESN Zadar",
+    "city": "Zadar"
+  },
+  {
+    "code": "hr-zagr-esn",
+    "name": "ESN Zagreb",
+    "city": "Zagreb"
+  },
+  {
+    "code": "hu-buda-sem",
+    "name": "ESN Semmelweis",
+    "city": "Budapest"
+  },
+  {
+    "code": "hu-bupe-bme",
+    "name": "ESN BME",
+    "city": "Budapest"
+  },
+  {
+    "code": "hu-bupe-cor",
+    "name": "ESN Corvinus",
+    "city": "Budapest"
+  },
+  {
+    "code": "hu-bupe-elt",
+    "name": "ESN ELTE",
+    "city": "Budapest"
+  },
+  {
+    "code": "hu-bupe-ibs",
+    "name": "ESN IBS",
+    "city": "Budapest"
+  },
+  {
+    "code": "hu-bupe-nup",
+    "name": "ESN LUPS",
+    "city": "Budapest"
+  },
+  {
+    "code": "hu-bupe-obu",
+    "name": "ESN Óbuda University",
+    "city": "Budapest, Székesfehérvár"
+  },
+  {
+    "code": "hu-debr-esn",
+    "name": "ESN Debrecen",
+    "city": "Debrecen"
+  },
+  {
+    "code": "hu-eger-esn",
+    "name": "ESN Eszterhazy",
+    "city": "Eger"
+  },
+  {
+    "code": "hu-godo-szi",
+    "name": "ESN MATE",
+    "city": "Godollo Budapest, Budapest"
+  },
+  {
+    "code": "hu-misk-esn",
+    "name": "ESN Miskolc",
+    "city": "Miskolc"
+  },
+  {
+    "code": "hu-pecs-esn",
+    "name": "ESN Pécs",
+    "city": "Pecs"
+  },
+  {
+    "code": "hu-szeg-esn",
+    "name": "ESN Szeged",
+    "city": "Szeged"
+  },
+  {
+    "code": "ie-athl-esn",
+    "name": "ESN TUS Midlands Global",
+    "city": "Athlone"
+  },
+  {
+    "code": "ie-dubl-dcu",
+    "name": "ESN DCU",
+    "city": "Dublin"
+  },
+  {
+    "code": "ie-dubl-esn",
+    "name": "ESN TU Dublin",
+    "city": "Dublin"
+  },
+  {
+    "code": "ie-dubl-tcd",
+    "name": "ESN TCD",
+    "city": "Dublin"
+  },
+  {
+    "code": "ie-dubl-ucd",
+    "name": "ESN UCD",
+    "city": "Dublin"
+  },
+  {
+    "code": "ie-dund-dki",
+    "name": "ESN DKIT",
+    "city": "Dundalk"
+  },
+  {
+    "code": "ie-galw-esn",
+    "name": "ESN University of Galway",
+    "city": "Galway"
+  },
+  {
+    "code": "ie-lime-esn",
+    "name": "ESN UL",
+    "city": "Limerick"
+  },
+  {
+    "code": "ie-lime-tus",
+    "name": "ESN TUS Midwest Global",
+    "city": "Limerick"
+  },
+  {
+    "code": "ie-mayn-esn",
+    "name": "ESN Maynooth",
+    "city": "Maynooth"
+  },
+  {
+    "code": "it-anco-esa",
+    "name": "ESN Ancona",
+    "city": "Ancona"
+  },
+  {
+    "code": "it-aqui-esn",
+    "name": "ESN L'Aquila",
+    "city": "L'Aquila"
+  },
+  {
+    "code": "it-bari-esn",
+    "name": "ESN Bari",
+    "city": "Bari"
+  },
+  {
+    "code": "it-bene-esn",
+    "name": "ESN Maleventum",
+    "city": "Benevento"
+  },
+  {
+    "code": "it-berg-esn",
+    "name": "ESN Bergamo",
+    "city": "Bergamo"
+  },
+  {
+    "code": "it-bocc-esn",
+    "name": "ESN Milano Bocconi ",
+    "city": "Milan"
+  },
+  {
+    "code": "it-bolo-esn",
+    "name": "ESN Bologna",
+    "city": "Bologna"
+  },
+  {
+    "code": "it-bres-esn",
+    "name": "ESN Brescia",
+    "city": "Brescia"
+  },
+  {
+    "code": "it-cagl-esn",
+    "name": "ESN Cagliari",
+    "city": "Cagliari"
+  },
+  {
+    "code": "it-came-aur",
+    "name": "ESN AURE Camerino",
+    "city": "Camerino"
+  },
+  {
+    "code": "it-camp-esn",
+    "name": "ESN Unimol",
+    "city": "Campobasso"
+  },
+  {
+    "code": "it-cata-ase",
+    "name": "ESN Catania",
+    "city": "Catania"
+  },
+  {
+    "code": "it-cose-esn",
+    "name": "ESN Cosenza",
+    "city": "Cosenza"
+  },
+  {
+    "code": "it-ferr-esn",
+    "name": "ESN Ferrara",
+    "city": "Ferrara"
+  },
+  {
+    "code": "it-flor-esn",
+    "name": "ESN Florentia",
+    "city": "Florence"
+  },
+  {
+    "code": "it-fogg-esn",
+    "name": "ESN Foggia",
+    "city": "Foggia"
+  },
+  {
+    "code": "it-geno-esn",
+    "name": "ESN GEG Genova",
+    "city": "Genova"
+  },
+  {
+    "code": "it-insu-esn",
+    "name": "ESN Insubria",
+    "city": "Como  and Varese"
+  },
+  {
+    "code": "it-lecc-lis",
+    "name": "ESN Lecce",
+    "city": "Lecce"
+  },
+  {
+    "code": "it-mace-esn",
+    "name": "ESN Macerata",
+    "city": "Macerata"
+  },
+  {
+    "code": "it-mess-esn",
+    "name": "ESN Messina",
+    "city": "Messina"
+  },
+  {
+    "code": "it-mila-bic",
+    "name": "ESN Milano-Bicocca",
+    "city": "Milan"
+  },
+  {
+    "code": "it-mila-iul",
+    "name": "ESN Milano IULM",
+    "city": "Milan"
+  },
+  {
+    "code": "it-mila-pol",
+    "name": "ESN Politecnico Milano",
+    "city": "Milan"
+  },
+  {
+    "code": "it-mila-sta",
+    "name": "ESN Milano Statale",
+    "city": "Milan"
+  },
+  {
+    "code": "it-mila-uca",
+    "name": "ESN Milano Unicatt",
+    "city": "Milan"
+  },
+  {
+    "code": "it-mode-esn",
+    "name": "ESN Modena e Reggio Emilia",
+    "city": "Modena"
+  },
+  {
+    "code": "it-napo-esn",
+    "name": "ESN Napoli",
+    "city": "Naples"
+  },
+  {
+    "code": "it-pado-esn",
+    "name": "ESN Padova",
+    "city": "Padua"
+  },
+  {
+    "code": "it-pale-esn",
+    "name": "ESN Palermo",
+    "city": "Palermo"
+  },
+  {
+    "code": "it-parm-asi",
+    "name": "ESN ASSI Parma",
+    "city": "Parma"
+  },
+  {
+    "code": "it-pavi-esn",
+    "name": "ESN STEP Pavia",
+    "city": "Pavia"
+  },
+  {
+    "code": "it-peru-pep",
+    "name": "ESN Perugia",
+    "city": "Perugia"
+  },
+  {
+    "code": "it-pesc-ase",
+    "name": "ESN Chieti Pescara",
+    "city": "Pescara, Chieti"
+  },
+  {
+    "code": "it-pisa-esn",
+    "name": "ESN Pisa",
+    "city": "Pisa"
+  },
+  {
+    "code": "it-pote-esn",
+    "name": "ESN Sui-Generis Basilicata",
+    "city": "Potenza - Matera"
+  },
+  {
+    "code": "it-rave-esn",
+    "name": "ESN Ravenna",
+    "city": "Ravenna"
+  },
+  {
+    "code": "it-reca-esn",
+    "name": "ESN Reggio Calabria",
+    "city": "Reggio Calabria"
+  },
+  {
+    "code": "it-rimi-esn",
+    "name": "ESN Rimini",
+    "city": "Rimini"
+  },
+  {
+    "code": "it-roma-ase",
+    "name": "ESN Roma ASE",
+    "city": "Rome"
+  },
+  {
+    "code": "it-roma-lui",
+    "name": "ESN Roma LUISS",
+    "city": "Rome"
+  },
+  {
+    "code": "it-roma-tre",
+    "name": "ESN Roma Tre",
+    "city": "Rome"
+  },
+  {
+    "code": "it-sale-esn",
+    "name": "ESN Salerno",
+    "city": "Salerno"
+  },
+  {
+    "code": "it-sass-esn",
+    "name": "ESN Sassari",
+    "city": "Sassari"
+  },
+  {
+    "code": "it-sien-ges",
+    "name": "ESN Siena GES",
+    "city": "Siena"
+  },
+  {
+    "code": "it-tava-esn",
+    "name": "ESN Udine",
+    "city": "Udine"
+  },
+  {
+    "code": "it-tera-esn",
+    "name": "ESN Teramo",
+    "city": "Teramo"
+  },
+  {
+    "code": "it-tori-esn",
+    "name": "ESN Torino",
+    "city": "Torino"
+  },
+  {
+    "code": "it-tren-esn",
+    "name": "ESN Trento",
+    "city": "Trento"
+  },
+  {
+    "code": "it-trie-esn",
+    "name": "ESN Trieste",
+    "city": "Trieste"
+  },
+  {
+    "code": "it-urbi-esn",
+    "name": "ESN Urbino",
+    "city": "Urbino"
+  },
+  {
+    "code": "it-vene-mam",
+    "name": "ESN Venezia",
+    "city": "Venezia"
+  },
+  {
+    "code": "it-vero-esn",
+    "name": "ESN ASE Verona",
+    "city": "Verona"
+  },
+  {
+    "code": "jo-irbi-esn",
+    "name": "ESN Irbid",
+    "city": "Irbid"
+  },
+  {
+    "code": "kz-alma-esn",
+    "name": "ESN Almaty",
+    "city": "Almaty"
+  },
+  {
+    "code": "li-vadu-esn",
+    "name": "ESN University of Liechtenstein",
+    "city": "Liechtenstein"
+  },
+  {
+    "code": "lt-kaun-esn",
+    "name": "ESN KTU",
+    "city": "Kaunas"
+  },
+  {
+    "code": "lt-kaun-kk1",
+    "name": "ESN KK",
+    "city": "Kaunas"
+  },
+  {
+    "code": "lt-kaun-lsu",
+    "name": "ESN LSU",
+    "city": "Kaunas"
+  },
+  {
+    "code": "lt-kaun-smu",
+    "name": "ESN LSMU",
+    "city": "Kaunas"
+  },
+  {
+    "code": "lt-kaun-vmu",
+    "name": "ESN VMU",
+    "city": "Kaunas"
+  },
+  {
+    "code": "lt-viln-ehu",
+    "name": "ESN EHU",
+    "city": "Vilnius"
+  },
+  {
+    "code": "lt-viln-esn",
+    "name": "ESN Vilnius University",
+    "city": "Vilnius, Kaunas, Siauliai"
+  },
+  {
+    "code": "lt-viln-ism",
+    "name": "ESN ISM",
+    "city": "Vilnius"
+  },
+  {
+    "code": "lt-viln-mru",
+    "name": "ESN MRU Vilnius",
+    "city": "Vilnius"
+  },
+  {
+    "code": "lt-viln-vgt",
+    "name": "ESN VILNIUS TECH",
+    "city": "Vilnius"
+  },
+  {
+    "code": "lu-luxe-esn",
+    "name": "ESN Luxembourg",
+    "city": "Luxembourg, Esch-sur-Alzette"
+  },
+  {
+    "code": "lv-jelg-llu",
+    "name": "ESN Jelgava",
+    "city": "Jelgava"
+  },
+  {
+    "code": "lv-riga-esn",
+    "name": "ESN Riga",
+    "city": "Riga"
+  },
+  {
+    "code": "lv-valm-esn",
+    "name": "ESN Valmiera",
+    "city": "Valmiera"
+  },
+  {
+    "code": "md-chis-esn",
+    "name": "ESN Chisinau",
+    "city": "Chisinau"
+  },
+  {
+    "code": "me-podg-esn",
+    "name": "ESN Podgorica",
+    "city": "Podgorica"
+  },
+  {
+    "code": "mk-skop-esn",
+    "name": "ESN Skopje",
+    "city": "Skopje"
+  },
+  {
+    "code": "mt-malt-esn",
+    "name": "ESN Malta",
+    "city": "Malta"
+  },
+  {
+    "code": "nl-amst-isn",
+    "name": "ESN Amsterdam",
+    "city": "Amsterdam"
+  },
+  {
+    "code": "nl-amst-vun",
+    "name": "ESN VU Amsterdam",
+    "city": "Amsterdam"
+  },
+  {
+    "code": "nl-bred-esn",
+    "name": "ESN Breda",
+    "city": "Breda"
+  },
+  {
+    "code": "nl-delf-esn",
+    "name": "ESN Delft",
+    "city": "Delft"
+  },
+  {
+    "code": "nl-ensc-twe",
+    "name": "ESN Twente",
+    "city": "Enschede"
+  },
+  {
+    "code": "nl-gron-win",
+    "name": "ESN Groningen",
+    "city": "Groningen"
+  },
+  {
+    "code": "nl-haar-esn",
+    "name": "ESN INHolland Haarlem",
+    "city": "Haarlem"
+  },
+  {
+    "code": "nl-leid-esn",
+    "name": "ESN Leiden",
+    "city": "Leiden"
+  },
+  {
+    "code": "nl-maas-esn",
+    "name": "ESN Maastricht",
+    "city": "Maastricht"
+  },
+  {
+    "code": "nl-nijm-isn",
+    "name": "ESN Nijmegen",
+    "city": "Nijmegen"
+  },
+  {
+    "code": "nl-rott-esn",
+    "name": "ESN Rotterdam",
+    "city": "Rotterdam"
+  },
+  {
+    "code": "nl-theh-esn",
+    "name": "ESN The Hague",
+    "city": "The Hague"
+  },
+  {
+    "code": "nl-tilb-esn",
+    "name": "ESN Tilburg",
+    "city": "Tilburg"
+  },
+  {
+    "code": "nl-utre-esn",
+    "name": "ESN Utrecht",
+    "city": "Utrecht"
+  },
+  {
+    "code": "nl-wage-esn",
+    "name": "ESN Wageningen",
+    "city": "Wageningen"
+  },
+  {
+    "code": "nl-zwol-esn",
+    "name": "ESN Zwolle",
+    "city": "Zwolle"
+  },
+  {
+    "code": "no-asxx-esn",
+    "name": "ESN Ås",
+    "city": "Aas"
+  },
+  {
+    "code": "no-berg-esn",
+    "name": "ESN Bergen",
+    "city": "Bergen"
+  },
+  {
+    "code": "no-kgar-agd",
+    "name": "ESN UiA",
+    "city": "Kristiansand"
+  },
+  {
+    "code": "no-mold-esn",
+    "name": "ESN Molde",
+    "city": "Molde"
+  },
+  {
+    "code": "no-oslo-uni",
+    "name": "ESN Oslo",
+    "city": "Oslo"
+  },
+  {
+    "code": "no-trom-uit",
+    "name": "ESN Tromsø",
+    "city": "Tromsø"
+  },
+  {
+    "code": "no-tron-esn",
+    "name": "ESN Trondheim",
+    "city": "Trondheim"
+  },
+  {
+    "code": "pl-bial-esn",
+    "name": "ESN PB Bialystok",
+    "city": "Bialystok"
+  },
+  {
+    "code": "pl-bial-uwb",
+    "name": "ESN UwB Bialystok",
+    "city": "Bialystok"
+  },
+  {
+    "code": "pl-gdan-pol",
+    "name": "ESN Gdansk (Politechnika)",
+    "city": "Gdańsk"
+  },
+  {
+    "code": "pl-gdan-ung",
+    "name": "ESN 3city",
+    "city": "Sopot"
+  },
+  {
+    "code": "pl-kato-esn-0",
+    "name": "ESN UŚ Katowice",
+    "city": "Katowice"
+  },
+  {
+    "code": "pl-krak-ace",
+    "name": "ESN UEK Cracow",
+    "city": "Cracow"
+  },
+  {
+    "code": "pl-krak-agh",
+    "name": "ESN AGH Cracow",
+    "city": "Cracow"
+  },
+  {
+    "code": "pl-krak-pol",
+    "name": "ESN PK Cracow",
+    "city": "Cracow"
+  },
+  {
+    "code": "pl-krak-unj",
+    "name": "ESN UJ Cracow",
+    "city": "Cracow"
+  },
+  {
+    "code": "pl-lodz-eye",
+    "name": "ESN-EYE Lodz",
+    "city": "Lodz"
+  },
+  {
+    "code": "pl-lodz-unl",
+    "name": "ESN UL Lodz",
+    "city": "Lodz"
+  },
+  {
+    "code": "pl-lubl-umc",
+    "name": "ESN UMCS Lublin",
+    "city": "Lublin"
+  },
+  {
+    "code": "pl-olsz-uwm",
+    "name": "ESN Olsztyn",
+    "city": "Olsztyn"
+  },
+  {
+    "code": "pl-pozn-esn",
+    "name": "ESN Poznan",
+    "city": "Poznan"
+  },
+  {
+    "code": "pl-pozn-uam",
+    "name": "ESN UAM Poznan",
+    "city": "Poznan"
+  },
+  {
+    "code": "pl-pozn-uep",
+    "name": "ESN UE Poznan",
+    "city": "Poznan"
+  },
+  {
+    "code": "pl-szcz-esn",
+    "name": "ESN Szczecin",
+    "city": "Szczecin"
+  },
+  {
+    "code": "pl-toru-umk",
+    "name": "ESN Toruń",
+    "city": "Toruń"
+  },
+  {
+    "code": "pl-wars-acm",
+    "name": "ESN WUM Warsaw",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wars-sec",
+    "name": "ESN SGH Warsaw",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wars-sgg",
+    "name": "ESN SGGW Warsaw",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wars-swp",
+    "name": "ESN SWPS University",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wars-uks",
+    "name": "ESN UKSW Warsaw",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wars-unw",
+    "name": "ESN UW Warsaw",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wars-wpw",
+    "name": "ESN PW Warsaw",
+    "city": "Warsaw"
+  },
+  {
+    "code": "pl-wroc-pwr",
+    "name": "ESN Wrocław Tech",
+    "city": "Wroclaw"
+  },
+  {
+    "code": "pl-wroc-ue1",
+    "name": "ESN UEW Wroclaw",
+    "city": "Wroclaw"
+  },
+  {
+    "code": "pl-ziel-esn",
+    "name": "ESN UZ",
+    "city": "ZIELONA GÓRA"
+  },
+  {
+    "code": "pt-alma-alm",
+    "name": "ESN Almada",
+    "city": "Almada"
+  },
+  {
+    "code": "pt-avei-esn",
+    "name": "ESN Aveiro",
+    "city": "Aveiro"
+  },
+  {
+    "code": "pt-cast-esn",
+    "name": "ESN Castelo Branco",
+    "city": "Castelo Branco and Idanha-a-Nova"
+  },
+  {
+    "code": "pt-coim-ase",
+    "name": "ESN Coimbra",
+    "city": "Coimbra"
+  },
+  {
+    "code": "pt-covi-esn",
+    "name": "ESN Covilhã",
+    "city": "Covilhã"
+  },
+  {
+    "code": "pt-evor-esn",
+    "name": "ESN Évora",
+    "city": "Évora"
+  },
+  {
+    "code": "pt-faro-ual",
+    "name": "ESN Algarve",
+    "city": "Faro"
+  },
+  {
+    "code": "pt-func-esn",
+    "name": "ESN Madeira",
+    "city": "Island of Madeira"
+  },
+  {
+    "code": "pt-lisb-esn",
+    "name": "ESN Lisboa",
+    "city": "Lisbon"
+  },
+  {
+    "code": "pt-minh-uom",
+    "name": "ESN Minho",
+    "city": "Braga and Guimarães"
+  },
+  {
+    "code": "pt-port-esn",
+    "name": "ESN Porto",
+    "city": "Porto"
+  },
+  {
+    "code": "pt-toma-esn",
+    "name": "ESN Tomar",
+    "city": "Tomar, Abrantes"
+  },
+  {
+    "code": "pt-vila-uta",
+    "name": "ESN UTAD",
+    "city": "Vila Real"
+  },
+  {
+    "code": "ro-alba-esn",
+    "name": "ESN ALBA IULIA",
+    "city": "Alba Iulia"
+  },
+  {
+    "code": "ro-bras-esn",
+    "name": "ESN Brasov",
+    "city": "Brasov"
+  },
+  {
+    "code": "ro-buch-esn",
+    "name": "ESN ASE-CMP Bucharest",
+    "city": "Bucharest"
+  },
+  {
+    "code": "ro-buch-pol",
+    "name": "ESN Poli",
+    "city": "Bucharest"
+  },
+  {
+    "code": "ro-buch-uni",
+    "name": "ESN UniBucharest",
+    "city": "Bucharest"
+  },
+  {
+    "code": "ro-cluj-esn",
+    "name": "ESN Cluj-Napoca",
+    "city": "Cluj-Napoca"
+  },
+  {
+    "code": "ro-cons-esn",
+    "name": "ESN Constanta",
+    "city": "Constanta"
+  },
+  {
+    "code": "ro-crai-esn",
+    "name": "ESN Craiova",
+    "city": "Craiova"
+  },
+  {
+    "code": "ro-iasi-esn",
+    "name": "ESN Iasi",
+    "city": "Iasi"
+  },
+  {
+    "code": "ro-pite-esn",
+    "name": "ESN Piteşti",
+    "city": "Piteşti"
+  },
+  {
+    "code": "ro-sibi-esn",
+    "name": "ESN Sibiu",
+    "city": "Sibiu"
+  },
+  {
+    "code": "ro-suce-esn",
+    "name": "ESN Suceava",
+    "city": "Suceava"
+  },
+  {
+    "code": "ro-targ-esn",
+    "name": "ESN Targu Mures",
+    "city": "Târgu Mureș"
+  },
+  {
+    "code": "ro-timi-esn",
+    "name": "ESN Timisoara",
+    "city": "Timisoara, Arad"
+  },
+  {
+    "code": "rs-belg-upg",
+    "name": "ESN BelUPgrade",
+    "city": "Belgrade"
+  },
+  {
+    "code": "rs-nisx-esn",
+    "name": "ESN Nis",
+    "city": "Nis"
+  },
+  {
+    "code": "rs-novi-sad",
+    "name": "ESN Novi Sad",
+    "city": "Novi Sad"
+  },
+  {
+    "code": "ru-sain-spb",
+    "name": "ESN SPbSU",
+    "city": "Saint Petersburg"
+  },
+  {
+    "code": "se-bora-esn",
+    "name": "ESN Boras",
+    "city": "Borås"
+  },
+  {
+    "code": "se-gote-cir",
+    "name": "ESN Göteborg",
+    "city": "Göteborg"
+  },
+  {
+    "code": "se-kalm-esn",
+    "name": "ESN Kalmar",
+    "city": "Kalmar"
+  },
+  {
+    "code": "se-karl-esn",
+    "name": "ESN Karlstad",
+    "city": "Karlstad"
+  },
+  {
+    "code": "se-link-esn",
+    "name": "ESN Linköping",
+    "city": "Linköping"
+  },
+  {
+    "code": "se-lule-esn",
+    "name": "ESN Luleå",
+    "city": "Luleå"
+  },
+  {
+    "code": "se-lund-esn",
+    "name": "ESN Lund",
+    "city": "Lund"
+  },
+  {
+    "code": "se-malm-int",
+    "name": "ESN Malmö",
+    "city": "Malmö"
+  },
+  {
+    "code": "se-skov-esn",
+    "name": "ESN Skövde",
+    "city": "Skövde"
+  },
+  {
+    "code": "se-stoc-sus",
+    "name": "ESN Stockholm",
+    "city": "Stockholm"
+  },
+  {
+    "code": "se-upps-esn",
+    "name": "ESN Uppsala",
+    "city": "Uppsala"
+  },
+  {
+    "code": "se-vaxj-esn",
+    "name": "ESN Växjö",
+    "city": "Växjö"
+  },
+  {
+    "code": "si-kope-pri",
+    "name": "ESN Primorska",
+    "city": "Koper"
+  },
+  {
+    "code": "si-ljub-esn",
+    "name": "ESN Ljubljana",
+    "city": "Ljubljana"
+  },
+  {
+    "code": "si-ljub-fdv",
+    "name": "ESN Ljubljana University",
+    "city": "Ljubljana"
+  },
+  {
+    "code": "si-mari-esn",
+    "name": "ESN Maribor",
+    "city": "Maribor"
+  },
+  {
+    "code": "sk-bans-umb",
+    "name": "ESN UMB BB",
+    "city": "Banská Bystrica"
+  },
+  {
+    "code": "sk-brat-com",
+    "name": "ESN Comenius University",
+    "city": "Bratislava"
+  },
+  {
+    "code": "sk-brat-eub",
+    "name": "ESN EU Bratislava",
+    "city": "Bratislava"
+  },
+  {
+    "code": "sk-brat-stu",
+    "name": "ESN STUBA",
+    "city": "Bratislava"
+  },
+  {
+    "code": "sk-kosi-esn",
+    "name": "ESN Košice",
+    "city": "Košice"
+  },
+  {
+    "code": "sk-nitr-ukf",
+    "name": "ESN UKF",
+    "city": "Nitra"
+  },
+  {
+    "code": "sk-ntra-esn",
+    "name": "ESN SUA",
+    "city": "Nitra"
+  },
+  {
+    "code": "sk-pres-uni",
+    "name": "ESN Prešov",
+    "city": "Prešov"
+  },
+  {
+    "code": "sk-ruzo-unz",
+    "name": "ESN UNIZA",
+    "city": "Žilina"
+  },
+  {
+    "code": "sk-trna-esn",
+    "name": "ESN Trnava",
+    "city": "Trnava"
+  },
+  {
+    "code": "tr-adan-esn",
+    "name": "ESN Cukurova",
+    "city": "Adana"
+  },
+  {
+    "code": "tr-alti-esn",
+    "name": "ESN ALTINBAS",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-anka-akd",
+    "name": "ESN AKDENIZ",
+    "city": "Antalya"
+  },
+  {
+    "code": "tr-anka-ayb",
+    "name": "ESN AYBU",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-anka-esn",
+    "name": "ESN Ankara University",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-anka-gaz",
+    "name": "ESN Gazi",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-anka-met",
+    "name": "ESN METU",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-anka-ted",
+    "name": "ESN TEDU",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-bask-esn",
+    "name": "ESN BASKENT",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-bilk-esn",
+    "name": "ESN Bilkent",
+    "city": "Ankara"
+  },
+  {
+    "code": "tr-bolu-ibu",
+    "name": "ESN IBU",
+    "city": "Bolu"
+  },
+  {
+    "code": "tr-eski-ana",
+    "name": "ESN Anadolu",
+    "city": "Eskisehir"
+  },
+  {
+    "code": "tr-eski-est",
+    "name": "ESN ESTU",
+    "city": "Eskisehir"
+  },
+  {
+    "code": "tr-isik-esn",
+    "name": "ESN ISIK",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-are",
+    "name": "ESN Arel",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-bah",
+    "name": "ESN Bahcesehir",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-bog",
+    "name": "ESN Bogazici",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-cer",
+    "name": "ESN Cerrahpasa",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-exi",
+    "name": "ESN Existanbul",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-itu",
+    "name": "ESN ITU",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-mal",
+    "name": "ESN MU",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-mar",
+    "name": "ESN Marmara",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-oka",
+    "name": "ESN Okan",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-ozy",
+    "name": "ESN Ozyegin",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-ista-yil",
+    "name": "ESN YILDIZ",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-izmi-deu",
+    "name": "ESN Dokuz Eylul University",
+    "city": "Izmir"
+  },
+  {
+    "code": "tr-izmi-ege",
+    "name": "ESN Ege University",
+    "city": "Izmir"
+  },
+  {
+    "code": "tr-izmi-iue",
+    "name": "ESN IUE",
+    "city": "Izmir"
+  },
+  {
+    "code": "tr-izmi-yas",
+    "name": "ESN Yasar",
+    "city": "Izmir"
+  },
+  {
+    "code": "tr-kays-esn",
+    "name": "ESN Erciyes",
+    "city": "Kayseri"
+  },
+  {
+    "code": "tr-khas-esn",
+    "name": "ESN Kadir Has",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-mers-cag",
+    "name": "ESN CAG",
+    "city": "Mersin"
+  },
+  {
+    "code": "tr-nisa-esn",
+    "name": "ESN NİSANTASİ",
+    "city": "Istanbul"
+  },
+  {
+    "code": "tr-saka-esn",
+    "name": "ESN SAKARYA",
+    "city": "SAKARYA"
+  },
+  {
+    "code": "tr-sams-esn",
+    "name": "ESN Samsun",
+    "city": "Samsun"
+  },
+  {
+    "code": "tr-selc-esn",
+    "name": "ESN Selcuk",
+    "city": "Konya, Selçuklu,"
+  },
+  {
+    "code": "tr-siva-esn",
+    "name": "ESN Cumhuriyet",
+    "city": "Sivas"
+  },
+  {
+    "code": "tr-trab-esn",
+    "name": "ESN Trabzon",
+    "city": "Trabzon"
+  },
+  {
+    "code": "tr-yedi-esn",
+    "name": "ESN Yeditepe",
+    "city": "Istanbul"
+  },
+  {
+    "code": "ua-cher-esn",
+    "name": "ESN Chernivtsi",
+    "city": "Chernivtsi"
+  },
+  {
+    "code": "ua-kyiv-esn",
+    "name": "ESN Kyiv",
+    "city": "Kyiv"
+  }
+]
