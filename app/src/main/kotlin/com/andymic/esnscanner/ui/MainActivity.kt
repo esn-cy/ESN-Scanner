@@ -1,6 +1,9 @@
 package com.andymic.esnscanner.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color.TRANSPARENT
 import android.graphics.Color.argb
@@ -38,6 +41,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +58,10 @@ import com.andymic.esnscanner.ScanViewModel
 import com.andymic.esnscanner.ui.components.BottomStatusBox
 import com.andymic.esnscanner.ui.components.NavigationRail
 import com.andymic.esnscanner.ui.components.TopInfoBox
+import com.andymic.esnscanner.ui.theme.ESNCyan
+import com.andymic.esnscanner.ui.theme.ESNGreen
+import com.andymic.esnscanner.ui.theme.ESNMagenta
+import com.andymic.esnscanner.ui.theme.ESNOrange
 import com.andymic.esnscanner.ui.theme.ESNScannerAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -138,6 +147,12 @@ fun ESNcardNavHost(
         composable(route = Destinations.Add.spec.route) {
             AddScreen()
         }
+        composable(route = Destinations.Produce.spec.route) {
+            ProduceScreen()
+        }
+        composable(route = Destinations.Deliver.spec.route) {
+            DeliverScreen()
+        }
     }
 }
 
@@ -149,6 +164,7 @@ fun HomeScreen() {
     }
 }
 
+@SuppressLint("SourceLockedOrientationActivity")
 @Composable
 fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
     val uiState by viewModel.scanState.collectAsState()
@@ -168,6 +184,9 @@ fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
         }
     )
     LaunchedEffect(key1 = true) {
+        val activity = context as? Activity
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         if (!hasCameraPermission) {
             launcher.launch(Manifest.permission.CAMERA)
         }
@@ -176,7 +195,7 @@ fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize()
     ) {
         if (!hasCameraPermission) {
-            Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text("Camera permission is required.")
             }
             return
@@ -196,7 +215,7 @@ fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
                     .weight(4.5f)
                     .aspectRatio(1f)
             ) {
-                CameraScanner( { barcodes ->
+                CameraScanner({ barcodes ->
                     for (barcode in barcodes) {
                         val value = barcode.rawValue
                         if (value == null)
@@ -208,7 +227,20 @@ fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp)
-                        .border(2.dp, Color.White.copy(alpha = 0.7f))
+                        .border(
+                            width = 2.dp,
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    ESNCyan,
+                                    ESNMagenta,
+                                    ESNGreen,
+                                    ESNOrange
+                                ),
+                                start = Offset.Zero,
+                                end = Offset.Infinite
+                            ),
+                            shape = RoundedCornerShape(16.dp)
+                        )
                 )
             }
 
@@ -225,5 +257,19 @@ fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
 fun AddScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(text = "Add Screen")
+    }
+}
+
+@Composable
+fun ProduceScreen() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(text = "Produce Screen")
+    }
+}
+
+@Composable
+fun DeliverScreen() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(text = "Deliver Screen")
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.andymic.esnscanner.ScanUIState
+import com.andymic.esnscanner.ui.theme.ESNCyan
+import com.andymic.esnscanner.ui.theme.ESNDarkBlue
 
 @Composable
 fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
@@ -42,10 +45,10 @@ fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
                         contentDescription = "Cardholder Picture",
                         contentScale = ContentScale.Crop
                     )
-                    if (uiState.result.profileImageURL == "UNKNOWN") {
+                    if (uiState.result.profileImageURL == "UNKNOWN" || uiState.result.profileImageURL == "ESN Cyprus Pass") {
                         Text(
-                            text = "?",
-                            color = Color.Yellow,
+                            text = if (uiState.result.profileImageURL == "UNKNOWN") "?" else "\u2713",
+                            color = if (uiState.result.profileImageURL == "UNKNOWN") Color.Yellow else Color.Green,
                             fontWeight = FontWeight.Bold,
                             fontSize = 64.sp,
                             textAlign = TextAlign.Center,
@@ -65,6 +68,16 @@ fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
                     InfoRow("Last Scan:", uiState.result.lastScanDate)
                 }
             }
+        }
+        if (uiState is ScanUIState.Loading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxSize(0.25f)
+                    .align(Alignment.Center),
+                color = ESNCyan,
+                trackColor = ESNDarkBlue,
+                strokeWidth = 6.dp
+            )
         }
     }
 }

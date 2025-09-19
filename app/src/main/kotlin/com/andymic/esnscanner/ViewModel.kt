@@ -34,7 +34,8 @@ data class ScanResult (
     var profileImageURL: String
 )
 
-val cardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
+val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
+val ESNCyprusPassRegex = Regex("ESNCYTKNESNCYTKN\\d*")
 
 class ScanViewModel(application: Application): AndroidViewModel(application) {
     private val apiService = ApiServiceImplementation(KtorClient.httpClient)
@@ -51,10 +52,17 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
         _scanState.value = ScanUIState.Loading
 
         var identifier = scannedString
-        val match = cardNumberRegex.find(scannedString)
+        val match = ESNCardNumberRegex.find(scannedString)
         val isESNcard = match != null
         if (isESNcard)
             identifier = match.value
+        else {
+            val match2 = ESNCyprusPassRegex.find(scannedString)
+            if (match2 == null) {
+                _scanState.value = ScanUIState.Error("Invalid", scannedString)
+                return
+            }
+        }
 
         viewModelScope.launch {
             val localInfo = apiService.getLocalInfo(identifier)
@@ -143,7 +151,7 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
                         homeCountry = localInfo.homeCountry,
                         lastScanDate = localInfo.lastScanDate,
                         result = "TBD",
-                        cardStatus = "UNKNOWN",
+                        cardStatus = if (isESNcard) "UNKNOWN" else "ESN Cyprus Pass",
                         issuingSection = "ESN Nicosia",
                         expirationDate = "UNKNOWN", //TODO Expiration date
                         profileImageURL = localInfo.profileImageURL
@@ -156,8 +164,7 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
                     response.result = result
                     _scanState.value = ScanUIState.Success(response, scannedString)
                 } else {
-                    _scanState.value = ScanUIState.Error("Not Found/Invalid.", scannedString)
-                    return@launch
+                    _scanState.value = ScanUIState.Error("Not Found", scannedString)
                 }
             }
         }

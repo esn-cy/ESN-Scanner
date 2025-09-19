@@ -8,6 +8,7 @@ data class LocalResponse(
     val name: String,
     val surname: String,
     val homeCountry: String,
+    val creationDate: String,
     val lastScanDate: String,
     val profileImageURL: String,
 )

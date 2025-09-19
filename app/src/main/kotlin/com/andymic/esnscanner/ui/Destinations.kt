@@ -3,7 +3,9 @@ package com.andymic.esnscanner.ui
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCard
 import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class Destination(
@@ -39,5 +41,21 @@ enum class Destinations(
             label = "Add",
             contentDescription = "Navigate to Add Card Screen"
         )
-    );
+    ),
+    Produce(
+        spec = Destination(
+            route = "produce",
+            icon = Icons.Default.Edit,
+            label = "Produce",
+            contentDescription = "Navigate to Produce Card Screen"
+        )
+    ),
+    Deliver(
+        spec = Destination(
+            route = "deliver",
+            icon = Icons.Default.LocalShipping,
+            label = "Deliver",
+            contentDescription = "Navigate to Deliver Card Screen"
+        )
+    )
 }
