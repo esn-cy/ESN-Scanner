@@ -228,7 +228,7 @@ fun ScanScreen(viewModel: ScanViewModel = viewModel()) {
                         .fillMaxSize()
                         .padding(16.dp)
                         .border(
-                            width = 2.dp,
+                            width = 4.dp,
                             brush = Brush.linearGradient(
                                 colors = listOf(
                                     ESNCyan,

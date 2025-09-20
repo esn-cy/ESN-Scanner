@@ -2,12 +2,16 @@ package com.andymic.esnscanner
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.andymic.esnscanner.data.ApiServiceImplementation
+import com.andymic.esnscanner.data.DatasetResponse
 import com.andymic.esnscanner.data.InternationalResponse
 import com.andymic.esnscanner.data.KtorClient
+import com.andymic.esnscanner.data.SectionData
 import com.andymic.esnscanner.data.Sections
+import com.andymic.esnscanner.data.getCardStatus
+import com.andymic.esnscanner.data.getExpirationDate
+import com.andymic.esnscanner.data.getIssuingSection
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -23,9 +27,8 @@ sealed interface ScanUIState {
 
 data class ScanResult (
     var identifier: String,
-    var name: String,
-    var surname: String,
-    var homeCountry: String,
+    var fullName: String,
+    var nationality: String,
     var lastScanDate: String,
     var result: String,
     var cardStatus: String,
@@ -38,6 +41,17 @@ val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
 val ESNCyprusPassRegex = Regex("ESNCYTKNESNCYTKN\\d*")
 
 class ScanViewModel(application: Application): AndroidViewModel(application) {
+
+    val sections: List<Sections.Section>
+    val sectionData: SectionData.SectionData
+
+    init {
+        val sectionsInputStream = application.assets.open("sections.json")
+        sections = Sections(sectionsInputStream).sections
+        val sectionDataInputStream = application.assets.open("section-data.json")
+        sectionData = SectionData(sectionDataInputStream).sectionData
+    }
+
     private val apiService = ApiServiceImplementation(KtorClient.httpClient)
 
     private val _scanState = MutableStateFlow<ScanUIState>(ScanUIState.Idle)
@@ -52,13 +66,13 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
         _scanState.value = ScanUIState.Loading
 
         var identifier = scannedString
-        val match = ESNCardNumberRegex.find(scannedString)
-        val isESNcard = match != null
+        val esncardMatch = ESNCardNumberRegex.find(scannedString)
+        val isESNcard = esncardMatch != null
         if (isESNcard)
-            identifier = match.value
+            identifier = esncardMatch.value
         else {
-            val match2 = ESNCyprusPassRegex.find(scannedString)
-            if (match2 == null) {
+            val esnCyprusPassMatch = ESNCyprusPassRegex.find(scannedString)
+            if (esnCyprusPassMatch == null) {
                 _scanState.value = ScanUIState.Error("Invalid", scannedString)
                 return
             }
@@ -67,106 +81,92 @@ class ScanViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             val localInfo = apiService.getLocalInfo(identifier)
             var internationalInfo: InternationalResponse? = null
+            var datasetInfo: DatasetResponse? = null
             if (isESNcard) {
                 internationalInfo = apiService.getInternationalInfo(identifier)
+                datasetInfo = apiService.getDatasetInfo(identifier, sectionData.spreadsheetID)
             }
 
-            if (internationalInfo != null) {
-                var issuingSection: String
-                var cardStatus: String
-                var expirationDate: String
+            val existsLocally = datasetInfo != null || localInfo != null
 
-                if (internationalInfo.status != "available") {
-                    cardStatus =
-                        internationalInfo.status[0].uppercase() + internationalInfo.status.substring(
-                            1
-                        )
-                    issuingSection = "UNKNOWN"
-                    expirationDate = LocalDate.parse(internationalInfo.expirationDate)
-                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                    if (internationalInfo.sectionCode.lowercase() == "cy-nico-esa")
-                        issuingSection = "ESN Nicosia"
-                    else {
-                        for (section in Sections(application).sections) {
-                            if (section.code == internationalInfo.sectionCode.lowercase()) {
-                                issuingSection = section.name
-                                break
-                            }
+            val fullName = datasetInfo?.name
+                ?: (if (localInfo != null) localInfo.name.trim() + " " + localInfo.surname.trim() else "UNKNOWN")
+            val nationality = datasetInfo?.nationality ?: (localInfo?.nationality ?: "UNKNOWN")
+            val issuingSection = getIssuingSection(
+                internationalInfo?.sectionCode?.lowercase(),
+                existsLocally,
+                sections,
+                sectionData
+            )
+            val expirationDate = getExpirationDate(
+                localInfo?.paidDate,
+                datasetInfo?.date,
+                internationalInfo?.expirationDate
+            )
+            val cardStatus = getCardStatus(internationalInfo?.status, existsLocally)
+            val lastScan = if (localInfo != null) LocalDate.parse(localInfo.lastScanDate)
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) else "UNKNOWN"
+            val profileImage = localInfo?.profileImageURL ?: "UNKNOWN"
+
+            var result: String
+            if (isESNcard) {
+                result =
+                    if (issuingSection == "ESN Nicosia" && !issuingSection.contains("(INCONSISTENT)")) {
+                        if (existsLocally)
+                            "Valid"
+                    else
+                            "Not in our System"
+                } else {
+                        if (existsLocally)
+                            "Valid"
+                        else {
+                            if (issuingSection != "NOT REGISTERED")
+                                "Valid Foreign Card"
+                        else
+                                "Unknown Origin"
                         }
                     }
-                } else {
-                    cardStatus = "NOT REGISTERED"
-                    issuingSection = "N/A"
-                    expirationDate = "N/A"
-                }
 
-                var result: String
+                if (expirationDate != "UNKNOWN" && LocalDate.parse(
+                        expirationDate.removeSuffix(" (INCONSISTENT)"),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    ).toEpochDay() < LocalDate.now().toEpochDay()
+                )
+                    result = "Expired"
+            } else {
+                result =
+                    if (LocalDate.now().toEpochDay() - LocalDate.parse(lastScan).toEpochDay() > 1)
+                        "Valid"
+                    else
+                        "Already Scanned"
+                if (LocalDate.now().toEpochDay() < LocalDate.parse(
+                        expirationDate.removeSuffix(" (INCONSISTENT)"),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    ).toEpochDay()
+                )
+                    result = "Expired"
+            }
+            if (result != "Expired" && cardStatus == "NOT REGISTERED")
+                result += "/Not Registered"
+            if (cardStatus != "NOT REGISTERED" && (expirationDate.contains("INCONSISTENT") || issuingSection.contains(
+                    "INCONSISTENT"
+                ))
+            )
+                result += "/Inconsistent"
 
-                val response = ScanResult(
+            _scanState.value = ScanUIState.Success(
+                ScanResult(
                     identifier = identifier,
-                    name = "UNKNOWN",
-                    surname = "UNKNOWN",
-                    homeCountry = "UNKNOWN",
-                    lastScanDate = "UNKNOWN",
-                    result = "TBD",
+                    fullName = fullName,
+                    nationality = nationality,
+                    lastScanDate = lastScan,
+                    result = result,
                     cardStatus = cardStatus,
                     issuingSection = issuingSection,
                     expirationDate = expirationDate,
-                    profileImageURL = "UNKNOWN"
-                )
-
-                if (localInfo != null) {
-                    response.name = localInfo.name
-                    response.surname = localInfo.surname
-                    response.homeCountry = localInfo.homeCountry
-                    response.lastScanDate = LocalDate.parse(localInfo.lastScanDate).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                    response.profileImageURL = localInfo.profileImageURL
-
-                    result = if (LocalDate.now().toEpochDay() - LocalDate.parse(localInfo.lastScanDate).toEpochDay() > 1)
-                        if (cardStatus != "NOT REGISTERED") "Valid" else "Valid/Not Registered"
-                    else
-                        "Already Scanned"
-                } else {
-                    result = if (cardStatus != "NOT REGISTERED") {
-                        if (issuingSection == "ESN Nicosia")
-                            "Not in our System"
-                        else
-                            "Foreign Card"
-                    } else
-                        "Not in our System/Not Verified"
-                }
-                if (internationalInfo.expirationDate != "N/A" && LocalDate.now()
-                        .toEpochDay() > LocalDate.parse(internationalInfo.expirationDate)
-                        .toEpochDay()
-                )
-                    result = "Expired"
-                response.result = result
-                _scanState.value = ScanUIState.Success(response, scannedString)
-            } else {
-                if (localInfo != null) {
-                    val response = ScanResult(
-                        identifier = identifier,
-                        name = localInfo.name,
-                        surname = localInfo.surname,
-                        homeCountry = localInfo.homeCountry,
-                        lastScanDate = localInfo.lastScanDate,
-                        result = "TBD",
-                        cardStatus = if (isESNcard) "UNKNOWN" else "ESN Cyprus Pass",
-                        issuingSection = "ESN Nicosia",
-                        expirationDate = "UNKNOWN", //TODO Expiration date
-                        profileImageURL = localInfo.profileImageURL
-                    )
-
-                    val result: String = if (isESNcard)
-                        "Valid Locally. Check Number"
-                    else
-                        "Valid"
-                    response.result = result
-                    _scanState.value = ScanUIState.Success(response, scannedString)
-                } else {
-                    _scanState.value = ScanUIState.Error("Not Found", scannedString)
-                }
-            }
+                    profileImageURL = profileImage
+                ), scannedString
+            )
         }
     }
 }

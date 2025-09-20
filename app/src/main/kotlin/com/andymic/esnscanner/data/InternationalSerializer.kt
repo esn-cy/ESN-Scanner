@@ -13,16 +13,19 @@ import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonPrimitive
 
-object InternationalSerializer : KSerializer<String> {
+object InternationalSerializer : KSerializer<String?> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("InternationalSerializer", PrimitiveKind.STRING)
 
     @OptIn(ExperimentalSerializationApi::class)
-    override fun serialize(encoder: Encoder, value: String) {
-        encoder.encodeString(value)
+    override fun serialize(encoder: Encoder, value: String?) {
+        if (value != null)
+            encoder.encodeString(value)
+        else
+            null
     }
 
-    override fun deserialize(decoder: Decoder): String {
+    override fun deserialize(decoder: Decoder): String? {
         val jsonDecoder = decoder as? JsonDecoder
             ?: throw SerializationException("This serializer can only be used with JSON")
         val jsonElement = jsonDecoder.decodeJsonElement()
@@ -31,7 +34,7 @@ object InternationalSerializer : KSerializer<String> {
             is JsonPrimitive -> jsonElement.content
             is JsonArray -> {
                 if (jsonElement.size == 1 && jsonElement.firstOrNull()?.jsonPrimitive?.content == "") {
-                    "N/A"
+                    null
                 } else {
                     throw SerializationException("Array must contain a single empty string.")
                 }

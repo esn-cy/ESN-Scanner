@@ -60,8 +60,8 @@ fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
                 Spacer(modifier = Modifier.width(16.dp))
 
                 Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly) {
-                    InfoRow("Name:", uiState.result.name.trim() + " " + uiState.result.surname.trim())
-                    InfoRow("Country:", uiState.result.homeCountry)
+                    InfoRow("Name:", uiState.result.fullName)
+                    InfoRow("Country:", uiState.result.nationality)
                     InfoRow("Status:", uiState.result.cardStatus)
                     InfoRow("Section:", uiState.result.issuingSection)
                     InfoRow("Expires:", uiState.result.expirationDate)
@@ -85,7 +85,10 @@ fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
 @Composable
 fun InfoRow(label: String, value: String) {
     val textColor =
-        if (value.contains("UNKNOWN") || value == "N/A" || value == "NOT REGISTERED") Color.Yellow else if (value == "Expired") Color.Red else Color.White
+        if (value.contains("UNKNOWN") || value == "N/A" || value == "NOT REGISTERED" || value.contains(
+                "INCONSISTENT"
+            )
+        ) Color.Yellow else if (value == "EXPIRED") Color.Red else Color.White
     Column {
         Text(text = label, color = Color.LightGray, fontSize = 12.sp)
         Text(text = value, color = textColor, fontWeight = FontWeight.Bold, fontSize = 16.sp)

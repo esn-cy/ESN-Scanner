@@ -20,14 +20,19 @@ fun BottomStatusBox(modifier: Modifier, uiState: ScanUIState) {
         is ScanUIState.Success -> {
             when (uiState.result.result) {
                 "Valid" -> Color.Green
-                "Valid/Not Registered" -> Color.Yellow
                 "Already Scanned" -> Color.Red
                 "Not in our System" -> Color.Yellow
-                "Not in our System/Not Verified" -> Color.Red
-                "Foreign Card" -> Color.Yellow
-                "Valid Locally. Check Number" -> Color.Yellow
+                "Valid Foreign Card" -> Color.Yellow
                 "Expired" -> Color.Red
-                else -> Color.Black.copy(alpha = 0.6f)
+                else -> {
+                    if (uiState.result.result.contains("Not Registered") || uiState.result.result.contains(
+                            "Inconsistent"
+                        )
+                    )
+                        Color.Yellow
+                    else
+                        Color.Black.copy(alpha = 0.6f)
+                }
             }
         }
         is ScanUIState.Error -> Color.Red

@@ -1,12 +1,12 @@
 package com.andymic.esnscanner.data
 
-import android.app.Application
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
+import java.io.InputStream
 
-class Sections(application: Application) {
+class Sections(inputStream: InputStream) {
 
     @Serializable
     data class Section(
@@ -18,7 +18,7 @@ class Sections(application: Application) {
     var sections: List<Section>
 
     init {
-        val sectionsJSON = Json.parseToJsonElement(application.assets.open("sections.json").bufferedReader().use {
+        val sectionsJSON = Json.parseToJsonElement(inputStream.bufferedReader().use {
             it.readText()
         })
 
