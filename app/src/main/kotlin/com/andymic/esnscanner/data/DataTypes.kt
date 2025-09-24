@@ -8,9 +8,9 @@ data class LocalResponse(
     val name: String,
     val surname: String,
     val nationality: String,
-    val paidDate: String,
-    val lastScanDate: String,
-    val profileImageURL: String,
+    val paidDate: String? = null,
+    val lastScanDate: String? = null,
+    val profileImageURL: String? = null,
 )
 
 @Serializable

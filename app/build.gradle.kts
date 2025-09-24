@@ -11,6 +11,7 @@ plugins {
 android {
     namespace = "com.andymic.esnscanner"
     compileSdk = 36
+    ndkVersion = "29.0.14033849 rc4"
 
     defaultConfig {
         applicationId = "com.andymic.esnscanner"

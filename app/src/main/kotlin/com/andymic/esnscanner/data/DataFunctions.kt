@@ -10,7 +10,7 @@ fun getCardStatus(internationalStatus: String?, existsLocally: Boolean): String 
         "expired" -> "EXPIRED"
         null -> {
             if (existsLocally)
-                "Valid Locally. Check Number"
+                "Valid Locally"
             else
                 "UNKNOWN"
         }

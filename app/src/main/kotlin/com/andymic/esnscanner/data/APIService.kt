@@ -2,6 +2,8 @@ package com.andymic.esnscanner.data
 
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 
 interface APIService {
     suspend fun getLocalInfo(lookupString: String): LocalResponse?
@@ -16,8 +18,13 @@ class ApiServiceImplementation(
     private val client: io.ktor.client.HttpClient
 ) : APIService {
     override suspend fun getLocalInfo(lookupString: String): LocalResponse? {
-        return try {
-            client.get("https://jsonplaceholder.typicode.com/posts").body()
+        try {
+            val response = client.post("https://esncy.org/api/esncard/scan") {
+                setBody("{\"card\": \"$lookupString\"}")
+            }
+            if (response.status.value != 200)
+                return null
+            return response.body()
         } catch (_: Exception) {
             return null
         }
