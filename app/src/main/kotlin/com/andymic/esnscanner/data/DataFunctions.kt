@@ -14,7 +14,6 @@ fun getCardStatus(internationalStatus: String?, existsLocally: Boolean): String 
             else
                 "UNKNOWN"
         }
-
         else -> "UNKNOWN PATH"
     }
 }

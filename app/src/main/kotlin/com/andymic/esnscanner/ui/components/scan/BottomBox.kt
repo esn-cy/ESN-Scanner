@@ -1,4 +1,4 @@
-package com.andymic.esnscanner.ui.components
+package com.andymic.esnscanner.ui.components.scan
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,10 +12,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.andymic.esnscanner.ScanUIState
+import com.andymic.esnscanner.models.ScanUIState
 
 @Composable
-fun BottomStatusBox(modifier: Modifier, uiState: ScanUIState) {
+fun ScanBottomBox(uiState: ScanUIState, modifier: Modifier) {
     val backgroundColor = when (uiState) {
         is ScanUIState.Success -> {
             when (uiState.result.result) {

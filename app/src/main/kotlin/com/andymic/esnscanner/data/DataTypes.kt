@@ -40,3 +40,9 @@ data class DatasetResponse(
     val payment: String,
     val amount: String
 )
+
+@Serializable
+data class AddCardResponse(
+    val status: String,
+    val message: String
+)

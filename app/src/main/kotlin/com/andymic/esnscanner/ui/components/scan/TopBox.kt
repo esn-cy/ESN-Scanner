@@ -1,4 +1,4 @@
-package com.andymic.esnscanner.ui.components
+package com.andymic.esnscanner.ui.components.scan
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -23,13 +24,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-import com.andymic.esnscanner.ScanUIState
+import com.andymic.esnscanner.models.ScanUIState
 import com.andymic.esnscanner.ui.theme.ESNCyan
 import com.andymic.esnscanner.ui.theme.ESNDarkBlue
 
 @Composable
-fun TopInfoBox(uiState: ScanUIState, modifier: Modifier) {
-    Box(modifier = modifier) {
+fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
+    Box(
+        modifier = modifier
+            .background(Color.Black.copy(alpha = 0.6f))
+            .padding(16.dp)
+    ) {
         if (uiState is ScanUIState.Success) {
             Row(modifier = Modifier.fillMaxSize()) {
                 Box(

@@ -25,16 +25,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.andymic.esnscanner.models.AddViewModel
+import com.andymic.esnscanner.models.ScanViewModel
+import com.andymic.esnscanner.ui.components.CameraScreen
 import com.andymic.esnscanner.ui.components.NavigationRail
-import com.andymic.esnscanner.ui.screens.AddScreen
+import com.andymic.esnscanner.ui.components.add.AddBottomBox
+import com.andymic.esnscanner.ui.components.add.AddTopBox
+import com.andymic.esnscanner.ui.components.scan.ScanBottomBox
+import com.andymic.esnscanner.ui.components.scan.ScanTopBox
 import com.andymic.esnscanner.ui.screens.DeliverScreen
 import com.andymic.esnscanner.ui.screens.HomeScreen
 import com.andymic.esnscanner.ui.screens.ProduceScreen
-import com.andymic.esnscanner.ui.screens.ScanScreen
 import com.andymic.esnscanner.ui.theme.ESNScannerAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -115,10 +121,18 @@ fun ESNcardNavHost(
             HomeScreen()
         }
         composable(route = Destinations.Scan.spec.route) {
-            ScanScreen()
+            CameraScreen(
+                viewModel<ScanViewModel>(),
+                TopBox = { uiState, modifier -> ScanTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> ScanBottomBox(uiState, modifier) }
+            )
         }
         composable(route = Destinations.Add.spec.route) {
-            AddScreen()
+            CameraScreen(
+                viewModel<AddViewModel>(),
+                TopBox = { uiState, modifier -> AddTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> AddBottomBox(uiState, modifier) }
+            )
         }
         composable(route = Destinations.Produce.spec.route) {
             ProduceScreen()

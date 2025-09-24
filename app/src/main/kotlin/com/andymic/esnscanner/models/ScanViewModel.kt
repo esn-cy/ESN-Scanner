@@ -1,4 +1,4 @@
-package com.andymic.esnscanner
+package com.andymic.esnscanner.models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -12,6 +12,7 @@ import com.andymic.esnscanner.data.Sections
 import com.andymic.esnscanner.data.getCardStatus
 import com.andymic.esnscanner.data.getExpirationDate
 import com.andymic.esnscanner.data.getIssuingSection
+import com.andymic.esnscanner.ui.components.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -40,7 +41,8 @@ data class ScanResult(
 val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
 val ESNCyprusPassRegex = Regex("ESNCYTKNESNCYTKN\\d*")
 
-class ScanViewModel(application: Application) : AndroidViewModel(application) {
+class ScanViewModel(application: Application) : AndroidViewModel(application),
+    CameraViewModel<ScanUIState> {
 
     val sections: List<Sections.Section>
     val sectionData: SectionData.SectionData
@@ -54,17 +56,17 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     private val apiService = ApiServiceImplementation(KtorClient.httpClient)
 
-    private val _scanState = MutableStateFlow<ScanUIState>(ScanUIState.Idle)
-    val scanState = _scanState.asStateFlow()
+    private val _state = MutableStateFlow<ScanUIState>(ScanUIState.Idle)
+    override val state = _state.asStateFlow()
 
-    fun scanRequest(scannedString: String) {
-        if (_scanState.value is ScanUIState.Loading) return
+    override fun onScan(scannedString: String) {
+        if (_state.value is ScanUIState.Loading) return
 
         val lastScan =
-            if (_scanState.value is ScanUIState.Success) (_scanState.value as ScanUIState.Success).lastScan else if (_scanState.value is ScanUIState.Error) (_scanState.value as ScanUIState.Error).lastScan else null
+            if (_state.value is ScanUIState.Success) (_state.value as ScanUIState.Success).lastScan else if (_state.value is ScanUIState.Error) (_state.value as ScanUIState.Error).lastScan else null
         if (lastScan == scannedString) return
 
-        _scanState.value = ScanUIState.Loading
+        _state.value = ScanUIState.Loading
 
         var identifier = scannedString
         val esncardMatch = ESNCardNumberRegex.find(scannedString)
@@ -74,7 +76,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         else {
             val esnCyprusPassMatch = ESNCyprusPassRegex.find(scannedString)
             if (esnCyprusPassMatch == null) {
-                _scanState.value = ScanUIState.Error("Invalid", scannedString)
+                _state.value = ScanUIState.Error("Invalid", scannedString)
                 return
             }
         }
@@ -169,7 +171,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             )
                 result += "/Inconsistent"
 
-            _scanState.value = ScanUIState.Success(
+            _state.value = ScanUIState.Success(
                 ScanResult(
                     identifier = identifier,
                     fullName = fullName,

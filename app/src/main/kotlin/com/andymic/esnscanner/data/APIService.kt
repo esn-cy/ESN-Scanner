@@ -9,6 +9,7 @@ interface APIService {
     suspend fun getLocalInfo(lookupString: String): LocalResponse?
     suspend fun getInternationalInfo(cardNumber: String): InternationalResponse?
     suspend fun getDatasetInfo(cardNumber: String, spreadsheetID: String): DatasetResponse?
+    suspend fun addCard(cardNumber: String): AddCardResponse?
 }
 
 val datasetRegex =
@@ -62,6 +63,19 @@ class ApiServiceImplementation(
                 match.groupValues[7],
                 match.groupValues[8],
             )
+        } catch (_: Exception) {
+            return null
+        }
+    }
+
+    override suspend fun addCard(cardNumber: String): AddCardResponse? {
+        try {
+            val response = client.post("https://esncy.org/api/esncard/add") {
+                setBody("{\"card\": \"$cardNumber\"}")
+            }
+            if (response.status.value != 200)
+                return null
+            return response.body()
         } catch (_: Exception) {
             return null
         }
