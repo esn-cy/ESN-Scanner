@@ -15,6 +15,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FlashOff
+import androidx.compose.material.icons.filled.FlashOn
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,15 +34,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.andymic.esnscanner.CameraScanner
+import com.andymic.esnscanner.ui.components.camera.CameraScanner
 import com.andymic.esnscanner.ui.theme.ESNCyan
 import com.andymic.esnscanner.ui.theme.ESNGreen
 import com.andymic.esnscanner.ui.theme.ESNMagenta
 import com.andymic.esnscanner.ui.theme.ESNOrange
 import kotlinx.coroutines.flow.StateFlow
+import rememberCameraScannerState
 
 interface CameraViewModel<T> {
     val state: StateFlow<T>
@@ -61,6 +69,7 @@ fun <T> CameraScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.state.collectAsState()
+    val cameraState = rememberCameraScannerState()
     val context = LocalContext.current
     var hasCameraPermission by remember {
         mutableStateOf(
@@ -109,14 +118,33 @@ fun <T> CameraScreen(
                     .weight(4.5f)
                     .clipToBounds()
             ) {
-                CameraScanner({ barcodes ->
-                    for (barcode in barcodes) {
-                        val value = barcode.rawValue
-                        if (value == null)
-                            continue
-                        viewModel.onScan(value)
-                    }
-                }, LocalContext.current)
+                CameraScanner(
+                    onBarcodesScanned = { barcodes ->
+                        for (barcode in barcodes) {
+                            val value = barcode.rawValue
+                            if (value == null)
+                                continue
+                            viewModel.onScan(value)
+                        }
+                    },
+                    state = cameraState,
+                    context = LocalContext.current
+                )
+                FloatingActionButton(
+                    onClick = { cameraState.toggleFlash() },
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.BottomEnd)
+                        .fillMaxSize(0.15f)
+                        .aspectRatio(1f),
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
+                ) {
+                    Icon(
+                        imageVector = if (cameraState.isFlashOn) Icons.Filled.FlashOff else Icons.Filled.FlashOn,
+                        contentDescription = "Scan QR Code"
+                    )
+                }
                 Box(
                     modifier = Modifier
                         .fillMaxSize(0.85f)

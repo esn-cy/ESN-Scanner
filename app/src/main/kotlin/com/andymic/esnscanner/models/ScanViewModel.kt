@@ -68,7 +68,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
 
         _state.value = ScanUIState.Loading
 
-        var identifier = scannedString
+        var identifier: String
         val esncardMatch = ESNCardNumberRegex.find(scannedString)
         val isESNcard = esncardMatch != null
         if (isESNcard)
@@ -79,6 +79,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
                 _state.value = ScanUIState.Error("Invalid", scannedString)
                 return
             }
+            identifier = esnCyprusPassMatch.value
         }
 
         viewModelScope.launch {
@@ -139,8 +140,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
                     result = "Already Scanned"
                 }
 
-
-                if (expirationDate != "Valid" && LocalDate.parse(
+                if (expirationDate != "Valid" && expirationDate != "UNKNOWN" && LocalDate.parse(
                         expirationDate.removeSuffix(" (INCONSISTENT)"),
                         DateTimeFormatter.ofPattern("dd/MM/yyyy")
                     ).toEpochDay() < epochDate
@@ -148,7 +148,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
                     result = "Expired"
             } else {
                 result =
-                    if (lastScan == null || epochDate - LocalDate.parse(
+                    if (lastScan == "UNKNOWN" || epochDate - LocalDate.parse(
                             lastScan,
                             DateTimeFormatter.ofPattern("dd/MM/yyyy")
                         ).toEpochDay() > 1
