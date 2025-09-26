@@ -5,8 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.andymic.esnscanner.data.ApiServiceImplementation
 import com.andymic.esnscanner.data.KtorClient
-import com.andymic.esnscanner.data.SectionData
-import com.andymic.esnscanner.data.Sections
 import com.andymic.esnscanner.ui.components.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,15 +24,6 @@ data class AddResult(
 
 class AddViewModel(application: Application) : AndroidViewModel(application),
     CameraViewModel<AddUIState> {
-    val sections: List<Sections.Section>
-    val sectionData: SectionData.SectionData
-
-    init {
-        val sectionsInputStream = application.assets.open("sections.json")
-        sections = Sections(sectionsInputStream).sections
-        val sectionDataInputStream = application.assets.open("section-data.json")
-        sectionData = SectionData(sectionDataInputStream).sectionData
-    }
 
     private val apiService = ApiServiceImplementation(KtorClient.httpClient)
 

@@ -31,16 +31,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.andymic.esnscanner.models.AddViewModel
+import com.andymic.esnscanner.models.DeliverViewModel
+import com.andymic.esnscanner.models.ProduceViewModel
 import com.andymic.esnscanner.models.ScanViewModel
 import com.andymic.esnscanner.ui.components.CameraScreen
 import com.andymic.esnscanner.ui.components.NavigationRail
 import com.andymic.esnscanner.ui.components.add.AddBottomBox
 import com.andymic.esnscanner.ui.components.add.AddTopBox
+import com.andymic.esnscanner.ui.components.deliver.DeliverBottomBox
+import com.andymic.esnscanner.ui.components.deliver.DeliverTopBox
+import com.andymic.esnscanner.ui.components.produce.ProduceBottomBox
+import com.andymic.esnscanner.ui.components.produce.ProduceTopBox
 import com.andymic.esnscanner.ui.components.scan.ScanBottomBox
 import com.andymic.esnscanner.ui.components.scan.ScanTopBox
-import com.andymic.esnscanner.ui.screens.DeliverScreen
 import com.andymic.esnscanner.ui.screens.HomeScreen
-import com.andymic.esnscanner.ui.screens.ProduceScreen
 import com.andymic.esnscanner.ui.theme.ESNScannerAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -135,10 +139,18 @@ fun ESNcardNavHost(
             )
         }
         composable(route = Destinations.Produce.spec.route) {
-            ProduceScreen()
+            CameraScreen(
+                viewModel<ProduceViewModel>(),
+                TopBox = { uiState, modifier -> ProduceTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> ProduceBottomBox(uiState, modifier) }
+            )
         }
         composable(route = Destinations.Deliver.spec.route) {
-            DeliverScreen()
+            CameraScreen(
+                viewModel<DeliverViewModel>(),
+                TopBox = { uiState, modifier -> DeliverTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> DeliverBottomBox(uiState, modifier) }
+            )
         }
     }
 }

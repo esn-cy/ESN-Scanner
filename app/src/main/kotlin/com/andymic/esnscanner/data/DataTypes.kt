@@ -46,3 +46,9 @@ data class AddCardResponse(
     val status: String,
     val message: String
 )
+
+@Serializable
+data class StatusResponse(
+    val status: String,
+    val message: String,
+)

@@ -10,6 +10,7 @@ interface APIService {
     suspend fun getInternationalInfo(cardNumber: String): InternationalResponse?
     suspend fun getDatasetInfo(cardNumber: String, spreadsheetID: String): DatasetResponse?
     suspend fun addCard(cardNumber: String): AddCardResponse?
+    suspend fun updateStatus(cardNumber: String, status: String): StatusResponse?
 }
 
 val datasetRegex =
@@ -75,6 +76,17 @@ class ApiServiceImplementation(
             }
             if (response.status.value != 200)
                 return null
+            return response.body()
+        } catch (_: Exception) {
+            return null
+        }
+    }
+
+    override suspend fun updateStatus(cardNumber: String, status: String): StatusResponse? {
+        try {
+            val response = client.post("https://esncy.org/api/esncard/status") {
+                setBody("{\"card\": \"$cardNumber\",\"status\": \"${status}\"}")
+            }
             return response.body()
         } catch (_: Exception) {
             return null
