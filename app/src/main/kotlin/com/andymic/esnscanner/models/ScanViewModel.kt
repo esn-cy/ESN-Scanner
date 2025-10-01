@@ -12,6 +12,7 @@ import com.andymic.esnscanner.data.Sections
 import com.andymic.esnscanner.data.getCardStatus
 import com.andymic.esnscanner.data.getExpirationDate
 import com.andymic.esnscanner.data.getIssuingSection
+import com.andymic.esnscanner.data.getLastScanDate
 import com.andymic.esnscanner.ui.components.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -108,8 +109,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
                 internationalInfo?.expirationDate
             ) else "Valid"
             val cardStatus = getCardStatus(internationalInfo?.status, existsLocally)
-            val lastScan = if (localInfo != null) LocalDate.parse(localInfo.lastScanDate)
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) else "UNKNOWN"
+            val lastScan = getLastScanDate(localInfo)
             val profileImage = localInfo?.profileImageURL ?: "UNKNOWN"
 
             var result: String
@@ -132,7 +132,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
                         }
                     }
 
-                if (lastScan != "UNKNOWN" && epochDate - LocalDate.parse(
+                if (lastScan != "UNKNOWN" && lastScan != "Never Scanned" && epochDate - LocalDate.parse(
                         lastScan,
                         DateTimeFormatter.ofPattern("dd/MM/yyyy")
                     ).toEpochDay() < 2
@@ -148,7 +148,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
                     result = "Expired"
             } else {
                 result =
-                    if (lastScan == "UNKNOWN" || epochDate - LocalDate.parse(
+                    if (lastScan == "UNKNOWN" || lastScan == "Never Scanned" || epochDate - LocalDate.parse(
                             lastScan,
                             DateTimeFormatter.ofPattern("dd/MM/yyyy")
                         ).toEpochDay() > 1
