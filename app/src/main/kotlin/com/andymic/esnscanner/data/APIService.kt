@@ -6,7 +6,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 
 interface APIService {
-    suspend fun getLocalInfo(lookupString: String): LocalResponse?
+    suspend fun getLocalInfo(lookupString: String, sectionDomain: String): LocalResponse?
     suspend fun getInternationalInfo(cardNumber: String): InternationalResponse?
     suspend fun getDatasetInfo(cardNumber: String, spreadsheetID: String): DatasetResponse?
     suspend fun addCard(cardNumber: String): AddCardResponse?
@@ -19,9 +19,9 @@ val datasetRegex =
 class ApiServiceImplementation(
     private val client: io.ktor.client.HttpClient
 ) : APIService {
-    override suspend fun getLocalInfo(lookupString: String): LocalResponse? {
+    override suspend fun getLocalInfo(lookupString: String, sectionDomain: String): LocalResponse? {
         try {
-            val response = client.post("https://esncy.org/api/esncard/scan") {
+            val response = client.post("https://$sectionDomain/api/esncard/scan") {
                 setBody("{\"card\": \"$lookupString\"}")
             }
             if (response.status.value != 200)

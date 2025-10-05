@@ -84,7 +84,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
         }
 
         viewModelScope.launch {
-            val localInfo = apiService.getLocalInfo(identifier)
+            val localInfo = apiService.getLocalInfo(identifier, sectionData.localSectionDomain)
             var internationalInfo: InternationalResponse? = null
             var datasetInfo: DatasetResponse? = null
             if (isESNcard) {

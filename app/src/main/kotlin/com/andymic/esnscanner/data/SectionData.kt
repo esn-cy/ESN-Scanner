@@ -10,7 +10,8 @@ class SectionData(inputStream: InputStream) {
     data class SectionData(
         var spreadsheetID: String,
         var localSectionName: String,
-        var localSectionCode: String
+        var localSectionCode: String,
+        var localSectionDomain: String
     )
 
     var sectionData: SectionData
@@ -25,6 +26,8 @@ class SectionData(inputStream: InputStream) {
             localSectionName = sectionsJSON.jsonObject["localSectionName"].toString().drop(1)
                 .dropLast(1),
             localSectionCode = sectionsJSON.jsonObject["localSectionCode"].toString().drop(1)
+                .dropLast(1),
+            sectionsJSON.jsonObject["localSectionDomain"].toString().drop(1)
                 .dropLast(1)
         )
     }
