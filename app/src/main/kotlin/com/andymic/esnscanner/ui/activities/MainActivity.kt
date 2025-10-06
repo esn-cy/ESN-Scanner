@@ -80,6 +80,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             val updateState by updateViewModel.state.collectAsState()
 
+            LaunchedEffect(Unit) {
+                updateViewModel.updateEvent.collect { appUpdateInfo ->
+                    val updateOptions = AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
+                    appUpdateManager.startUpdateFlow(
+                        appUpdateInfo,
+                        this@MainActivity,
+                        updateOptions
+                    )
+                }
+            }
+
             LaunchedEffect(updateState) {
                 val successState = updateState as? UpdateUIState.Success
                 if (successState?.result?.isUpdateAvailable == true) {
