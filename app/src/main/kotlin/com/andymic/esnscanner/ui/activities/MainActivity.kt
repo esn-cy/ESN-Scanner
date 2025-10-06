@@ -1,14 +1,15 @@
 package com.andymic.esnscanner.ui.activities
 
+import android.animation.ObjectAnimator
 import android.graphics.Color.TRANSPARENT
-import android.graphics.Color.argb
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnticipateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -59,29 +60,40 @@ import com.google.android.play.core.install.model.UpdateAvailability
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(TRANSPARENT, TRANSPARENT)
+        )
+
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
 
         setContent {
-            val darkTheme = isSystemInDarkTheme()
-            DisposableEffect(darkTheme) {
-                enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.auto(
-                        TRANSPARENT,
-                        TRANSPARENT,
-                    ) { darkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        argb(0xe6, 0xFF, 0xFF, 0xFF),
-                        argb(0x80, 0x1b, 0x1b, 0x1b),
-                    ) { darkTheme },
-                )
-                onDispose {}
-            }
-
             ESNScannerAppTheme {
                 AppContent()
             }
+        }
+
+        splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
+            val splashScreenView = splashScreenViewProvider.view
+            val iconView = splashScreenViewProvider.iconView
+
+            val slideOut = ObjectAnimator.ofFloat(
+                iconView,
+                View.TRANSLATION_Y,
+                0f,
+                -splashScreenView.height.toFloat()
+            ).apply {
+                interpolator = AnticipateInterpolator()
+                duration = 300L
+                doOnEnd {
+                    splashScreenViewProvider.remove()
+                }
+            }
+
+            slideOut.start()
         }
     }
 }

@@ -1,0 +1,584 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="192dp"
+            android:height="192dp"
+            android:viewportWidth="384"
+            android:viewportHeight="71.64">
+            <group
+                android:name="barcode_group"
+                android:scaleX="0.58666664"
+                android:scaleY="0.10945"
+                android:translateX="79.36"
+                android:translateY="31.899502">
+                <path
+                    android:name="segment_1"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M0,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_2"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M8.6,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_3"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M17.19,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_4"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M31.52,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_5"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M42.99,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_6"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M51.58,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_7"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M63.04,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_8"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M74.51,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_9"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M83.1,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_10"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M94.57,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_11"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M100.3,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_12"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M111.76,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_13"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M126.09,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_14"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M131.82,0h11.46v71.64h-11.46z" />
+                <path
+                    android:name="segment_15"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M146.15,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_16"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M157.61,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_17"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M169.07,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_18"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M180.54,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_19"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M189.13,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_20"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M194.87,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_21"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M209.19,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_22"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M220.66,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_23"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M232.12,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_24"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M243.58,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_25"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M252.18,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_26"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M257.91,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_27"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M275.1,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_28"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M283.7,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_29"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M295.16,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_30"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M306.63,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_31"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M315.22,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_32"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M326.69,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_33"
+                    android:fillAlpha="0"
+                    android:fillColor="#7ac143"
+                    android:pathData="M341.01,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_34"
+                    android:fillAlpha="0"
+                    android:fillColor="#2e3192"
+                    android:pathData="M346.75,0h5.73v71.64h-5.73z" />
+                <path
+                    android:name="segment_35"
+                    android:fillAlpha="0"
+                    android:fillColor="#f47b20"
+                    android:pathData="M361.07,0h8.6v71.64h-8.6z" />
+                <path
+                    android:name="segment_36"
+                    android:fillAlpha="0"
+                    android:fillColor="#00aeef"
+                    android:pathData="M372.54,0h2.87v71.64h-2.87z" />
+                <path
+                    android:name="segment_37"
+                    android:fillAlpha="0"
+                    android:fillColor="#ec008c"
+                    android:pathData="M378.27,0h5.73v71.64h-5.73z" />
+            </group>
+        </vector>
+    </aapt:attr>
+
+    <target android:name="barcode_group">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="0"
+                android:propertyName="fillAlpha"
+                android:valueFrom="1"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="segment_1">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="0"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_2">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="14"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_3">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="28"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_4">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="42"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_5">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="56"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_6">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="70"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_7">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="84"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_8">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="98"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_9">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="112"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_10">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="126"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_11">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="140"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_12">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="154"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_13">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="168"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_14">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="182"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_15">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="196"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_16">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="210"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_17">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="224"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_18">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="238"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_19">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="252"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_20">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="266"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_21">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="280"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_22">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="294"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_23">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="308"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_24">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="322"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_25">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="336"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_26">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="350"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_27">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="364"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_28">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="378"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_29">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="392"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_30">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="406"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_31">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="420"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_32">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="434"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_33">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="448"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_34">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="462"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_35">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="476"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_36">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="490"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+    <target android:name="segment_37">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="150"
+                android:propertyName="fillAlpha"
+                android:startOffset="504"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+</animated-vector>
