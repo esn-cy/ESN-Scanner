@@ -12,7 +12,8 @@ data class Destination(
     val route: String,
     val label: String,
     val icon: ImageVector,
-    val contentDescription: String
+    val contentDescription: String,
+    val enabledCondition: String? = null
 )
 
 enum class Destinations(
@@ -31,7 +32,8 @@ enum class Destinations(
             route = "scan",
             icon = Icons.Default.CameraAlt,
             label = "Scan",
-            contentDescription = "Navigate to Scan Card Screen"
+            contentDescription = "Navigate to Scan Card Screen",
+            enabledCondition = "oneOnline"
         )
     ),
     Add(
@@ -39,7 +41,8 @@ enum class Destinations(
             route = "add",
             icon = Icons.Default.AddCard,
             label = "Add",
-            contentDescription = "Navigate to Add Card Screen"
+            contentDescription = "Navigate to Add Card Screen",
+            enabledCondition = "isLocalOnline"
         )
     ),
     Produce(
@@ -47,7 +50,8 @@ enum class Destinations(
             route = "produce",
             icon = Icons.Default.Edit,
             label = "Produce",
-            contentDescription = "Navigate to Produce Card Screen"
+            contentDescription = "Navigate to Produce Card Screen",
+            enabledCondition = "isLocalOnline"
         )
     ),
     Deliver(
@@ -55,7 +59,8 @@ enum class Destinations(
             route = "deliver",
             icon = Icons.Default.LocalShipping,
             label = "Deliver",
-            contentDescription = "Navigate to Deliver Card Screen"
+            contentDescription = "Navigate to Deliver Card Screen",
+            enabledCondition = "isLocalOnline"
         )
     )
 }

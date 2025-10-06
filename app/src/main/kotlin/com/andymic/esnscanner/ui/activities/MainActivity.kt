@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.andymic.esnscanner.models.AddViewModel
+import com.andymic.esnscanner.models.ConnectionViewModel
 import com.andymic.esnscanner.models.DeliverViewModel
 import com.andymic.esnscanner.models.ProduceViewModel
 import com.andymic.esnscanner.models.ScanViewModel
@@ -90,18 +92,25 @@ fun AppContent(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     var selectedDestination by remember { mutableStateOf(Destinations.Home.spec) }
 
+    val connectionViewModel: ConnectionViewModel = viewModel()
+
+    LaunchedEffect(Unit) {
+        connectionViewModel.runTest()
+    }
+
     Row(modifier = modifier.fillMaxSize()) {
         NavigationRail(
-            Modifier,
-            selectedDestination
-        ) { destination ->
-            selectedDestination = destination
-            navController.navigate(destination.route) {
-                popUpTo(navController.graph.startDestinationId) { saveState = true }
-                launchSingleTop = true
-                restoreState = true
-            }
-        }
+            selectedDestination = selectedDestination,
+            onDestinationSelected = { destination ->
+                selectedDestination = destination
+                navController.navigate(destination.route) {
+                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            viewModel = connectionViewModel
+        )
 
         Surface(
             modifier = Modifier
@@ -113,7 +122,12 @@ fun AppContent(modifier: Modifier = Modifier) {
             ),
             color = MaterialTheme.colorScheme.surfaceContainerLow
         ) {
-            ESNcardNavHost(navController, Destinations.Home.spec.route, Modifier.fillMaxSize())
+            ESNcardNavHost(
+                navController = navController,
+                startDestination = Destinations.Home.spec.route,
+                connectionViewModel = connectionViewModel,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
@@ -122,6 +136,7 @@ fun AppContent(modifier: Modifier = Modifier) {
 fun ESNcardNavHost(
     navController: NavHostController,
     startDestination: String,
+    connectionViewModel: ConnectionViewModel,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -130,7 +145,7 @@ fun ESNcardNavHost(
         modifier = modifier
     ) {
         composable(route = Destinations.Home.spec.route) {
-            HomeScreen()
+            HomeScreen(connectionViewModel)
         }
         composable(route = Destinations.Scan.spec.route) {
             CameraScreen(
