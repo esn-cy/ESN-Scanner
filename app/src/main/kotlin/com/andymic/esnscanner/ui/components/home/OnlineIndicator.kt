@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.andymic.esnscanner.models.OnlineUIState
 import com.andymic.esnscanner.models.OnlineViewModel
-import com.andymic.esnscanner.ui.screens.StatusRow
 import com.andymic.esnscanner.ui.theme.statusColorScheme
 
 @Composable
@@ -153,4 +154,40 @@ fun OnlineIndicator(modifier: Modifier = Modifier, viewModel: OnlineViewModel = 
             }
         }
     }
+}
+
+@Composable
+fun StatusRow(label: String, status: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(if (status != "Offline") MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.errorContainer)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = label,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 14.sp
+        )
+        Spacer(Modifier.weight(1f))
+        StatusText(status = status)
+    }
+}
+
+@Composable
+fun StatusText(status: String) {
+    val textColor = when (status) {
+        "LOADING..." -> MaterialTheme.colorScheme.onSurface
+        "Online" -> MaterialTheme.statusColorScheme.success
+        "Offline" -> MaterialTheme.colorScheme.error
+        else -> MaterialTheme.colorScheme.onSurface
+    }
+    Text(
+        text = status,
+        color = textColor,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
+    )
 }

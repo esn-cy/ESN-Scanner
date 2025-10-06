@@ -1,6 +1,7 @@
 [versions]
 activityCompose = "1.11.0"
 agp = "8.13.0"
+appUpdate = "2.1.0"
 barcodeScanning = "17.3.0"
 cameraCore = "1.5.0"
 coilCompose = "2.7.0"
@@ -28,8 +29,11 @@ uiGraphicsAndroid = "1.9.2"
 foundation = "1.9.2"
 cameraView = "1.5.0"
 foundationLayout = "1.9.2"
+appUpdateKtx = "2.1.0"
+runtimeAnnotation = "1.9.2"
 
 [libraries]
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
 barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
 camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
@@ -72,6 +76,8 @@ ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitV
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
 foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
+app-update-ktx = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "appUpdateKtx" }
+runtime-annotation = { group = "androidx.compose.runtime", name = "runtime-annotation", version.ref = "runtimeAnnotation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

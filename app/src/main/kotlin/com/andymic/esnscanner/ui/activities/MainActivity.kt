@@ -9,7 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,6 +40,8 @@ import com.andymic.esnscanner.models.DeliverViewModel
 import com.andymic.esnscanner.models.OnlineViewModel
 import com.andymic.esnscanner.models.ProduceViewModel
 import com.andymic.esnscanner.models.ScanViewModel
+import com.andymic.esnscanner.models.UpdateUIState
+import com.andymic.esnscanner.models.UpdateViewModel
 import com.andymic.esnscanner.ui.Destinations
 import com.andymic.esnscanner.ui.components.NavigationRail
 import com.andymic.esnscanner.ui.components.add.AddBottomBox
@@ -56,9 +59,11 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
 
 class MainActivity : ComponentActivity() {
+    private val updateViewModel: UpdateViewModel by viewModels()
+    private lateinit var appUpdateManager: AppUpdateManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
 
@@ -68,11 +73,27 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+
+        splashScreen.setKeepOnScreenCondition { updateViewModel.state.value is UpdateUIState.Loading }
 
         setContent {
+            val updateState by updateViewModel.state.collectAsState()
+
+            LaunchedEffect(updateState) {
+                val successState = updateState as? UpdateUIState.Success
+                if (successState?.result?.isUpdateAvailable == true) {
+                    val updateOptions = AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
+                    appUpdateManager.startUpdateFlow(
+                        successState.result.updateInfo,
+                        this@MainActivity,
+                        updateOptions
+                    )
+                }
+            }
+
             ESNScannerAppTheme {
-                AppContent()
+                AppContent(updateViewModel = updateViewModel)
             }
         }
 
@@ -100,7 +121,10 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun AppContent(modifier: Modifier = Modifier) {
+fun AppContent(
+    modifier: Modifier = Modifier,
+    updateViewModel: UpdateViewModel = viewModel()
+) {
     val navController = rememberNavController()
     var selectedDestination by remember { mutableStateOf(Destinations.Home.spec) }
 
@@ -138,6 +162,7 @@ fun AppContent(modifier: Modifier = Modifier) {
                 navController = navController,
                 startDestination = Destinations.Home.spec.route,
                 onlineViewModel = onlineViewModel,
+                updateViewModel = updateViewModel,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -149,6 +174,7 @@ fun ESNcardNavHost(
     navController: NavHostController,
     startDestination: String,
     onlineViewModel: OnlineViewModel,
+    updateViewModel: UpdateViewModel,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -157,7 +183,10 @@ fun ESNcardNavHost(
         modifier = modifier
     ) {
         composable(route = Destinations.Home.spec.route) {
-            HomeScreen(onlineViewModel)
+            HomeScreen(
+                onlineViewModel = onlineViewModel,
+                updateViewModel = updateViewModel
+            )
         }
         composable(route = Destinations.Scan.spec.route) {
             CameraScreen(

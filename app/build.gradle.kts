@@ -20,8 +20,8 @@ android {
         applicationId = "com.andymic.esnscanner"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "1.4"
+        versionCode = 7
+        versionName = "1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.foundation.android)
 
     implementation(libs.runtime.android)
+    implementation(libs.runtime.annotation)
 
     implementation(libs.activity.compose)
 
@@ -109,6 +110,9 @@ dependencies {
     implementation(libs.firebase.perf)
 
     implementation(libs.google.services)
+
+    implementation(libs.app.update)
+    implementation(libs.app.update.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
