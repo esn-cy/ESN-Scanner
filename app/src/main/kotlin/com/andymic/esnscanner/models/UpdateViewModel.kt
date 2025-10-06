@@ -58,6 +58,13 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
                         updateInfo = info
                     )
                 )
+            } else {
+                _state.value = UpdateUIState.Success(
+                    result = UpdateResult(
+                        isUpdateAvailable = false,
+                        updateInfo = info
+                    )
+                )
             }
         }.addOnFailureListener { e ->
             _state.value = UpdateUIState.Error(e)

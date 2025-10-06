@@ -93,7 +93,9 @@ fun UpdateIndicator(
                         .background(color = backgroundColor)
                         .padding(horizontal = 16.dp, vertical = 12.dp)
                         .clickable {
-                            viewModel.startUpdateFlow()
+                            if (isUpdateAvailable) {
+                                viewModel.startUpdateFlow()
+                            }
                         }
                 ) {
                     Text(
