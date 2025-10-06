@@ -19,8 +19,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.andymic.esnscanner.models.ConnectionUIState
-import com.andymic.esnscanner.models.ConnectionViewModel
+import com.andymic.esnscanner.models.OnlineUIState
+import com.andymic.esnscanner.models.OnlineViewModel
 import com.andymic.esnscanner.ui.Destination
 import com.andymic.esnscanner.ui.Destinations
 
@@ -29,7 +29,7 @@ fun NavigationRail(
     modifier: Modifier = Modifier,
     selectedDestination: Destination,
     onDestinationSelected: (Destination) -> Unit,
-    viewModel: ConnectionViewModel
+    viewModel: OnlineViewModel
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -45,14 +45,14 @@ fun NavigationRail(
             NavigationRail(contentColor = Color.Transparent) {
                 Destinations.entries.forEach { destination ->
                     val isEnabled = when (uiState) {
-                        is ConnectionUIState.Idle, is ConnectionUIState.Loading -> false
-                        is ConnectionUIState.Success -> {
+                        is OnlineUIState.Idle, is OnlineUIState.Loading -> false
+                        is OnlineUIState.Success -> {
                             when (destination.spec.enabledCondition) {
                                 null -> true
-                                "isLocalOnline" -> (uiState as ConnectionUIState.Success).result.isLocalOnline
-                                "isInternationalOnline" -> (uiState as ConnectionUIState.Success).result.isInternationalOnline
-                                "isDatasetOnline" -> (uiState as ConnectionUIState.Success).result.isDatasetOnline
-                                "oneOnline" -> (uiState as ConnectionUIState.Success).result.serviceStatus != "No Information Available"
+                                "isLocalOnline" -> (uiState as OnlineUIState.Success).result.isLocalOnline
+                                "isInternationalOnline" -> (uiState as OnlineUIState.Success).result.isInternationalOnline
+                                "isDatasetOnline" -> (uiState as OnlineUIState.Success).result.isDatasetOnline
+                                "oneOnline" -> (uiState as OnlineUIState.Success).result.serviceStatus != "No Information Available"
                                 else -> false
                             }
                         }

@@ -35,8 +35,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.andymic.esnscanner.models.AddViewModel
-import com.andymic.esnscanner.models.ConnectionViewModel
 import com.andymic.esnscanner.models.DeliverViewModel
+import com.andymic.esnscanner.models.OnlineViewModel
 import com.andymic.esnscanner.models.ProduceViewModel
 import com.andymic.esnscanner.models.ScanViewModel
 import com.andymic.esnscanner.ui.Destinations
@@ -104,10 +104,10 @@ fun AppContent(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     var selectedDestination by remember { mutableStateOf(Destinations.Home.spec) }
 
-    val connectionViewModel: ConnectionViewModel = viewModel()
+    val onlineViewModel: OnlineViewModel = viewModel()
 
     LaunchedEffect(Unit) {
-        connectionViewModel.runTest()
+        onlineViewModel.runTest()
     }
 
     Row(modifier = modifier.fillMaxSize()) {
@@ -121,7 +121,7 @@ fun AppContent(modifier: Modifier = Modifier) {
                     restoreState = true
                 }
             },
-            viewModel = connectionViewModel
+            viewModel = onlineViewModel
         )
 
         Surface(
@@ -137,7 +137,7 @@ fun AppContent(modifier: Modifier = Modifier) {
             ESNcardNavHost(
                 navController = navController,
                 startDestination = Destinations.Home.spec.route,
-                connectionViewModel = connectionViewModel,
+                onlineViewModel = onlineViewModel,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -148,7 +148,7 @@ fun AppContent(modifier: Modifier = Modifier) {
 fun ESNcardNavHost(
     navController: NavHostController,
     startDestination: String,
-    connectionViewModel: ConnectionViewModel,
+    onlineViewModel: OnlineViewModel,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -157,7 +157,7 @@ fun ESNcardNavHost(
         modifier = modifier
     ) {
         composable(route = Destinations.Home.spec.route) {
-            HomeScreen(connectionViewModel)
+            HomeScreen(onlineViewModel)
         }
         composable(route = Destinations.Scan.spec.route) {
             CameraScreen(

@@ -10,20 +10,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-sealed interface ConnectionUIState {
-    data object Idle : ConnectionUIState
-    data object Loading : ConnectionUIState
-    data class Success(val result: ConnectionResult) : ConnectionUIState
+sealed interface OnlineUIState {
+    data object Idle : OnlineUIState
+    data object Loading : OnlineUIState
+    data class Success(val result: OnlineResult) : OnlineUIState
 }
 
-data class ConnectionResult(
+data class OnlineResult(
     var serviceStatus: String,
     var isLocalOnline: Boolean,
     var isInternationalOnline: Boolean,
     val isDatasetOnline: Boolean
 )
 
-class ConnectionViewModel(application: Application) : AndroidViewModel(application) {
+class OnlineViewModel(application: Application) : AndroidViewModel(application) {
     val sectionData: SectionData.SectionData
 
     init {
@@ -33,12 +33,12 @@ class ConnectionViewModel(application: Application) : AndroidViewModel(applicati
 
     private val testService = TestServiceImplementation(KtorClient.httpClient)
 
-    private val _state = MutableStateFlow<ConnectionUIState>(ConnectionUIState.Idle)
+    private val _state = MutableStateFlow<OnlineUIState>(OnlineUIState.Idle)
     val state = _state.asStateFlow()
 
     fun runTest() {
-        if (_state.value is ConnectionUIState.Loading) return
-        _state.value = ConnectionUIState.Loading
+        if (_state.value is OnlineUIState.Loading) return
+        _state.value = OnlineUIState.Loading
 
         viewModelScope.launch {
             val isLocalOnline = testService.local(sectionData.localSectionDomain)
@@ -55,8 +55,8 @@ class ConnectionViewModel(application: Application) : AndroidViewModel(applicati
                 else
                     "No Information Available"
 
-            _state.value = ConnectionUIState.Success(
-                ConnectionResult(
+            _state.value = OnlineUIState.Success(
+                OnlineResult(
                     serviceStatus = serviceStatus,
                     isLocalOnline = isLocalOnline,
                     isInternationalOnline = isInternationalOnline,
