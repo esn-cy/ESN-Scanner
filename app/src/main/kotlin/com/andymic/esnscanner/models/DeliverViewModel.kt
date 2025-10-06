@@ -7,7 +7,7 @@ import com.andymic.esnscanner.data.ApiServiceImplementation
 import com.andymic.esnscanner.data.KtorClient
 import com.andymic.esnscanner.data.SectionData
 import com.andymic.esnscanner.data.Sections
-import com.andymic.esnscanner.ui.components.CameraViewModel
+import com.andymic.esnscanner.ui.screens.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

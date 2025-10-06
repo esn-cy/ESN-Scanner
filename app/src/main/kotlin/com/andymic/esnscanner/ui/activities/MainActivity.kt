@@ -1,4 +1,4 @@
-package com.andymic.esnscanner.ui
+package com.andymic.esnscanner.ui.activities
 
 import android.graphics.Color.TRANSPARENT
 import android.graphics.Color.argb
@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -34,7 +36,7 @@ import com.andymic.esnscanner.models.AddViewModel
 import com.andymic.esnscanner.models.DeliverViewModel
 import com.andymic.esnscanner.models.ProduceViewModel
 import com.andymic.esnscanner.models.ScanViewModel
-import com.andymic.esnscanner.ui.components.CameraScreen
+import com.andymic.esnscanner.ui.Destinations
 import com.andymic.esnscanner.ui.components.NavigationRail
 import com.andymic.esnscanner.ui.components.add.AddBottomBox
 import com.andymic.esnscanner.ui.components.add.AddTopBox
@@ -44,8 +46,14 @@ import com.andymic.esnscanner.ui.components.produce.ProduceBottomBox
 import com.andymic.esnscanner.ui.components.produce.ProduceTopBox
 import com.andymic.esnscanner.ui.components.scan.ScanBottomBox
 import com.andymic.esnscanner.ui.components.scan.ScanTopBox
+import com.andymic.esnscanner.ui.screens.CameraScreen
 import com.andymic.esnscanner.ui.screens.HomeScreen
 import com.andymic.esnscanner.ui.theme.ESNScannerAppTheme
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

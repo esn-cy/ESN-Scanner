@@ -13,7 +13,7 @@ import com.andymic.esnscanner.data.getCardStatus
 import com.andymic.esnscanner.data.getExpirationDate
 import com.andymic.esnscanner.data.getIssuingSection
 import com.andymic.esnscanner.data.getLastScanDate
-import com.andymic.esnscanner.ui.components.CameraViewModel
+import com.andymic.esnscanner.ui.screens.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

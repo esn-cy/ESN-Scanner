@@ -1,4 +1,4 @@
-package com.andymic.esnscanner.ui.components
+package com.andymic.esnscanner.ui.screens
 
 import android.Manifest
 import android.annotation.SuppressLint
