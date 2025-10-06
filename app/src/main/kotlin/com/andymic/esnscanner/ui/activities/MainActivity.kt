@@ -111,7 +111,7 @@ fun AppContent(modifier: Modifier = Modifier) {
                 topStart = 16.dp,
                 bottomStart = 16.dp
             ),
-            color = MaterialTheme.colorScheme.surfaceVariant
+            color = MaterialTheme.colorScheme.surfaceContainerLow
         ) {
             ESNcardNavHost(navController, Destinations.Home.spec.route, Modifier.fillMaxSize())
         }

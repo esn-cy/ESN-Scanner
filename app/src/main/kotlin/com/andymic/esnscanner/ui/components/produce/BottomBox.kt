@@ -3,24 +3,25 @@ package com.andymic.esnscanner.ui.components.produce
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.andymic.esnscanner.models.ProduceUIState
+import com.andymic.esnscanner.ui.theme.statusColorScheme
 
 @Composable
 fun ProduceBottomBox(uiState: ProduceUIState, modifier: Modifier) {
     val backgroundColor = when (uiState) {
-        is ProduceUIState.Success -> Color.Green
-        is ProduceUIState.Error -> Color.Red
-        is ProduceUIState.Loading -> Color.DarkGray
-        is ProduceUIState.Idle -> Color.Black
+        is ProduceUIState.Success -> MaterialTheme.statusColorScheme.successContainer
+        is ProduceUIState.Error -> MaterialTheme.colorScheme.errorContainer
+        is ProduceUIState.Loading -> MaterialTheme.colorScheme.surfaceContainer
+        is ProduceUIState.Idle -> MaterialTheme.colorScheme.surfaceContainer
     }
     Box(
         modifier = modifier
@@ -36,10 +37,10 @@ fun ProduceBottomBox(uiState: ProduceUIState, modifier: Modifier) {
         }
 
         val color = when (uiState) {
-            is ProduceUIState.Success -> Color.Black
-            is ProduceUIState.Error -> Color.Black
-            is ProduceUIState.Loading -> Color.Black
-            is ProduceUIState.Idle -> Color.White
+            is ProduceUIState.Success -> MaterialTheme.statusColorScheme.onSuccessContainer
+            is ProduceUIState.Error -> MaterialTheme.colorScheme.onErrorContainer
+            is ProduceUIState.Loading -> MaterialTheme.colorScheme.onSurface
+            is ProduceUIState.Idle -> MaterialTheme.colorScheme.onSurface
         }
         Text(
             text = text,

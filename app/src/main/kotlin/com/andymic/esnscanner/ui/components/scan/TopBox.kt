@@ -12,12 +12,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,12 +29,13 @@ import coil.compose.rememberAsyncImagePainter
 import com.andymic.esnscanner.models.ScanUIState
 import com.andymic.esnscanner.ui.theme.ESNCyan
 import com.andymic.esnscanner.ui.theme.ESNDarkBlue
+import com.andymic.esnscanner.ui.theme.statusColorScheme
 
 @Composable
 fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
     Box(
         modifier = modifier
-            .background(Color.Black.copy(alpha = 0.6f))
+            .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(16.dp)
     ) {
         if (uiState is ScanUIState.Success) {
@@ -42,7 +45,8 @@ fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
                         .fillMaxHeight(0.5f)
                         .align(Alignment.CenterVertically)
                         .aspectRatio(2f / 3f)
-                        .background(Color.Gray)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceContainerHighest)
                 )
                 {
                     Image(
@@ -53,7 +57,11 @@ fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
                     if (uiState.result.profileImageURL == "UNKNOWN" || uiState.result.profileImageURL == "ESN Cyprus Pass") {
                         Text(
                             text = if (uiState.result.profileImageURL == "UNKNOWN") "?" else "\u2713",
-                            color = if (uiState.result.profileImageURL == "UNKNOWN") Color.Yellow else Color.Green,
+                            color =
+                                if (uiState.result.profileImageURL == "UNKNOWN")
+                                    MaterialTheme.statusColorScheme.warning
+                                else
+                                    MaterialTheme.statusColorScheme.success,
                             fontWeight = FontWeight.Bold,
                             fontSize = 64.sp,
                             textAlign = TextAlign.Center,
@@ -90,12 +98,18 @@ fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
 @Composable
 fun InfoRow(label: String, value: String) {
     val textColor =
-        if (value.contains("UNKNOWN") || value == "N/A" || value == "NOT REGISTERED" || value.contains(
-                "INCONSISTENT"
-            )
-        ) Color.Yellow else if (value == "EXPIRED") Color.Red else Color.White
+        if (
+            value.contains("UNKNOWN") ||
+            value == "NOT REGISTERED" ||
+            value.contains("INCONSISTENT")
+        )
+            MaterialTheme.statusColorScheme.warning
+        else if (value == "EXPIRED")
+            MaterialTheme.colorScheme.error
+        else
+            MaterialTheme.colorScheme.onSurface
     Column {
-        Text(text = label, color = Color.LightGray, fontSize = 12.sp)
+        Text(text = label, color = MaterialTheme.colorScheme.onSurface, fontSize = 12.sp)
         Text(text = value, color = textColor, fontWeight = FontWeight.Bold, fontSize = 16.sp)
     }
 }

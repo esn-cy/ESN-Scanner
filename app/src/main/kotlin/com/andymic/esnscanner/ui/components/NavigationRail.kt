@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Surface
@@ -25,11 +26,13 @@ fun NavigationRail(
     onDestinationSelected: (Destination) -> Unit
 ) {
     Box(
-        modifier = modifier.padding(horizontal = 8.dp).padding(WindowInsets.safeDrawing.asPaddingValues())
+        modifier = modifier
+            .padding(horizontal = 8.dp)
+            .padding(WindowInsets.safeDrawing.asPaddingValues())
     ) {
         Surface(
             shape = RoundedCornerShape(16.dp),
-            tonalElevation = 4.dp
+            color = MaterialTheme.colorScheme.surfaceContainerLow
         ) {
             NavigationRail(contentColor = Color.Transparent) {
                 Destinations.entries.forEachIndexed { index, destination ->

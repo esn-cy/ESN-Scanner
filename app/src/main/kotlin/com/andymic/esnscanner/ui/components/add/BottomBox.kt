@@ -3,24 +3,25 @@ package com.andymic.esnscanner.ui.components.add
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.andymic.esnscanner.models.AddUIState
+import com.andymic.esnscanner.ui.theme.statusColorScheme
 
 @Composable
 fun AddBottomBox(uiState: AddUIState, modifier: Modifier) {
     val backgroundColor = when (uiState) {
-        is AddUIState.Success -> Color.Green
-        is AddUIState.Error -> Color.Red
-        is AddUIState.Loading -> Color.DarkGray
-        is AddUIState.Idle -> Color.Black
+        is AddUIState.Success -> MaterialTheme.statusColorScheme.successContainer
+        is AddUIState.Error -> MaterialTheme.colorScheme.errorContainer
+        is AddUIState.Loading -> MaterialTheme.colorScheme.surfaceContainer
+        is AddUIState.Idle -> MaterialTheme.colorScheme.surfaceContainer
     }
     Box(
         modifier = modifier
@@ -36,10 +37,10 @@ fun AddBottomBox(uiState: AddUIState, modifier: Modifier) {
         }
 
         val color = when (uiState) {
-            is AddUIState.Success -> Color.Black
-            is AddUIState.Error -> Color.Black
-            is AddUIState.Loading -> Color.Black
-            is AddUIState.Idle -> Color.White
+            is AddUIState.Success -> MaterialTheme.statusColorScheme.onSuccessContainer
+            is AddUIState.Error -> MaterialTheme.colorScheme.onErrorContainer
+            is AddUIState.Loading -> MaterialTheme.colorScheme.onSurface
+            is AddUIState.Idle -> MaterialTheme.colorScheme.onSurface
         }
         Text(
             text = text,
