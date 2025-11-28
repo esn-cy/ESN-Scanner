@@ -38,12 +38,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.andymic.esnscanner.ui.components.camera.CameraScanner
+import com.andymic.esnscanner.ui.components.camera.rememberCameraScannerState
 import com.andymic.esnscanner.ui.theme.ESNCyan
 import com.andymic.esnscanner.ui.theme.ESNGreen
 import com.andymic.esnscanner.ui.theme.ESNMagenta
 import com.andymic.esnscanner.ui.theme.ESNOrange
 import kotlinx.coroutines.flow.StateFlow
-import rememberCameraScannerState
 
 interface CameraViewModel<T> {
     val state: StateFlow<T>
@@ -120,9 +120,7 @@ fun <T> CameraScreen(
                 CameraScanner(
                     onBarcodesScanned = { barcodes ->
                         for (barcode in barcodes) {
-                            val value = barcode.rawValue
-                            if (value == null)
-                                continue
+                            val value = barcode.rawValue ?: continue
                             viewModel.onScan(value)
                         }
                     },

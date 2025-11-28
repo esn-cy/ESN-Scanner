@@ -44,6 +44,7 @@ val LocalStatusColorScheme = staticCompositionLocalOf {
     lightStatusColorScheme
 }
 
+@Suppress("UnusedReceiverParameter")
 val MaterialTheme.statusColorScheme: StatusColorScheme
     @Composable
     get() = LocalStatusColorScheme.current

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+
 sealed interface OnlineUIState {
     data object Idle : OnlineUIState
     data object Loading : OnlineUIState
@@ -23,15 +24,15 @@ data class OnlineResult(
     val isDatasetOnline: Boolean
 )
 
-class OnlineViewModel(application: Application) : AndroidViewModel(application) {
-    val sectionData: SectionData.SectionData
-
-    init {
-        val sectionDataInputStream = application.assets.open("section-data.json")
-        sectionData = SectionData(sectionDataInputStream).sectionData
-    }
-
-    private val testService = TestServiceImplementation(KtorClient.httpClient)
+class OnlineViewModel(
+    application: Application,
+    private val sectionData: SectionData.SectionData
+) : AndroidViewModel(application) {
+    private val testService = TestServiceImplementation(
+        client = KtorClient.httpClient,
+        sectionDomain = sectionData.localSectionDomain,
+        spreadsheetID = sectionData.spreadsheetID,
+    )
 
     private val _state = MutableStateFlow<OnlineUIState>(OnlineUIState.Idle)
     val state = _state.asStateFlow()
@@ -41,9 +42,11 @@ class OnlineViewModel(application: Application) : AndroidViewModel(application) 
         _state.value = OnlineUIState.Loading
 
         viewModelScope.launch {
-            val isLocalOnline = testService.local(sectionData.localSectionDomain)
-            val isInternationalOnline = testService.international()
-            val isDatasetOnline = testService.dataset(sectionData.spreadsheetID)
+            val isLocalOnline: Boolean = if (sectionData.localSectionDomain != "")
+                testService.local() else false
+            val isInternationalOnline: Boolean = testService.international()
+            val isDatasetOnline: Boolean = if (sectionData.spreadsheetID != "")
+                testService.dataset() else false
 
             val serviceStatus =
                 if (isLocalOnline && isInternationalOnline && isDatasetOnline)

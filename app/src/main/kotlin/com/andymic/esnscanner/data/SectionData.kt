@@ -1,34 +1,39 @@
 package com.andymic.esnscanner.data
 
+import androidx.datastore.core.CorruptionException
+import androidx.datastore.core.Serializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
 import java.io.InputStream
+import java.io.OutputStream
 
-class SectionData(inputStream: InputStream) {
+object SectionData {
     @Serializable
     data class SectionData(
-        var spreadsheetID: String,
-        var localSectionName: String,
-        var localSectionCode: String,
-        var localSectionDomain: String
+        var localSectionName: String = "",
+        var localSectionCode: String = "",
+        var localSectionDomain: String = "",
+        var spreadsheetID: String = ""
     )
 
-    var sectionData: SectionData
+    object SectionDataSerializer : Serializer<SectionData> {
+        override val defaultValue: SectionData = SectionData()
 
-    init {
-        val sectionsJSON = Json.parseToJsonElement(inputStream.bufferedReader().use {
-            it.readText()
-        })
+        override suspend fun readFrom(input: InputStream): SectionData =
+            try {
+                Json.decodeFromString<SectionData>(
+                    input.readBytes().decodeToString()
+                )
+            } catch (serialization: SerializationException) {
+                throw CorruptionException("Unable to read Settings", serialization)
+            }
 
-        sectionData = SectionData(
-            spreadsheetID = sectionsJSON.jsonObject["spreadsheetID"].toString().drop(1).dropLast(1),
-            localSectionName = sectionsJSON.jsonObject["localSectionName"].toString().drop(1)
-                .dropLast(1),
-            localSectionCode = sectionsJSON.jsonObject["localSectionCode"].toString().drop(1)
-                .dropLast(1),
-            sectionsJSON.jsonObject["localSectionDomain"].toString().drop(1)
-                .dropLast(1)
-        )
+        override suspend fun writeTo(t: SectionData, output: OutputStream) {
+            output.write(
+                Json.encodeToString(t)
+                    .encodeToByteArray()
+            )
+        }
     }
 }

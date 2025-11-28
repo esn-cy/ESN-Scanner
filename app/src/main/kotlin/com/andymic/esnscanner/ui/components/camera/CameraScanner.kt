@@ -1,6 +1,5 @@
 package com.andymic.esnscanner.ui.components.camera
 
-import CameraScannerState
 import android.content.Context
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis

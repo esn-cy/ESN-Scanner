@@ -42,20 +42,22 @@ data class ScanResult(
 val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
 val ESNCyprusPassRegex = Regex("ESNCYTKNESNCYTKN\\d*")
 
-class ScanViewModel(application: Application) : AndroidViewModel(application),
-    CameraViewModel<ScanUIState> {
+class ScanViewModel(
+    application: Application,
+    private val sectionData: SectionData.SectionData
+) : AndroidViewModel(application), CameraViewModel<ScanUIState> {
+    private val apiService = ApiServiceImplementation(
+        client = KtorClient.httpClient,
+        sectionDomain = sectionData.localSectionDomain,
+        spreadsheetID = sectionData.spreadsheetID,
+    )
 
     val sections: List<Sections.Section>
-    val sectionData: SectionData.SectionData
 
     init {
         val sectionsInputStream = application.assets.open("sections.json")
         sections = Sections(sectionsInputStream).sections
-        val sectionDataInputStream = application.assets.open("section-data.json")
-        sectionData = SectionData(sectionDataInputStream).sectionData
     }
-
-    private val apiService = ApiServiceImplementation(KtorClient.httpClient)
 
     private val _state = MutableStateFlow<ScanUIState>(ScanUIState.Idle)
     override val state = _state.asStateFlow()
@@ -84,12 +86,12 @@ class ScanViewModel(application: Application) : AndroidViewModel(application),
         }
 
         viewModelScope.launch {
-            val localInfo = apiService.getLocalInfo(identifier, sectionData.localSectionDomain)
+            val localInfo = apiService.getLocalInfo(identifier)
             var internationalInfo: InternationalResponse? = null
             var datasetInfo: DatasetResponse? = null
             if (isESNcard) {
                 internationalInfo = apiService.getInternationalInfo(identifier)
-                datasetInfo = apiService.getDatasetInfo(identifier, sectionData.spreadsheetID)
+                datasetInfo = apiService.getDatasetInfo(identifier)
             }
 
             val existsLocally = datasetInfo != null || localInfo != null

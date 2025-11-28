@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.andymic.esnscanner.data.ApiServiceImplementation
 import com.andymic.esnscanner.data.KtorClient
+import com.andymic.esnscanner.data.SectionData
 import com.andymic.esnscanner.ui.screens.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,10 +23,15 @@ data class AddResult(
     var status: String
 )
 
-class AddViewModel(application: Application) : AndroidViewModel(application),
-    CameraViewModel<AddUIState> {
-
-    private val apiService = ApiServiceImplementation(KtorClient.httpClient)
+class AddViewModel(
+    application: Application,
+    sectionData: SectionData.SectionData
+) : AndroidViewModel(application), CameraViewModel<AddUIState> {
+    private val apiService = ApiServiceImplementation(
+        client = KtorClient.httpClient,
+        sectionDomain = sectionData.localSectionDomain,
+        spreadsheetID = sectionData.spreadsheetID,
+    )
 
     private val _state = MutableStateFlow<AddUIState>(AddUIState.Idle)
     override val state = _state.asStateFlow()

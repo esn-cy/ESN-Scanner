@@ -1,3 +1,5 @@
+package com.andymic.esnscanner.ui.components.camera
+
 import androidx.camera.core.Camera
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -5,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 
 /**
  * A state holder for managing the camera, including the flash.
@@ -39,7 +42,7 @@ class CameraScannerState(
  */
 @Composable
 fun rememberCameraScannerState(
-    lifecycleOwner: LifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ): CameraScannerState {
     return remember(lifecycleOwner) {
         CameraScannerState(lifecycleOwner)

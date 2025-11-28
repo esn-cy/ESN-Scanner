@@ -6,9 +6,9 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 
 interface APIService {
-    suspend fun getLocalInfo(lookupString: String, sectionDomain: String): LocalResponse?
+    suspend fun getLocalInfo(lookupString: String): LocalResponse?
     suspend fun getInternationalInfo(cardNumber: String): InternationalResponse?
-    suspend fun getDatasetInfo(cardNumber: String, spreadsheetID: String): DatasetResponse?
+    suspend fun getDatasetInfo(cardNumber: String): DatasetResponse?
     suspend fun addCard(cardNumber: String): AddCardResponse?
     suspend fun updateStatus(cardNumber: String, status: String): StatusResponse?
 }
@@ -17,9 +17,11 @@ val datasetRegex =
     Regex("\\{\"v\":\"Date\\(\\d\\d\\d\\d,\\d\\d?,\\d\\d?\\)\",\"f\":\"(\\d\\d?/\\d\\d?/\\d\\d\\d\\d)\"\\},\\{\"v\":\"(.*?)\"\\},\\{\"v\":\"(.*?)\"\\},\\{\"v\":\"(.*?)\"\\},\\{\"v\":\"(.*?)\"\\},\\{\"v\":\"(.*?)\"\\},\\{\"v\":\"(.*?)\"\\},\\{\"v\":[\\d.]*?,\"f\":\"([\\d.]*?)\"\\}")
 
 class ApiServiceImplementation(
-    private val client: io.ktor.client.HttpClient
+    private val client: io.ktor.client.HttpClient,
+    private val sectionDomain: String,
+    private val spreadsheetID: String
 ) : APIService {
-    override suspend fun getLocalInfo(lookupString: String, sectionDomain: String): LocalResponse? {
+    override suspend fun getLocalInfo(lookupString: String): LocalResponse? {
         try {
             val response = client.post("https://$sectionDomain/api/esncard/scan") {
                 setBody("{\"card\": \"$lookupString\"}")
@@ -43,17 +45,12 @@ class ApiServiceImplementation(
         }
     }
 
-    override suspend fun getDatasetInfo(
-        cardNumber: String,
-        spreadsheetID: String
-    ): DatasetResponse? {
+    override suspend fun getDatasetInfo(cardNumber: String): DatasetResponse? {
         try {
             val body: String =
                 client.get("https://docs.google.com/spreadsheets/d/$spreadsheetID/gviz/tq?tq=SELECT A, B, C, D, E, F, G, H WHERE C = '$cardNumber'&sheet=Data&tqx=out:json")
                     .body()
-            val match = datasetRegex.find(body)
-            if (match == null)
-                return null
+            val match = datasetRegex.find(body) ?: return null
             return DatasetResponse(
                 match.groupValues[1],
                 match.groupValues[2],

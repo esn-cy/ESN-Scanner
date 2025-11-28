@@ -21,16 +21,12 @@ object InternationalSerializer : KSerializer<String?> {
     override fun serialize(encoder: Encoder, value: String?) {
         if (value != null)
             encoder.encodeString(value)
-        else
-            null
     }
 
     override fun deserialize(decoder: Decoder): String? {
         val jsonDecoder = decoder as? JsonDecoder
             ?: throw SerializationException("This serializer can only be used with JSON")
-        val jsonElement = jsonDecoder.decodeJsonElement()
-
-        return when (jsonElement) {
+        return when (val jsonElement = jsonDecoder.decodeJsonElement()) {
             is JsonPrimitive -> jsonElement.content
             is JsonArray -> {
                 if (jsonElement.size == 1 && jsonElement.firstOrNull()?.jsonPrimitive?.content == "") {

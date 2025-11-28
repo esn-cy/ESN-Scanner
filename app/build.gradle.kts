@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
@@ -14,14 +16,14 @@ plugins {
 android {
     namespace = "com.andymic.esnscanner"
     compileSdk = 36
-    ndkVersion = "29.0.14033849 rc4"
+    ndkVersion = "29.0.14206865"
 
     defaultConfig {
         applicationId = "com.andymic.esnscanner"
         minSdk = 26
         targetSdk = 36
-        versionCode = 9
-        versionName = "1.6.2"
+        versionCode = 10
+        versionName = "1.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -99,6 +101,9 @@ dependencies {
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+    testImplementation(libs.ktor.client.mock)
+
+    implementation(libs.datastore)
 
     implementation(libs.barcode.scanning)
 
@@ -118,4 +123,10 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+
+    testImplementation(libs.turbine)
 }

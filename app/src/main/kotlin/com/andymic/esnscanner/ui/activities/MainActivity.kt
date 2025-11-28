@@ -26,22 +26,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.andymic.esnscanner.data.SectionData
 import com.andymic.esnscanner.models.AddViewModel
 import com.andymic.esnscanner.models.DeliverViewModel
 import com.andymic.esnscanner.models.OnlineViewModel
 import com.andymic.esnscanner.models.ProduceViewModel
 import com.andymic.esnscanner.models.ScanViewModel
+import com.andymic.esnscanner.models.SectionDataUIState
+import com.andymic.esnscanner.models.SectionDataViewModel
+import com.andymic.esnscanner.models.SectionDataViewModelFactory
 import com.andymic.esnscanner.models.UpdateUIState
 import com.andymic.esnscanner.models.UpdateViewModel
+import com.andymic.esnscanner.models.ViewModels
 import com.andymic.esnscanner.ui.Destinations
 import com.andymic.esnscanner.ui.components.NavigationRail
 import com.andymic.esnscanner.ui.components.add.AddBottomBox
@@ -62,6 +66,8 @@ import com.google.android.play.core.install.model.AppUpdateType
 
 class MainActivity : ComponentActivity() {
     private val updateViewModel: UpdateViewModel by viewModels()
+    private val sectionDataViewModel: SectionDataViewModel by viewModels()
+
     private lateinit var appUpdateManager: AppUpdateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,10 +81,13 @@ class MainActivity : ComponentActivity() {
 
         appUpdateManager = AppUpdateManagerFactory.create(this)
 
-        splashScreen.setKeepOnScreenCondition { updateViewModel.state.value is UpdateUIState.Loading }
+        splashScreen.setKeepOnScreenCondition {
+            updateViewModel.state.value is UpdateUIState.Loading || sectionDataViewModel.state.value is SectionDataUIState.Loading
+        }
 
         setContent {
             val updateState by updateViewModel.state.collectAsState()
+            val sectionDataState by sectionDataViewModel.state.collectAsState()
 
             LaunchedEffect(Unit) {
                 updateViewModel.updateEvent.collect { appUpdateInfo ->
@@ -102,9 +111,34 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
+            if (sectionDataState is SectionDataUIState.Success && updateState is UpdateUIState.Success) {
+                val successData = (sectionDataState as SectionDataUIState.Success).result
 
-            ESNScannerAppTheme {
-                AppContent(updateViewModel = updateViewModel)
+                val viewModels = remember(successData) {
+
+                    val provider = ViewModelProvider(
+                        owner = this,
+                        factory = SectionDataViewModelFactory(
+                            this.application,
+                            (sectionDataViewModel.state.value as? SectionDataUIState.Success)?.result
+                                ?: SectionData.SectionData()
+                        )
+                    )
+
+                    ViewModels(
+                        provider[AddViewModel::class],
+                        provider[DeliverViewModel::class],
+                        provider[OnlineViewModel::class],
+                        provider[ProduceViewModel::class],
+                        provider[ScanViewModel::class],
+                        sectionDataViewModel,
+                        updateViewModel
+                    )
+                }
+
+                ESNScannerAppTheme {
+                    AppContent(viewModels = viewModels)
+                }
             }
         }
 
@@ -130,19 +164,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview
 @Composable
 fun AppContent(
     modifier: Modifier = Modifier,
-    updateViewModel: UpdateViewModel = viewModel()
+    viewModels: ViewModels
 ) {
     val navController = rememberNavController()
     var selectedDestination by remember { mutableStateOf(Destinations.Home.spec) }
 
-    val onlineViewModel: OnlineViewModel = viewModel()
-
     LaunchedEffect(Unit) {
-        onlineViewModel.runTest()
+        viewModels.onlineViewModel.runTest()
     }
 
     Row(modifier = modifier.fillMaxSize()) {
@@ -156,7 +187,7 @@ fun AppContent(
                     restoreState = true
                 }
             },
-            viewModel = onlineViewModel
+            viewModel = viewModels.onlineViewModel
         )
 
         Surface(
@@ -172,8 +203,7 @@ fun AppContent(
             ESNcardNavHost(
                 navController = navController,
                 startDestination = Destinations.Home.spec.route,
-                onlineViewModel = onlineViewModel,
-                updateViewModel = updateViewModel,
+                viewModels = viewModels,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -184,8 +214,7 @@ fun AppContent(
 fun ESNcardNavHost(
     navController: NavHostController,
     startDestination: String,
-    onlineViewModel: OnlineViewModel,
-    updateViewModel: UpdateViewModel,
+    viewModels: ViewModels,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -195,34 +224,35 @@ fun ESNcardNavHost(
     ) {
         composable(route = Destinations.Home.spec.route) {
             HomeScreen(
-                onlineViewModel = onlineViewModel,
-                updateViewModel = updateViewModel
+                onlineViewModel = viewModels.onlineViewModel,
+                updateViewModel = viewModels.updateViewModel,
+                sectionDataViewModel = viewModels.sectionDataViewModel
             )
         }
         composable(route = Destinations.Scan.spec.route) {
             CameraScreen(
-                viewModel<ScanViewModel>(),
+                viewModels.scanViewModel,
                 TopBox = { uiState, modifier -> ScanTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> ScanBottomBox(uiState, modifier) }
             )
         }
         composable(route = Destinations.Add.spec.route) {
             CameraScreen(
-                viewModel<AddViewModel>(),
+                viewModels.addViewModel,
                 TopBox = { uiState, modifier -> AddTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> AddBottomBox(uiState, modifier) }
             )
         }
         composable(route = Destinations.Produce.spec.route) {
             CameraScreen(
-                viewModel<ProduceViewModel>(),
+                viewModels.produceViewModel,
                 TopBox = { uiState, modifier -> ProduceTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> ProduceBottomBox(uiState, modifier) }
             )
         }
         composable(route = Destinations.Deliver.spec.route) {
             CameraScreen(
-                viewModel<DeliverViewModel>(),
+                viewModels.deliverViewModel,
                 TopBox = { uiState, modifier -> DeliverTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> DeliverBottomBox(uiState, modifier) }
             )

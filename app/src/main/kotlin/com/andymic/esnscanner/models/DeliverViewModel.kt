@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.andymic.esnscanner.data.ApiServiceImplementation
 import com.andymic.esnscanner.data.KtorClient
 import com.andymic.esnscanner.data.SectionData
-import com.andymic.esnscanner.data.Sections
 import com.andymic.esnscanner.ui.screens.CameraViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,19 +23,15 @@ data class DeliverResult(
     var status: String
 )
 
-class DeliverViewModel(application: Application) : AndroidViewModel(application),
-    CameraViewModel<DeliverUIState> {
-    val sections: List<Sections.Section>
-    val sectionData: SectionData.SectionData
-
-    init {
-        val sectionsInputStream = application.assets.open("sections.json")
-        sections = Sections(sectionsInputStream).sections
-        val sectionDataInputStream = application.assets.open("section-data.json")
-        sectionData = SectionData(sectionDataInputStream).sectionData
-    }
-
-    private val apiService = ApiServiceImplementation(KtorClient.httpClient)
+class DeliverViewModel(
+    application: Application,
+    sectionData: SectionData.SectionData
+) : AndroidViewModel(application), CameraViewModel<DeliverUIState> {
+    private val apiService = ApiServiceImplementation(
+        client = KtorClient.httpClient,
+        sectionDomain = sectionData.localSectionDomain,
+        spreadsheetID = sectionData.spreadsheetID,
+    )
 
     private val _state = MutableStateFlow<DeliverUIState>(DeliverUIState.Idle)
     override val state = _state.asStateFlow()

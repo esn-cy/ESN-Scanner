@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.andymic.esnscanner.models.UpdateUIState
 import com.andymic.esnscanner.models.UpdateViewModel
 import com.andymic.esnscanner.ui.theme.statusColorScheme
@@ -27,7 +26,7 @@ import com.andymic.esnscanner.ui.theme.statusColorScheme
 @Composable
 fun UpdateIndicator(
     modifier: Modifier = Modifier,
-    viewModel: UpdateViewModel = viewModel()
+    viewModel: UpdateViewModel
 ) {
     val uiState by viewModel.state.collectAsState()
 

@@ -22,13 +22,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.andymic.esnscanner.models.OnlineUIState
 import com.andymic.esnscanner.models.OnlineViewModel
 import com.andymic.esnscanner.ui.theme.statusColorScheme
 
 @Composable
-fun OnlineIndicator(modifier: Modifier = Modifier, viewModel: OnlineViewModel = viewModel()) {
+fun OnlineIndicator(
+    modifier: Modifier = Modifier,
+    viewModel: OnlineViewModel
+) {
     val uiState by viewModel.state.collectAsState()
 
     Column(

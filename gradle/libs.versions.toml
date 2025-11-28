@@ -1,83 +1,98 @@
 [versions]
-activityCompose = "1.11.0"
-agp = "8.13.0"
+activityCompose = "1.12.0"
+agp = "8.13.1"
 appUpdate = "2.1.0"
 barcodeScanning = "17.3.0"
-cameraCore = "1.5.0"
+camera = "1.5.1"
 coilCompose = "2.7.0"
-composeBom = "2025.09.01"
-coreSplashscreen = "1.2.0-rc01"
-firebaseBom = "34.3.0"
-googleServices = "4.4.3"
+composeBom = "2025.11.01"
+coreSplashscreen = "1.2.0"
+datastore = "1.2.0"
+firebaseBom = "34.6.0"
+firebaseCrashlytics = "3.0.6"
+googleServices = "4.4.4"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
-firebaseCrashlytics = "3.0.6"
-firebasePerf = "2.0.1"
-foundationAndroid = "1.9.2"
-ktorClientAndroid = "3.3.0"
-lifecycleViewmodelCompose = "2.9.4"
+firebasePerf = "2.0.2"
+foundation = "1.9.5"
+kotlinxCoroutinesTest = "1.10.2"
+ktor = "3.3.2"
+lifecycleViewmodelCompose = "2.10.0"
 material = "1.13.0"
-material3 = "1.5.0-alpha04"
+material3 = "1.5.0-alpha09"
 materialIconsExtended = "1.7.8"
-navigationCompose = "2.9.5"
-navigationFragment = "2.9.5"
-navigationUi = "2.9.5"
-runtimeAndroid = "1.9.2"
-kotlin = "2.2.20"
-uiGraphicsAndroid = "1.9.2"
-foundation = "1.9.2"
-cameraView = "1.5.0"
-foundationLayout = "1.9.2"
-appUpdateKtx = "2.1.0"
-runtimeAnnotation = "1.9.2"
+mockitoCore = "5.20.0"
+mockitoKotlin = "6.1.0"
+navigation = "2.9.6"
+runtime = "1.9.5"
+kotlin = "2.2.21"
+turbine = "1.2.1"
+uiGraphicsAndroid = "1.9.5"
 
 [libraries]
-app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
-barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+
+ui = { module = "androidx.compose.ui:ui" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtime" }
+runtime-annotation = { group = "androidx.compose.runtime", name = "runtime-annotation", version.ref = "runtime" }
+ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
+foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
+foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundation" }
+foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundation" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+
+lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigation" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
+camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera" }
+camera-core = { module = "androidx.camera:camera-core", version.ref = "camera" }
+camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camera" }
+camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camera" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+
+datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
+
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "appUpdate" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+
+barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
+
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
 firebase-perf = { module = "com.google.firebase:firebase-perf" }
+
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientAndroid" }
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientAndroid" }
-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientAndroid" }
 
-material = { module = "com.google.android.material:material", version.ref = "material" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
-ui = { module = "androidx.compose.ui:ui" }
-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 
-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
-app-update-ktx = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "appUpdateKtx" }
-runtime-annotation = { group = "androidx.compose.runtime", name = "runtime-annotation", version.ref = "runtimeAnnotation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
