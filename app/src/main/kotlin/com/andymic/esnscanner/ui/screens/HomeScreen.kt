@@ -1,7 +1,6 @@
 package com.andymic.esnscanner.ui.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,7 +29,8 @@ fun HomeScreen(
         SectionDataFields(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .weight(0.5f),
             onSave = { localSectionName,
                        localSectionCode,
                        localSectionDomain,
@@ -45,7 +45,6 @@ fun HomeScreen(
             },
             viewModel = sectionDataViewModel,
         )
-        Spacer(Modifier.weight(1f))
         UpdateIndicator(
             modifier = Modifier
                 .fillMaxWidth()

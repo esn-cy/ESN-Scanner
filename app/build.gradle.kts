@@ -22,8 +22,8 @@ android {
         applicationId = "com.andymic.esnscanner"
         minSdk = 26
         targetSdk = 36
-        versionCode = 11
-        versionName = "1.7.1"
+        versionCode = 12
+        versionName = "1.7.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -106,6 +106,8 @@ dependencies {
     implementation(libs.datastore)
 
     implementation(libs.barcode.scanning)
+
+    implementation(libs.zxing.core)
 
     implementation(libs.coil.compose)
 

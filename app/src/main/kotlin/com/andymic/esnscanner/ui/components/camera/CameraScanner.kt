@@ -18,6 +18,7 @@ import java.util.concurrent.Executors
 
 @Composable
 fun CameraScanner(
+    modifier: Modifier = Modifier,
     onBarcodesScanned: (List<Barcode>) -> Unit,
     state: CameraScannerState,
     context: Context
@@ -57,6 +58,6 @@ fun CameraScanner(
             }, ContextCompat.getMainExecutor(ctx))
             previewView
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     )
 }

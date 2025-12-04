@@ -1,11 +1,13 @@
 package com.andymic.esnscanner.models
 
 import android.app.Application
+import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.andymic.esnscanner.data.SectionData
 import com.andymic.esnscanner.dataStore
+import com.andymic.esnscanner.ui.activities.MainActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -59,6 +61,10 @@ class SectionDataViewModel(application: Application) : AndroidViewModel(applicat
                     )
                 }
                 _state.value = SectionDataUIState.Success(value)
+                val intent = Intent(application, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                application.startActivity(intent)
+                Runtime.getRuntime().exit(0)
             }
         } catch (e: Exception) {
             _state.value = SectionDataUIState.Error(e)
