@@ -1,6 +1,7 @@
 package com.andymic.esnscanner.data
 
 import io.ktor.client.plugins.timeout
+import io.ktor.client.request.get
 import io.ktor.client.request.head
 
 interface TestService {
@@ -16,7 +17,7 @@ class TestServiceImplementation(
 ) : TestService {
     override suspend fun local(): Boolean {
         try {
-            val response = client.head("https://$sectionDomain/api/esncard/scan") {
+            val response = client.get("https://$sectionDomain/api/esncard/scan") {
                 timeout {
                     requestTimeoutMillis = 500
                 }

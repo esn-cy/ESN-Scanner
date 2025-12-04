@@ -111,7 +111,7 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
-            if (sectionDataState is SectionDataUIState.Success && updateState is UpdateUIState.Success) {
+            if (sectionDataState !is SectionDataUIState.Loading && updateState !is UpdateUIState.Loading) {
                 val successData = (sectionDataState as SectionDataUIState.Success).result
 
                 val viewModels = remember(successData) {

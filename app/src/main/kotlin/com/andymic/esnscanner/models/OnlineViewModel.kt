@@ -49,14 +49,17 @@ class OnlineViewModel(
                 testService.dataset() else false
 
             val serviceStatus =
-                if (isLocalOnline && isInternationalOnline && isDatasetOnline)
-                    "Full Information Available"
-                else if ((isLocalOnline || isDatasetOnline) && !isInternationalOnline)
-                    "Local Information Only"
-                else if (!(isLocalOnline || isDatasetOnline) && isInternationalOnline)
-                    "International Information Only"
-                else
-                    "No Information Available"
+                when (Triple(isLocalOnline, isInternationalOnline, isDatasetOnline)) {
+                    Triple(true, true, true) -> "Full Information Available"
+                    Triple(true, false, true) -> "Section Information Only"
+                    Triple(true, false, false) -> "Website Information Only"
+                    Triple(false, false, true) -> "Dataset Information Only"
+                    Triple(false, true, false) -> "International Information Only"
+                    Triple(true, true, false) -> "Partial Information"
+                    Triple(false, true, true) -> "Partial Information"
+                    Triple(false, false, false) -> "No Information Available"
+                    else -> "Unknown Information Availability"
+                }
 
             _state.value = OnlineUIState.Success(
                 OnlineResult(
