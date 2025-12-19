@@ -1,58 +1,60 @@
 [versions]
-activityCompose = "1.12.1"
-agp = "8.13.1"
+packageName = "com.andymic.esnscanner"
+
+java = "11"
+minAndroid = "26"
+minIOS = "16.6"
+targetAndroid = "36"
+
+versionCode = "14"
+versionName = "2.0.0"
+
+ios-mlkit = "9.0.0"
+ios-firebase = "12.7.0"
+
+activityCompose = "1.12.2"
+agp = "8.13.2"
 appUpdate = "2.1.0"
 barcodeScanning = "17.3.0"
 camera = "1.5.2"
-coilCompose = "2.7.0"
-composeBom = "2025.12.00"
+coilCompose = "3.3.0"
+coilNetworkKtor = "3.0.0-alpha08"
+composeMultiplatform = "1.9.3"
 coreSplashscreen = "1.2.0"
 datastore = "1.2.0"
-firebaseBom = "34.6.0"
+firebaseBom = "34.7.0"
 firebaseCrashlytics = "3.0.6"
-googleServices = "4.4.4"
-junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
 firebasePerf = "2.0.2"
-foundation = "1.10.0"
+gitliveFirebase = "2.4.0"
+googleServices = "4.4.4"
+kotlinxCoroutinesPlayServices = "1.10.2"
 kotlinxCoroutinesTest = "1.10.2"
+kotlinxDatetime = "0.7.1"
 ktor = "3.3.3"
-lifecycleViewmodelCompose = "2.10.0"
+lifecycle = "2.9.6"
 material = "1.13.0"
-material3 = "1.5.0-alpha10"
-materialIconsExtended = "1.7.8"
-mockitoCore = "5.20.0"
-mockitoKotlin = "6.1.0"
-navigation = "2.9.6"
-runtime = "1.10.0"
-kotlin = "2.2.21"
+navigation = "2.9.1"
+qrKit = "3.1.3"
+kotlin = "2.3.0"
 turbine = "1.2.1"
-uiGraphicsAndroid = "1.10.0"
-zxingCore = "3.5.4"
 
 [libraries]
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 
-ui = { module = "androidx.compose.ui:ui" }
-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtime" }
-runtime-annotation = { group = "androidx.compose.runtime", name = "runtime-annotation", version.ref = "runtime" }
-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundation" }
-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundation" }
-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 
-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 
-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigation" }
-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coilNetworkKtor" }
+
+gitlive-firebase-common = { module = "dev.gitlive:firebase-common", version.ref = "gitliveFirebase" }
+gitlive-firebase-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "gitliveFirebase" }
+gitlive-firebase-perf = { module = "dev.gitlive:firebase-perf", version.ref = "gitliveFirebase" }
+
+coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera" }
 camera-core = { module = "androidx.camera:camera-core", version.ref = "camera" }
@@ -61,9 +63,7 @@ camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
-
-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 
 app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
 app-update-ktx = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "appUpdate" }
@@ -78,30 +78,30 @@ firebase-perf = { module = "com.google.firebase:firebase-perf" }
 
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 
-zxing-core = { module = "com.google.zxing:core", version.ref = "zxingCore" }
-
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+qr-kit = { module = "network.chaintech:qr-kit", version.ref = "qrKit" }
 
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-multiplatform = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerf" }

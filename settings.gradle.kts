@@ -21,5 +21,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ESN Scanner"
-include(":app")
+rootProject.name = "ESNScanner"
+include(":app", ":androidApp")

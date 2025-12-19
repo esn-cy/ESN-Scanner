@@ -1,0 +1,6 @@
+#include "Version.xcconfig"
+
+TEAM_ID=
+
+PRODUCT_NAME=ESNScanner
+PRODUCT_BUNDLE_IDENTIFIER=com.andymic.esnscanner$(TEAM_ID)

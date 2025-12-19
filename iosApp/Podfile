@@ -1,0 +1,6 @@
+target 'iosApp' do
+  use_frameworks!
+
+  pod 'ESNScanner', :path => '../app'
+  pod 'FirebaseCore'
+end

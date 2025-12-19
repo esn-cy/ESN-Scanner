@@ -1,134 +1,157 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.android.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
-android {
-    namespace = "com.andymic.esnscanner"
-    compileSdk = 36
-    ndkVersion = "29.0.14206865"
+kotlin {
+    jvmToolchain(libs.versions.java.get().toInt())
 
-    defaultConfig {
-        applicationId = "com.andymic.esnscanner"
-        minSdk = 26
-        targetSdk = 36
-        versionCode = 13
-        versionName = "1.7.3"
+    androidLibrary {
+        namespace = libs.versions.packageName.get()
+        compileSdk = libs.versions.targetAndroid.get().toInt()
+        minSdk = libs.versions.minAndroid.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            isJniDebuggable = false
-            isDebuggable = false
+        withJava()
+        androidResources {
+            enable = true
+        }
+        compilerOptions {
+            jvmTarget.set(JvmTarget.valueOf("JVM_" + libs.versions.java.get()))
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+
+    iosArm64 {
+        binaries.framework {
+            baseName = "App"
+            isStatic = true
+            binaryOption("bundleId", libs.versions.packageName.get())
+            binaryOption("bundleShortVersionString", libs.versions.versionName.get())
+            binaryOption("bundleVersion", libs.versions.versionCode.get())
+        }
     }
-    buildFeatures {
-        viewBinding = true
-        compose = true
+
+    cocoapods {
+        version = libs.versions.versionName.get()
+        summary = "Scans ESNcards and Free Passes" //TODO Add description
+        homepage = "https://github.com/esn-cy/ESN-Scanner"
+        ios.deploymentTarget = libs.versions.minIOS.get()
+        name = "ESNScanner"
+        podfile = project.file("../iosApp/Podfile")
+
+        framework {
+            baseName = "App"
+            isStatic = true
+            linkerOpts.add("-ObjC")
+        }
+
+        xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
+        xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
+
+        pod("GoogleMLKit/BarcodeScanning") {
+            version = libs.versions.ios.mlkit.get()
+            moduleName = "MLKitBarcodeScanning"
+        }
+        pod("GoogleMLKit/Vision") {
+            version = libs.versions.ios.mlkit.get()
+            moduleName = "MLKitVision"
+        }
+        pod("FirebaseCore") {
+            version = libs.versions.ios.firebase.get()
+        }
+        pod("FirebaseAnalytics") {
+            version = libs.versions.ios.firebase.get()
+        }
+        pod("FirebaseCrashlytics") {
+            version = libs.versions.ios.firebase.get()
+        }
+        pod("FirebasePerformance") {
+            version = libs.versions.ios.firebase.get()
+        }
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+
+    sourceSets {
+        commonMain {
+            kotlin.srcDir(layout.buildDirectory.dir("generated/esnscanner/kotlin"))
+
+            dependencies {
+                implementation(kotlin("stdlib-common"))
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.lifecycle.viewmodel.compose)
+                implementation(libs.lifecycle.runtime.compose)
+                implementation(libs.navigation.compose)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network.ktor)
+                implementation(libs.datastore)
+                implementation(libs.datastore.preferences)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.qr.kit)
+                implementation(libs.gitlive.firebase.common)
+                implementation(libs.gitlive.firebase.crashlytics)
+                implementation(libs.gitlive.firebase.perf)
+            }
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
+        }
+        androidMain.dependencies {
+            implementation(libs.material)
+
+            implementation(libs.ktor.client.android)
+
+            implementation(libs.camera.core)
+            implementation(libs.camera.lifecycle)
+            implementation(libs.camera.view)
+            implementation(libs.camera.camera2)
+
+            implementation(libs.barcode.scanning)
+
+            implementation(libs.app.update)
+            implementation(libs.app.update.ktx)
+
+            implementation(libs.google.services)
+            implementation(libs.coroutines.play.services)
+
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.crashlytics.ndk)
+            implementation(libs.firebase.analytics)
+            implementation(libs.firebase.perf)
+
+        }
+        iosArm64Main.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
     }
 }
 
-tasks.withType<KotlinJvmCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_11)
-        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+tasks.register("generateVersionXcconfig") {
+    val configFile = project.rootDir.resolve("iosApp/Configuration/Version.xcconfig")
+
+    doLast {
+        val content = """
+            // This file is auto-generated by Gradle. Do not edit.
+            MARKETING_VERSION = ${libs.versions.versionName.get()}
+            CURRENT_PROJECT_VERSION = ${libs.versions.versionCode.get()}
+        """.trimIndent()
+        configFile.writeText(content)
     }
-}
-
-dependencies {
-    val composeBom = platform(libs.compose.bom)
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
-
-    implementation(libs.foundation)
-    implementation(libs.foundation.layout)
-    implementation(libs.foundation.android)
-
-    implementation(libs.runtime.android)
-    implementation(libs.runtime.annotation)
-
-    implementation(libs.activity.compose)
-
-    implementation(libs.lifecycle.viewmodel.compose)
-
-    implementation(libs.core.splashscreen)
-
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.graphics.android)
-    implementation(libs.ui.tooling.preview)
-    debugImplementation(libs.ui.tooling)
-
-    implementation(libs.material)
-    implementation(libs.material.icons.extended)
-    implementation(libs.material3)
-
-    implementation(libs.navigation.compose)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
-
-    implementation(libs.camera.core)
-    implementation(libs.camera.lifecycle)
-    implementation(libs.camera.view)
-    implementation(libs.camera.camera2)
-
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    testImplementation(libs.ktor.client.mock)
-
-    implementation(libs.datastore)
-
-    implementation(libs.barcode.scanning)
-
-    implementation(libs.zxing.core)
-
-    implementation(libs.coil.compose)
-
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics.ndk)
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.perf)
-
-    implementation(libs.google.services)
-
-    implementation(libs.app.update)
-    implementation(libs.app.update.ktx)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
-    testImplementation(libs.kotlinx.coroutines.test)
-
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.kotlin)
-
-    testImplementation(libs.turbine)
 }
