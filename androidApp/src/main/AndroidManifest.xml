@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:name=".ESNScannerApplication"
+        android:name="org.esncy.esnscanner.ESNScannerApplication"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
@@ -24,7 +24,7 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="org.esncy.esnscanner.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ESNScannerApp.Starting">
             <intent-filter>

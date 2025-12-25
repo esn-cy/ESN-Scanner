@@ -1,5 +1,5 @@
 [versions]
-packageName = "com.andymic.esnscanner"
+packageName = "org.esncy.esnscanner"
 
 java = "11"
 minAndroid = "26"

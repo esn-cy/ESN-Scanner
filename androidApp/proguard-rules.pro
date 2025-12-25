@@ -20,4 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.andymic.esnscanner.models.** { *; }
+-keep class io.ktor.utils.io.jvm.nio.** { *; }
+-keep class io.ktor.utils.io.** { *; }
+-dontwarn io.ktor.utils.io.jvm.nio.**
