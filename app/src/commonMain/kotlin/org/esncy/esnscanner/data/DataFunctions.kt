@@ -94,12 +94,12 @@ fun getExpirationDate(
         return "UNKNOWN"
 }
 
-fun getLastScanDate(localInfo: LocalResponse?): String {
-    return if (localInfo != null) {
-        if (localInfo.lastScanDate != null && localInfo.lastScanDate != "") {
-            LocalDate.parse(localInfo.lastScanDate).format(dateFormat)
+fun getOptionalDate(dateString: String?): String {
+    return if (dateString != null) {
+        if (dateString != "") {
+            LocalDate.parse(dateString).format(dateFormat)
         } else {
-            "Never Scanned"
+            "Not Populated"
         }
     } else {
         "UNKNOWN"

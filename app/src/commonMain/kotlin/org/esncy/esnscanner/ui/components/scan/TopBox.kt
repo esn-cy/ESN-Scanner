@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -54,14 +55,20 @@ fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
                         contentDescription = "Cardholder Picture",
                         contentScale = ContentScale.Crop
                     )
-                    if (uiState.result.profileImageURL == "UNKNOWN" || uiState.result.profileImageURL == "ESN Cyprus Pass") {
+                    if (uiState.result.profileImageURL == "UNKNOWN" || uiState.result.profileImageURL == "Valid" || uiState.result.profileImageURL == "Invalid") {
                         Text(
-                            text = if (uiState.result.profileImageURL == "UNKNOWN") "?" else "\u2713",
-                            color =
-                                if (uiState.result.profileImageURL == "UNKNOWN")
-                                    MaterialTheme.statusColorScheme.warning
-                                else
-                                    MaterialTheme.statusColorScheme.success,
+                            text = when (uiState.result.profileImageURL) {
+                                "UNKNOWN" -> "?"
+                                "Valid" -> "\u2713"
+                                "Invalid" -> "\u2715"
+                                else -> ""
+                            },
+                            color = when (uiState.result.profileImageURL) {
+                                "UNKNOWN" -> MaterialTheme.statusColorScheme.warning
+                                "Valid" -> MaterialTheme.statusColorScheme.success
+                                "Invalid" -> MaterialTheme.colorScheme.error
+                                else -> Color.Transparent
+                            },
                             fontWeight = FontWeight.Bold,
                             fontSize = 64.sp,
                             textAlign = TextAlign.Center,

@@ -8,7 +8,9 @@ data class LocalResponse(
     val name: String,
     val surname: String,
     val nationality: String,
-    val paidDate: String? = null,
+    val mobilityStatus: String,
+    val datePaid: String? = null,
+    val dateApproved: String? = null,
     val lastScanDate: String? = null,
     val profileImageURL: String? = null,
 )

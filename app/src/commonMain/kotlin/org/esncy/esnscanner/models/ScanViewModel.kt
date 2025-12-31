@@ -7,8 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import org.esncy.esnscanner.data.ApiServiceImplementation
@@ -20,7 +23,7 @@ import org.esncy.esnscanner.data.dateFormat
 import org.esncy.esnscanner.data.getCardStatus
 import org.esncy.esnscanner.data.getExpirationDate
 import org.esncy.esnscanner.data.getIssuingSection
-import org.esncy.esnscanner.data.getLastScanDate
+import org.esncy.esnscanner.data.getOptionalDate
 import org.esncy.esnscanner.ui.screens.CameraViewModel
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -37,15 +40,15 @@ data class ScanResult(
     var fullName: String,
     var nationality: String,
     var lastScanDate: String,
-    var result: String,
     var cardStatus: String,
     var issuingSection: String,
     var expirationDate: String,
-    var profileImageURL: String
+    var profileImageURL: String,
+    var result: String
 )
 
-val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
-val ESNCyprusPassRegex = Regex("ESNCYTKNESNCYTKN\\d*")
+val ESNCardNumberRegex = Regex("^\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]$")
+val FreePassRegex = Regex("^[A-F0-9]{32}$")
 
 class ScanViewModel(
     private val dataFlow: StateFlow<SectionData>
@@ -89,48 +92,56 @@ class ScanViewModel(
         if (isESNcard)
             identifier = esncardMatch.value
         else {
-            val esnCyprusPassMatch = ESNCyprusPassRegex.find(scannedString)
-            if (esnCyprusPassMatch == null) {
+            val freePassMatch = FreePassRegex.find(scannedString)
+            if (freePassMatch == null) {
                 _state.value = ScanUIState.Error("Invalid", scannedString)
                 return
             }
-            identifier = esnCyprusPassMatch.value
+            identifier = freePassMatch.value
         }
 
+        val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val epochDate =
+            LocalDate(currentDate.year, currentDate.month, currentDate.day).toEpochDays()
+        
         viewModelScope.launch {
             val localInfo = apiService.getLocalInfo(identifier)
-            var internationalInfo: InternationalResponse? = null
-            var datasetInfo: DatasetResponse? = null
+            var internationalInfo: InternationalResponse?
+            var datasetInfo: DatasetResponse?
+
+            var fullName: String
+            var nationality: String
+            var issuingSection: String
+            var expirationDate: String
+            var cardStatus: String
+            var lastScan: String
+            var profileImage: String
+            var result: String
+
             if (isESNcard) {
                 internationalInfo = apiService.getInternationalInfo(identifier)
                 datasetInfo = apiService.getDatasetInfo(identifier)
-            }
 
-            val existsLocally = datasetInfo != null || localInfo != null
+                val existsLocally = datasetInfo != null || localInfo != null
 
-            val fullName = datasetInfo?.name
-                ?: (if (localInfo != null) localInfo.name.trim() + " " + localInfo.surname.trim() else "UNKNOWN")
-            val nationality = datasetInfo?.nationality ?: (localInfo?.nationality ?: "UNKNOWN")
-            val issuingSection = if (isESNcard) getIssuingSection(
-                internationalInfo?.sectionCode?.lowercase(),
-                existsLocally,
-                sections,
-                sectionData
-            ) else sectionData.localSectionName
-            val expirationDate = if (isESNcard) getExpirationDate(
-                localInfo?.paidDate,
-                datasetInfo?.date,
-                internationalInfo?.expirationDate
-            ) else "Valid"
-            val cardStatus = getCardStatus(internationalInfo?.status, existsLocally)
-            val lastScan = getLastScanDate(localInfo)
-            val profileImage = localInfo?.profileImageURL ?: "UNKNOWN"
+                fullName = datasetInfo?.name
+                    ?: (if (localInfo != null) localInfo.name.trim() + " " + localInfo.surname.trim() else "UNKNOWN")
+                nationality = datasetInfo?.nationality ?: (localInfo?.nationality ?: "UNKNOWN")
+                issuingSection = getIssuingSection(
+                    internationalInfo?.sectionCode?.lowercase(),
+                    existsLocally,
+                    sections,
+                    sectionData
+                )
+                expirationDate = getExpirationDate(
+                    localInfo?.datePaid,
+                    datasetInfo?.date,
+                    internationalInfo?.expirationDate
+                )
+                cardStatus = getCardStatus(internationalInfo?.status, existsLocally)
+                lastScan = getOptionalDate(localInfo?.lastScanDate)
+                profileImage = localInfo?.profileImageURL ?: "UNKNOWN"
 
-            var result: String
-            val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-            val epochDate =
-                LocalDate(currentDate.year, currentDate.month, currentDate.day).toEpochDays()
-            if (isESNcard) {
                 result =
                     if (issuingSection == sectionData.localSectionName && !issuingSection.contains("(INCONSISTENT)")) {
                         if (existsLocally)
@@ -148,37 +159,52 @@ class ScanViewModel(
                         }
                     }
 
-                if (lastScan != "UNKNOWN" && lastScan != "Never Scanned" && epochDate - LocalDate.parse(
-                        lastScan,
-                        dateFormat
-                    ).toEpochDays() < 2
+                if (
+                    lastScan != "UNKNOWN" &&
+                    lastScan != "Not Populated" &&
+                    epochDate - dateFormat.parse(lastScan).toEpochDays() < 2
                 ) {
                     result = "Already Scanned"
                 }
 
-                if (expirationDate != "Valid" && expirationDate != "UNKNOWN" && LocalDate.parse(
-                        expirationDate.removeSuffix(" (INCONSISTENT)"),
-                        dateFormat
+                if (expirationDate != "UNKNOWN" && dateFormat.parse(
+                        expirationDate.removeSuffix(" (INCONSISTENT)")
                     ).toEpochDays() < epochDate
                 )
                     result = "Expired"
             } else {
-                result =
-                    if (lastScan == "UNKNOWN" || lastScan == "Never Scanned" || epochDate - LocalDate.parse(
-                            lastScan,
-                            dateFormat
-                        ).toEpochDays() > 1
-                    )
-                        "Valid"
-                    else
-                        "Already Scanned"
-//                if (epochDate < LocalDate.parse(
-//                        expirationDate.removeSuffix(" (INCONSISTENT)"),
-//                        DateTimeFormatter.ofPattern("dd/MM/yyyy")
-//                    ).toEpochDay()
-//                )
-//                    result = "Expired"
+                if (localInfo == null) {
+                    _state.value = ScanUIState.Error("Local Data Unavailable", scannedString)
+                    return@launch
+                }
+
+                fullName = localInfo.name.trim() + " " + localInfo.surname.trim()
+                nationality = localInfo.nationality
+                issuingSection = sectionData.localSectionName
+
+                val expirationDateObject = LocalDate
+                    .parse(localInfo.dateApproved!!)
+                    .plus(1, DateTimeUnit.YEAR)
+                expirationDate = expirationDateObject.format(dateFormat)
+
+                cardStatus =
+                    if (epochDate > expirationDateObject.toEpochDays()) "Expired" else "Valid"
+
+                lastScan = getOptionalDate(localInfo.lastScanDate)
+
+                result = localInfo.mobilityStatus
+
+                if (lastScan != "Not Populated")
+                    if (epochDate - dateFormat.parse(lastScan).toEpochDays() < 2)
+                        result = "Already Scanned"
+
+                if (cardStatus == "Expired")
+                    result = "Expired"
+
+                profileImage =
+                    if (cardStatus == "Valid" && result != "Already Scanned") "Valid" else "Invalid"
             }
+
             if (result != "Expired" && cardStatus == "NOT REGISTERED")
                 result += "/Not Registered"
             if (cardStatus != "NOT REGISTERED" && (expirationDate.contains("INCONSISTENT") || issuingSection.contains(
@@ -193,11 +219,11 @@ class ScanViewModel(
                     fullName = fullName,
                     nationality = nationality,
                     lastScanDate = lastScan,
-                    result = result,
                     cardStatus = cardStatus,
                     issuingSection = issuingSection,
                     expirationDate = expirationDate,
-                    profileImageURL = profileImage
+                    profileImageURL = profileImage,
+                    result = result,
                 ), scannedString
             )
         }
