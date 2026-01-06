@@ -2,12 +2,11 @@ package org.esncy.esnscanner.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.perf.performance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.esncy.esnscanner.Firebase
 import org.esncy.esnscanner.data.ApiServiceImplementation
 import org.esncy.esnscanner.data.KtorClient
 import org.esncy.esnscanner.ui.screens.CameraViewModel
@@ -43,7 +42,7 @@ class AddViewModel(
     override fun onScan(scannedString: String) {
         if (_state.value is AddUIState.Loading) return
 
-        val trace = Firebase.performance.newTrace("scan_card_duration")
+        val trace = Firebase.Trace("scan_card_duration")
         trace.start()
 
         val lastScan =

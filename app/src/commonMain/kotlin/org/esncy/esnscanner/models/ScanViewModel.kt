@@ -194,9 +194,13 @@ class ScanViewModel(
 
                 result = localInfo.mobilityStatus
 
-                if (lastScan != "Not Populated")
-                    if (epochDate - dateFormat.parse(lastScan).toEpochDays() < 2)
-                        result = "Already Scanned"
+                if (
+                    lastScan != "UNKNOWN" &&
+                    lastScan != "Not Populated" &&
+                    epochDate - dateFormat.parse(lastScan).toEpochDays() < 2
+                ) {
+                    result = "Already Scanned"
+                }
 
                 if (cardStatus == "Expired")
                     result = "Expired"

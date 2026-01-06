@@ -2,13 +2,16 @@ package org.esncy.esnscanner.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.perf.performance
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.esncy.esnscanner.Firebase
 import org.esncy.esnscanner.data.KtorClient
 import org.esncy.esnscanner.data.TestServiceImplementation
 import kotlin.time.Clock
@@ -89,16 +92,26 @@ class OnlineViewModel(
     private suspend fun performTest(sectionData: SectionData) {
         _state.value = OnlineUIState.Loading
 
-        val trace = Firebase.performance.newTrace("online_test_duration")
+        val trace = Firebase.Trace("online_test_duration")
 
         trace.start()
 
         try {
-            val isLocalOnline: Boolean = if (sectionData.localSectionDomain != "")
-                testService.local() else false
-            val isInternationalOnline: Boolean = testService.international()
-            val isDatasetOnline: Boolean = if (sectionData.spreadsheetID != "")
-                testService.dataset() else false
+            val results = withContext(Dispatchers.IO) {
+                val localDef = async {
+                    if (sectionData.localSectionDomain != "")
+                        testService.local() else false
+                }
+                val interDef = async { testService.international() }
+                val dataDef = async {
+                    if (sectionData.spreadsheetID != "")
+                        testService.dataset() else false
+                }
+
+                Triple(localDef.await(), interDef.await(), dataDef.await())
+            }
+
+            val (isLocalOnline, isInternationalOnline, isDatasetOnline) = results
 
             val serviceStatus =
                 when (Triple(isLocalOnline, isInternationalOnline, isDatasetOnline)) {

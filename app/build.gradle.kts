@@ -42,7 +42,7 @@ kotlin {
 
     cocoapods {
         version = libs.versions.versionName.get()
-        summary = "Scans ESNcards and Free Passes" //TODO Add description
+        summary = "Scans ESNcards and Free Passes"
         homepage = "https://github.com/esn-cy/ESN-Scanner"
         ios.deploymentTarget = libs.versions.minIOS.get()
         name = "ESNScanner"
@@ -103,9 +103,6 @@ kotlin {
                 implementation(libs.datastore.preferences)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.qr.kit)
-                implementation(libs.gitlive.firebase.common)
-                implementation(libs.gitlive.firebase.crashlytics)
-                implementation(libs.gitlive.firebase.perf)
             }
         }
         commonTest.dependencies {
@@ -135,7 +132,6 @@ kotlin {
             implementation(libs.firebase.crashlytics.ndk)
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.perf)
-
         }
         iosArm64Main.dependencies {
             implementation(libs.ktor.client.darwin)
