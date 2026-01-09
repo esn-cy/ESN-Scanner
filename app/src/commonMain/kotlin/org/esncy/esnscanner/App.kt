@@ -20,23 +20,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.esncy.esnscanner.models.AddViewModel
-import org.esncy.esnscanner.models.DeliverViewModel
 import org.esncy.esnscanner.models.OnlineViewModel
-import org.esncy.esnscanner.models.ProduceViewModel
 import org.esncy.esnscanner.models.ScanViewModel
 import org.esncy.esnscanner.models.SectionDataViewModel
+import org.esncy.esnscanner.models.StatusViewModel
+import org.esncy.esnscanner.models.Statuses
 import org.esncy.esnscanner.models.UpdateViewModel
 import org.esncy.esnscanner.models.ViewModels
 import org.esncy.esnscanner.ui.Destinations
 import org.esncy.esnscanner.ui.components.NavigationRail
 import org.esncy.esnscanner.ui.components.add.AddBottomBox
 import org.esncy.esnscanner.ui.components.add.AddTopBox
-import org.esncy.esnscanner.ui.components.deliver.DeliverBottomBox
-import org.esncy.esnscanner.ui.components.deliver.DeliverTopBox
-import org.esncy.esnscanner.ui.components.produce.ProduceBottomBox
-import org.esncy.esnscanner.ui.components.produce.ProduceTopBox
 import org.esncy.esnscanner.ui.components.scan.ScanBottomBox
 import org.esncy.esnscanner.ui.components.scan.ScanTopBox
+import org.esncy.esnscanner.ui.components.status.StatusBottomBox
+import org.esncy.esnscanner.ui.components.status.StatusTopBox
 import org.esncy.esnscanner.ui.screens.CameraScreen
 import org.esncy.esnscanner.ui.screens.HomeScreen
 import org.esncy.esnscanner.ui.theme.ESNScannerAppTheme
@@ -58,9 +56,11 @@ fun App(
     val viewModels = remember {
         ViewModels(
             AddViewModel(sectionDataViewModel.dataFlow),
-            DeliverViewModel(sectionDataViewModel.dataFlow),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Blacklisted),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Delivered),
             OnlineViewModel(sectionDataViewModel.dataFlow),
-            ProduceViewModel(sectionDataViewModel.dataFlow),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Produced),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Paid),
             ScanViewModel(sectionDataViewModel.dataFlow),
             sectionDataViewModel,
             updateViewModel
@@ -152,18 +152,32 @@ fun ESNcardNavHost(
                 BottomBox = { uiState, modifier -> AddBottomBox(uiState, modifier) }
             )
         }
+        composable(route = Destinations.MarkAsPaid.spec.route) {
+            CameraScreen(
+                viewModels.paidViewModel,
+                TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
+            )
+        }
         composable(route = Destinations.Produce.spec.route) {
             CameraScreen(
                 viewModels.produceViewModel,
-                TopBox = { uiState, modifier -> ProduceTopBox(uiState, modifier) },
-                BottomBox = { uiState, modifier -> ProduceBottomBox(uiState, modifier) }
+                TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
             )
         }
         composable(route = Destinations.Deliver.spec.route) {
             CameraScreen(
                 viewModels.deliverViewModel,
-                TopBox = { uiState, modifier -> DeliverTopBox(uiState, modifier) },
-                BottomBox = { uiState, modifier -> DeliverBottomBox(uiState, modifier) }
+                TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
+            )
+        }
+        composable(route = Destinations.Blacklist.spec.route) {
+            CameraScreen(
+                viewModels.blacklistViewModel,
+                TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
+                BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
             )
         }
     }

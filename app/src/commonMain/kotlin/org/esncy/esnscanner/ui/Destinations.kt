@@ -3,6 +3,8 @@ package org.esncy.esnscanner.ui
 import esnscanner.app.generated.resources.Res
 import esnscanner.app.generated.resources.add_card_filled
 import esnscanner.app.generated.resources.add_card_outlined
+import esnscanner.app.generated.resources.block_filled
+import esnscanner.app.generated.resources.block_outlined
 import esnscanner.app.generated.resources.camera_filled
 import esnscanner.app.generated.resources.camera_outlined
 import esnscanner.app.generated.resources.edit_filled
@@ -11,6 +13,8 @@ import esnscanner.app.generated.resources.hand_package_filled
 import esnscanner.app.generated.resources.hand_package_outlined
 import esnscanner.app.generated.resources.home_filled
 import esnscanner.app.generated.resources.home_outlined
+import esnscanner.app.generated.resources.paid_filled
+import esnscanner.app.generated.resources.paid_outlined
 import org.jetbrains.compose.resources.DrawableResource
 
 data class Destination(
@@ -50,6 +54,15 @@ enum class Destinations(
             enabledCondition = "isLocalOnline"
         )
     ),
+    MarkAsPaid(
+        spec = Destination(
+            route = "markAsPaid",
+            icons = Pair(Res.drawable.paid_outlined, Res.drawable.paid_filled),
+            label = "Mark as Paid",
+            contentDescription = "Navigate to Mark as Paid Screen",
+            enabledCondition = "isLocalOnline"
+        )
+    ),
     Produce(
         spec = Destination(
             route = "produce",
@@ -65,6 +78,15 @@ enum class Destinations(
             icons = Pair(Res.drawable.hand_package_outlined, Res.drawable.hand_package_filled),
             label = "Deliver",
             contentDescription = "Navigate to Deliver Card Screen",
+            enabledCondition = "isLocalOnline"
+        )
+    ),
+    Blacklist(
+        spec = Destination(
+            route = "blacklist",
+            icons = Pair(Res.drawable.block_outlined, Res.drawable.block_filled),
+            label = "Blacklist",
+            contentDescription = "Navigate to Blacklist Pass Screen",
             enabledCondition = "isLocalOnline"
         )
     )

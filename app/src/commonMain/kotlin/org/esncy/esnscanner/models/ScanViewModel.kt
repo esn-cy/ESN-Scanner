@@ -47,7 +47,7 @@ data class ScanResult(
     var result: String
 )
 
-val ESNCardNumberRegex = Regex("^\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]$")
+val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
 val FreePassRegex = Regex("^[A-F0-9]{32}$")
 
 class ScanViewModel(
@@ -117,6 +117,11 @@ class ScanViewModel(
             var lastScan: String
             var profileImage: String
             var result: String
+
+            if (localInfo?.name == "BLACKLISTED" && localInfo.surname == "BLACKLISTED") {
+                _state.value = ScanUIState.Error("Blacklisted", identifier)
+                return@launch
+            }
 
             if (isESNcard) {
                 internationalInfo = apiService.getInternationalInfo(identifier)

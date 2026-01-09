@@ -1,4 +1,4 @@
-package org.esncy.esnscanner.ui.components.deliver
+package org.esncy.esnscanner.ui.components.status
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,16 +12,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.esncy.esnscanner.models.DeliverUIState
+import org.esncy.esnscanner.models.StatusUIState
 import org.esncy.esnscanner.ui.theme.statusColorScheme
 
 @Composable
-fun DeliverBottomBox(uiState: DeliverUIState, modifier: Modifier) {
+fun StatusBottomBox(uiState: StatusUIState, modifier: Modifier) {
     val backgroundColor = when (uiState) {
-        is DeliverUIState.Success -> MaterialTheme.statusColorScheme.successContainer
-        is DeliverUIState.Error -> MaterialTheme.colorScheme.errorContainer
-        is DeliverUIState.Loading -> MaterialTheme.colorScheme.surfaceContainer
-        is DeliverUIState.Idle -> MaterialTheme.colorScheme.surfaceContainer
+        is StatusUIState.Success -> MaterialTheme.statusColorScheme.successContainer
+        is StatusUIState.Error -> MaterialTheme.colorScheme.errorContainer
+        is StatusUIState.Loading -> MaterialTheme.colorScheme.surfaceContainer
+        is StatusUIState.Idle -> MaterialTheme.colorScheme.surfaceContainer
     }
     Box(
         modifier = modifier
@@ -30,17 +30,17 @@ fun DeliverBottomBox(uiState: DeliverUIState, modifier: Modifier) {
         contentAlignment = Alignment.Center
     ) {
         val text = when (uiState) {
-            is DeliverUIState.Success -> uiState.result.status
-            is DeliverUIState.Error -> uiState.message
-            is DeliverUIState.Loading -> "LOADING..."
-            is DeliverUIState.Idle -> "Point camera at a barcode"
+            is StatusUIState.Success -> uiState.result.status
+            is StatusUIState.Error -> uiState.message
+            is StatusUIState.Loading -> "LOADING..."
+            is StatusUIState.Idle -> "Point camera at a barcode"
         }
 
         val color = when (uiState) {
-            is DeliverUIState.Success -> MaterialTheme.statusColorScheme.onSuccessContainer
-            is DeliverUIState.Error -> MaterialTheme.colorScheme.onErrorContainer
-            is DeliverUIState.Loading -> MaterialTheme.colorScheme.onSurface
-            is DeliverUIState.Idle -> MaterialTheme.colorScheme.onSurface
+            is StatusUIState.Success -> MaterialTheme.statusColorScheme.onSuccessContainer
+            is StatusUIState.Error -> MaterialTheme.colorScheme.onErrorContainer
+            is StatusUIState.Loading -> MaterialTheme.colorScheme.onSurface
+            is StatusUIState.Idle -> MaterialTheme.colorScheme.onSurface
         }
         Text(
             text = text,

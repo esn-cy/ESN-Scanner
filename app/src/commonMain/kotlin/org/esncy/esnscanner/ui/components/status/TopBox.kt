@@ -1,4 +1,4 @@
-package org.esncy.esnscanner.ui.components.produce
+package org.esncy.esnscanner.ui.components.status
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,18 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.esncy.esnscanner.models.ProduceUIState
+import org.esncy.esnscanner.models.StatusUIState
 import org.esncy.esnscanner.ui.theme.ESNCyan
 import org.esncy.esnscanner.ui.theme.ESNDarkBlue
 
 @Composable
-fun ProduceTopBox(uiState: ProduceUIState, modifier: Modifier) {
+fun StatusTopBox(uiState: StatusUIState, modifier: Modifier) {
     Box(
         modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(16.dp)
     ) {
-        if (uiState is ProduceUIState.Success) {
+        if (uiState is StatusUIState.Success) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = uiState.result.cardNumber,
@@ -33,7 +33,7 @@ fun ProduceTopBox(uiState: ProduceUIState, modifier: Modifier) {
                 fontSize = 24.sp
             )
         }
-        if (uiState is ProduceUIState.Loading) {
+        if (uiState is StatusUIState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .fillMaxSize(0.25f)
