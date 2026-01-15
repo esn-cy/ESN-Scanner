@@ -1,6 +1,7 @@
 package org.esncy.esnscanner.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.esncy.esnscanner.models.OnlineUIState
 import org.esncy.esnscanner.models.OnlineViewModel
+import org.esncy.esnscanner.models.TokenUIState
+import org.esncy.esnscanner.models.TokenViewModel
 import org.esncy.esnscanner.ui.Destination
 import org.esncy.esnscanner.ui.Destinations
 import org.jetbrains.compose.resources.vectorResource
@@ -30,9 +33,11 @@ fun NavigationRail(
     modifier: Modifier = Modifier,
     selectedDestination: Destination,
     onDestinationSelected: (Destination) -> Unit,
-    viewModel: OnlineViewModel
+    onlineViewModel: OnlineViewModel,
+    tokenViewModel: TokenViewModel
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val onlineState by onlineViewModel.state.collectAsState()
+    val tokenState by tokenViewModel.state.collectAsState()
 
     Box(
         modifier = modifier
@@ -44,22 +49,39 @@ fun NavigationRail(
             color = MaterialTheme.colorScheme.surfaceContainerLow
         ) {
             NavigationRail(contentColor = Color.Transparent) {
-                Destinations.entries.forEach { destination ->
-                    val isEnabled = when (uiState) {
-                        is OnlineUIState.Idle, is OnlineUIState.Loading -> false
+                for (destination in Destinations.entries) {
+                    if (destination.spec.permission != null && destination.spec.enabledCondition == "isLocalOnline") {
+                        val userPermissions =
+                            (tokenState as? TokenUIState.Success)?.result?.permissions
+                        if (userPermissions != null) {
+                            if (!userPermissions.contains(destination.spec.permission))
+                                continue
+                        }
+                    }
+
+                    val isEnabled = when (onlineState) {
+                        is OnlineUIState.Idle, is OnlineUIState.Loading -> {
+                            when (destination.spec.enabledCondition) {
+                                null -> true
+                                else -> false
+                            }
+                        }
                         is OnlineUIState.Success -> {
                             when (destination.spec.enabledCondition) {
                                 null -> true
-                                "isLocalOnline" -> (uiState as OnlineUIState.Success).result.isLocalOnline
-                                "isInternationalOnline" -> (uiState as OnlineUIState.Success).result.isInternationalOnline
-                                "isDatasetOnline" -> (uiState as OnlineUIState.Success).result.isDatasetOnline
-                                "oneOnline" -> (uiState as OnlineUIState.Success).result.serviceStatus != "No Information Available"
+                                "isLocalOnline" -> (onlineState as OnlineUIState.Success).result.isLocalOnline
+                                "isInternationalOnline" -> (onlineState as OnlineUIState.Success).result.isInternationalOnline
+                                "isDatasetOnline" -> (onlineState as OnlineUIState.Success).result.isDatasetOnline
+                                "oneOnline" -> (onlineState as OnlineUIState.Success).result.serviceStatus != "No Information Available"
                                 else -> false
                             }
                         }
                     }
 
                     val isSelected = selectedDestination == destination.spec
+
+                    if (destination.spec.route == "settings")
+                        Spacer(Modifier.weight(1f))
 
                     NavigationRailItem(
                         selected = isSelected,

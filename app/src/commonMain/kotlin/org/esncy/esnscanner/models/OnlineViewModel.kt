@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.esncy.esnscanner.Firebase
-import org.esncy.esnscanner.data.KtorClient
-import org.esncy.esnscanner.data.TestServiceImplementation
+import org.esncy.esnscanner.data.APIService
+import org.esncy.esnscanner.data.KtorClients
 import kotlin.time.Clock
 
 sealed interface OnlineUIState {
@@ -31,14 +31,16 @@ data class OnlineResult(
 )
 
 class OnlineViewModel(
-    private val dataFlow: StateFlow<SectionData>
+    private val dataFlow: StateFlow<SectionData>,
+    private val clients: KtorClients
 ) : ViewModel() {
     val sectionData: SectionData
         get() = dataFlow.value
 
-    private val testService: TestServiceImplementation
-        get() = TestServiceImplementation(
-            client = KtorClient.httpClient,
+    private val apiService: APIService
+        get() = APIService(
+            publicClient = clients.publicClient,
+            privateClient = clients.privateClient,
             sectionDomain = sectionData.localSectionDomain,
             spreadsheetID = sectionData.spreadsheetID,
         )
@@ -100,12 +102,12 @@ class OnlineViewModel(
             val results = withContext(Dispatchers.IO) {
                 val localDef = async {
                     if (sectionData.localSectionDomain != "")
-                        testService.local() else false
+                        apiService.localOnlineTest() else false
                 }
-                val interDef = async { testService.international() }
+                val interDef = async { apiService.internationalOnlineTest() }
                 val dataDef = async {
                     if (sectionData.spreadsheetID != "")
-                        testService.dataset() else false
+                        apiService.datasetOnlineTest() else false
                 }
 
                 Triple(localDef.await(), interDef.await(), dataDef.await())

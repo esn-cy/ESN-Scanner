@@ -1,6 +1,7 @@
 package org.esncy.esnscanner
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -14,15 +15,21 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.esncy.esnscanner.models.SectionDataUIState
 import org.esncy.esnscanner.models.SectionDataViewModel
+import org.esncy.esnscanner.models.TokenViewModel
 import org.esncy.esnscanner.models.UpdateViewModel
+import org.esncy.esnscanner.ui.components.AuthLauncher
 
 class MainActivity : ComponentActivity() {
     private val updateViewModel: UpdateViewModel by viewModels()
     private val sectionDataViewModel: SectionDataViewModel by viewModels()
 
     private lateinit var appUpdateManager: AppUpdateManager
+    private lateinit var tokenViewModel: TokenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -35,6 +42,8 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
+        tokenViewModel = TokenViewModel(sectionDataViewModel.dataFlow)
+
         appUpdateManager = AppUpdateManagerFactory.create(this)
 
         splashScreen.setKeepOnScreenCondition {
@@ -42,7 +51,12 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            App(updateViewModel, sectionDataViewModel)
+            App(
+                updateViewModel,
+                sectionDataViewModel,
+                tokenViewModel,
+                AuthLauncher(activity = this)
+            )
         }
 
         splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
@@ -63,6 +77,18 @@ class MainActivity : ComponentActivity() {
             }
 
             slideOut.start()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.data?.let { uri ->
+            val code = uri.getQueryParameter("code")
+            if (code != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    tokenViewModel.handleCallback(code)
+                }
+            }
         }
     }
 }

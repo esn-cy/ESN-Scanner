@@ -2,6 +2,7 @@ package org.esncy.esnscanner
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -19,15 +20,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.esncy.esnscanner.data.KtorClients
 import org.esncy.esnscanner.models.AddViewModel
 import org.esncy.esnscanner.models.OnlineViewModel
 import org.esncy.esnscanner.models.ScanViewModel
 import org.esncy.esnscanner.models.SectionDataViewModel
 import org.esncy.esnscanner.models.StatusViewModel
 import org.esncy.esnscanner.models.Statuses
+import org.esncy.esnscanner.models.TokenViewModel
 import org.esncy.esnscanner.models.UpdateViewModel
 import org.esncy.esnscanner.models.ViewModels
 import org.esncy.esnscanner.ui.Destinations
+import org.esncy.esnscanner.ui.components.AuthLauncher
 import org.esncy.esnscanner.ui.components.NavigationRail
 import org.esncy.esnscanner.ui.components.add.AddBottomBox
 import org.esncy.esnscanner.ui.components.add.AddTopBox
@@ -37,6 +41,7 @@ import org.esncy.esnscanner.ui.components.status.StatusBottomBox
 import org.esncy.esnscanner.ui.components.status.StatusTopBox
 import org.esncy.esnscanner.ui.screens.CameraScreen
 import org.esncy.esnscanner.ui.screens.HomeScreen
+import org.esncy.esnscanner.ui.screens.SettingsScreen
 import org.esncy.esnscanner.ui.theme.ESNScannerAppTheme
 
 @Composable
@@ -45,7 +50,9 @@ expect fun getPlatformContext(): Any?
 @Composable
 fun App(
     updateViewModel: UpdateViewModel,
-    sectionDataViewModel: SectionDataViewModel
+    sectionDataViewModel: SectionDataViewModel,
+    tokenViewModel: TokenViewModel,
+    authLauncher: AuthLauncher? = null
 ) {
     val context = getPlatformContext()
 
@@ -53,29 +60,40 @@ fun App(
         updateViewModel.checkForUpdate(context)
     }
 
+    val clients = KtorClients(tokenViewModel)
+
     val viewModels = remember {
         ViewModels(
-            AddViewModel(sectionDataViewModel.dataFlow),
-            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Blacklisted),
-            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Delivered),
-            OnlineViewModel(sectionDataViewModel.dataFlow),
-            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Produced),
-            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Paid),
-            ScanViewModel(sectionDataViewModel.dataFlow),
+            AddViewModel(sectionDataViewModel.dataFlow, clients),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Blacklisted, clients),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Delivered, clients),
+            OnlineViewModel(sectionDataViewModel.dataFlow, clients),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Issued, clients),
+            StatusViewModel(sectionDataViewModel.dataFlow, Statuses.Paid, clients),
+            ScanViewModel(sectionDataViewModel.dataFlow, clients),
             sectionDataViewModel,
+            tokenViewModel,
             updateViewModel
         )
     }
 
+    val initAuthLauncher = authLauncher ?: AuthLauncher(
+        onCodeReceived = { code ->
+            viewModels.tokenViewModel.handleCallback(code)
+        },
+        onError = {}
+    )
+
     ESNScannerAppTheme {
-        AppContent(viewModels = viewModels)
+        AppContent(viewModels = viewModels, authLauncher = initAuthLauncher)
     }
 }
 
 @Composable
 fun AppContent(
     modifier: Modifier = Modifier,
-    viewModels: ViewModels
+    viewModels: ViewModels,
+    authLauncher: AuthLauncher
 ) {
     val navController = rememberNavController()
 
@@ -88,6 +106,7 @@ fun AppContent(
 
     Row(modifier = modifier.fillMaxSize()) {
         NavigationRail(
+            modifier = Modifier.fillMaxHeight(),
             selectedDestination = selectedDestination,
             onDestinationSelected = { destination ->
                 navController.navigate(destination.route) {
@@ -96,7 +115,8 @@ fun AppContent(
                     restoreState = true
                 }
             },
-            viewModel = viewModels.onlineViewModel
+            onlineViewModel = viewModels.onlineViewModel,
+            tokenViewModel = viewModels.tokenViewModel
         )
 
         Surface(
@@ -113,6 +133,7 @@ fun AppContent(
                 navController = navController,
                 startDestination = Destinations.Home.spec.route,
                 viewModels = viewModels,
+                authLauncher = authLauncher,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -124,6 +145,7 @@ fun ESNcardNavHost(
     navController: NavHostController,
     startDestination: String,
     viewModels: ViewModels,
+    authLauncher: AuthLauncher,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -135,13 +157,18 @@ fun ESNcardNavHost(
             HomeScreen(
                 onlineViewModel = viewModels.onlineViewModel,
                 updateViewModel = viewModels.updateViewModel,
-                sectionDataViewModel = viewModels.sectionDataViewModel
             )
         }
         composable(route = Destinations.Scan.spec.route) {
             CameraScreen(
                 viewModels.scanViewModel,
-                TopBox = { uiState, modifier -> ScanTopBox(uiState, modifier) },
+                TopBox = { uiState, modifier ->
+                    ScanTopBox(
+                        uiState,
+                        modifier,
+                        KtorClients(viewModels.tokenViewModel)
+                    )
+                },
                 BottomBox = { uiState, modifier -> ScanBottomBox(uiState, modifier) }
             )
         }
@@ -159,9 +186,9 @@ fun ESNcardNavHost(
                 BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
             )
         }
-        composable(route = Destinations.Produce.spec.route) {
+        composable(route = Destinations.Issue.spec.route) {
             CameraScreen(
-                viewModels.produceViewModel,
+                viewModels.issueViewModel,
                 TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
             )
@@ -178,6 +205,13 @@ fun ESNcardNavHost(
                 viewModels.blacklistViewModel,
                 TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
+            )
+        }
+        composable(route = Destinations.Settings.spec.route) {
+            SettingsScreen(
+                viewModels.sectionDataViewModel,
+                viewModels.tokenViewModel,
+                authLauncher
             )
         }
     }

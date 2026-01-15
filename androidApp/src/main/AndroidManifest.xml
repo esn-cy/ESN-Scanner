@@ -25,11 +25,22 @@
             android:value="true" />
         <activity
             android:name="org.esncy.esnscanner.MainActivity"
+            android:launchMode="singleTask"
             android:exported="true"
             android:theme="@style/Theme.ESNScannerApp.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:label="oauth_callback">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="callback"
+                    android:scheme="org.esncy.esnscanner" />
             </intent-filter>
         </activity>
     </application>

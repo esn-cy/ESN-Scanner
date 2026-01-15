@@ -6,8 +6,8 @@ minAndroid = "26"
 minIOS = "16.6"
 targetAndroid = "36"
 
-versionCode = "17"
-versionName = "2.1.0"
+versionCode = "18"
+versionName = "2.2.0"
 
 ios-mlkit = "9.0.0"
 ios-firebase = "12.7.0"
@@ -16,10 +16,10 @@ activityCompose = "1.12.2"
 agp = "8.13.2"
 appUpdate = "2.1.0"
 barcodeScanning = "17.3.0"
+browser = "1.9.0"
 camera = "1.5.2"
 coilCompose = "3.3.0"
-coilNetworkKtor = "3.0.0-alpha08"
-composeMultiplatform = "1.9.3"
+composeMultiplatform = "1.10.0"
 coreSplashscreen = "1.2.0"
 datastore = "1.2.0"
 firebaseBom = "34.7.0"
@@ -46,7 +46,7 @@ lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecyc
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
-coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coilNetworkKtor" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilCompose" }
 
 coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
@@ -66,6 +66,8 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 
 barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
 
+browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
+
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
@@ -79,6 +81,7 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }

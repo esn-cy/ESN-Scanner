@@ -1,5 +1,5 @@
 PODS:
-  - ESNScanner (2.1.0):
+  - ESNScanner (2.2.0):
     - FirebaseAnalytics (= 12.7.0)
     - FirebaseCore (= 12.7.0)
     - FirebaseCrashlytics (= 12.7.0)
@@ -212,7 +212,7 @@ EXTERNAL SOURCES:
     :path: "../app"
 
 SPEC CHECKSUMS:
-  ESNScanner: b9f713d99c602974ecdceab87638558f2241456a
+  ESNScanner: 114afd2e37167ed7247daa2a7e3e213ae7b1a139
   FirebaseABTesting: 72e4636929660d40844f2a4db15be9d551fc27d6
   FirebaseAnalytics: e423129866107aeacf6010a280b9c9829f9ea50d
   FirebaseCore: c7b57863ce0859281a66d16ca36d665c45d332b5

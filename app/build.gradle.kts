@@ -95,12 +95,15 @@ kotlin {
                 implementation(libs.lifecycle.runtime.compose)
                 implementation(libs.navigation.compose)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.auth)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.coil.compose)
                 implementation(libs.coil.network.ktor)
                 implementation(libs.datastore)
                 implementation(libs.datastore.preferences)
+                implementation(kotlincrypto.random.crypto.rand)
+                implementation(kotlincrypto.hash.sha2)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.qr.kit)
             }
@@ -121,6 +124,8 @@ kotlin {
             implementation(libs.camera.camera2)
 
             implementation(libs.barcode.scanning)
+
+            implementation(libs.browser)
 
             implementation(libs.app.update)
             implementation(libs.app.update.ktx)

@@ -6,8 +6,9 @@ data class ViewModels(
     val deliverViewModel: StatusViewModel,
     val onlineViewModel: OnlineViewModel,
     val paidViewModel: StatusViewModel,
-    val produceViewModel: StatusViewModel,
+    val issueViewModel: StatusViewModel,
     val scanViewModel: ScanViewModel,
     val sectionDataViewModel: SectionDataViewModel,
+    val tokenViewModel: TokenViewModel,
     val updateViewModel: UpdateViewModel
 )

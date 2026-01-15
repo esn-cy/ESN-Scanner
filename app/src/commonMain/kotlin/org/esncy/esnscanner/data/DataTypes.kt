@@ -61,3 +61,16 @@ data class Section(
     var name: String,
     var city: String
 )
+
+@Serializable
+data class TokenResponse(
+    @SerialName("access_token") val accessToken: String,
+    @SerialName("refresh_token") val refreshToken: String,
+    @SerialName("expires_in") val expiresIn: Int
+)
+
+@Serializable
+data class DrupalTokenPayload(
+    @SerialName("permissions") val permissions: List<String> = emptyList(),
+    @SerialName("name") val name: String = ""
+)

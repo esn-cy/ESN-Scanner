@@ -8,5 +8,16 @@
         <string>We need camera access to scan barcodes.</string>
         <key>NSPhotoLibraryUsageDescription</key>
         <string>We need photo library access to scan saved barcodes.</string>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLName</key>
+                <string>org.esncy.esnscanner</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>org.esncy.esnscanner</string>
+                </array>
+            </dict>
+        </array>
     </dict>
 </plist>

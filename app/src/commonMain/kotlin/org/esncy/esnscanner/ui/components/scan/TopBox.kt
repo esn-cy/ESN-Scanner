@@ -26,14 +26,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.SingletonImageLoader
 import coil3.compose.rememberAsyncImagePainter
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.request.crossfade
+import org.esncy.esnscanner.data.KtorClients
+import org.esncy.esnscanner.getPlatformContext
 import org.esncy.esnscanner.models.ScanUIState
 import org.esncy.esnscanner.ui.theme.ESNCyan
 import org.esncy.esnscanner.ui.theme.ESNDarkBlue
 import org.esncy.esnscanner.ui.theme.statusColorScheme
 
 @Composable
-fun ScanTopBox(uiState: ScanUIState, modifier: Modifier) {
+fun ScanTopBox(
+    uiState: ScanUIState,
+    modifier: Modifier,
+    clients: KtorClients
+) {
+    val imageLoader = ImageLoader.Builder(getPlatformContext() as PlatformContext)
+        .components { add(KtorNetworkFetcherFactory(clients.privateClient)) }
+        .crossfade(true)
+        .build()
+
+    SingletonImageLoader.setSafe {
+        imageLoader
+    }
+
     Box(
         modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceContainer)

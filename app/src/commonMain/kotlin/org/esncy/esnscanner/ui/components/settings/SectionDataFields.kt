@@ -1,4 +1,4 @@
-package org.esncy.esnscanner.ui.components.home
+package org.esncy.esnscanner.ui.components.settings
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -84,7 +84,7 @@ fun SectionDataFields(
     }
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(

@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.esncy.esnscanner.data.ApiServiceImplementation
-import org.esncy.esnscanner.data.KtorClient
+import org.esncy.esnscanner.data.APIService
+import org.esncy.esnscanner.data.KtorClients
 import org.esncy.esnscanner.ui.screens.CameraViewModel
 
 sealed interface StatusUIState {
@@ -24,21 +24,23 @@ data class StatusResult(
 
 enum class Statuses {
     Paid,
-    Produced,
+    Issued,
     Delivered,
     Blacklisted
 }
 
 class StatusViewModel(
     private val dataFlow: StateFlow<SectionData>,
-    val status: Statuses
+    val status: Statuses,
+    private val clients: KtorClients
 ) : ViewModel(), CameraViewModel<StatusUIState> {
     val sectionData: SectionData
         get() = dataFlow.value
 
-    private val apiService: ApiServiceImplementation
-        get() = ApiServiceImplementation(
-            client = KtorClient.httpClient,
+    private val apiService: APIService
+        get() = APIService(
+            publicClient = clients.publicClient,
+            privateClient = clients.privateClient,
             sectionDomain = sectionData.localSectionDomain,
             spreadsheetID = sectionData.spreadsheetID,
         )

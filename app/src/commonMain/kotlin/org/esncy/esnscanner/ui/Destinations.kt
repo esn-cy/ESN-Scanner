@@ -15,6 +15,8 @@ import esnscanner.app.generated.resources.home_filled
 import esnscanner.app.generated.resources.home_outlined
 import esnscanner.app.generated.resources.paid_filled
 import esnscanner.app.generated.resources.paid_outlined
+import esnscanner.app.generated.resources.settings_filled
+import esnscanner.app.generated.resources.settings_outlined
 import org.jetbrains.compose.resources.DrawableResource
 
 data class Destination(
@@ -22,7 +24,8 @@ data class Destination(
     val label: String,
     val icons: Pair<DrawableResource, DrawableResource>,
     val contentDescription: String,
-    val enabledCondition: String? = null
+    val enabledCondition: String? = null,
+    val permission: String? = null
 )
 
 enum class Destinations(
@@ -42,7 +45,8 @@ enum class Destinations(
             icons = Pair(Res.drawable.camera_outlined, Res.drawable.camera_filled),
             label = "Scan",
             contentDescription = "Navigate to Scan Card Screen",
-            enabledCondition = "oneOnline"
+            enabledCondition = "oneOnline",
+            permission = "scan cards"
         )
     ),
     Add(
@@ -51,7 +55,8 @@ enum class Destinations(
             icons = Pair(Res.drawable.add_card_outlined, Res.drawable.add_card_filled),
             label = "Add",
             contentDescription = "Navigate to Add Card Screen",
-            enabledCondition = "isLocalOnline"
+            enabledCondition = "isLocalOnline",
+            permission = "manage esncard numbers"
         )
     ),
     MarkAsPaid(
@@ -60,16 +65,18 @@ enum class Destinations(
             icons = Pair(Res.drawable.paid_outlined, Res.drawable.paid_filled),
             label = "Mark as Paid",
             contentDescription = "Navigate to Mark as Paid Screen",
-            enabledCondition = "isLocalOnline"
+            enabledCondition = "isLocalOnline",
+            permission = "mark submission as paid"
         )
     ),
-    Produce(
+    Issue(
         spec = Destination(
-            route = "produce",
+            route = "issue",
             icons = Pair(Res.drawable.edit_outlined, Res.drawable.edit_filled),
-            label = "Produce",
-            contentDescription = "Navigate to Produce Card Screen",
-            enabledCondition = "isLocalOnline"
+            label = "Issue",
+            contentDescription = "Navigate to Issue Card Screen",
+            enabledCondition = "isLocalOnline",
+            permission = "issue card"
         )
     ),
     Deliver(
@@ -78,7 +85,8 @@ enum class Destinations(
             icons = Pair(Res.drawable.hand_package_outlined, Res.drawable.hand_package_filled),
             label = "Deliver",
             contentDescription = "Navigate to Deliver Card Screen",
-            enabledCondition = "isLocalOnline"
+            enabledCondition = "isLocalOnline",
+            permission = "deliver card"
         )
     ),
     Blacklist(
@@ -87,7 +95,17 @@ enum class Destinations(
             icons = Pair(Res.drawable.block_outlined, Res.drawable.block_filled),
             label = "Blacklist",
             contentDescription = "Navigate to Blacklist Pass Screen",
-            enabledCondition = "isLocalOnline"
+            enabledCondition = "isLocalOnline",
+            permission = "blacklist pass"
+        )
+    ),
+    Settings(
+        spec = Destination(
+            route = "settings",
+            icons = Pair(Res.drawable.settings_outlined, Res.drawable.settings_filled),
+            label = "Settings",
+            contentDescription = "Navigate to Settings Screen",
+            enabledCondition = null
         )
     )
 }

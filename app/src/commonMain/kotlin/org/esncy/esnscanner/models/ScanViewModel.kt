@@ -14,10 +14,10 @@ import kotlinx.datetime.format
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
-import org.esncy.esnscanner.data.ApiServiceImplementation
+import org.esncy.esnscanner.data.APIService
 import org.esncy.esnscanner.data.DatasetResponse
 import org.esncy.esnscanner.data.InternationalResponse
-import org.esncy.esnscanner.data.KtorClient
+import org.esncy.esnscanner.data.KtorClients
 import org.esncy.esnscanner.data.Section
 import org.esncy.esnscanner.data.dateFormat
 import org.esncy.esnscanner.data.getCardStatus
@@ -51,14 +51,16 @@ val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
 val FreePassRegex = Regex("^[A-F0-9]{32}$")
 
 class ScanViewModel(
-    private val dataFlow: StateFlow<SectionData>
+    private val dataFlow: StateFlow<SectionData>,
+    private val clients: KtorClients
 ) : ViewModel(), CameraViewModel<ScanUIState> {
     val sectionData: SectionData
         get() = dataFlow.value
 
-    private val apiService: ApiServiceImplementation
-        get() = ApiServiceImplementation(
-            client = KtorClient.httpClient,
+    private val apiService: APIService
+        get() = APIService(
+            publicClient = clients.publicClient,
+            privateClient = clients.privateClient,
             sectionDomain = sectionData.localSectionDomain,
             spreadsheetID = sectionData.spreadsheetID,
         )
