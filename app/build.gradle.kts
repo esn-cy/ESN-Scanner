@@ -44,6 +44,9 @@ kotlin {
         version = libs.versions.versionName.get()
         summary = "Scans ESNcards and Free Passes"
         homepage = "https://github.com/esn-cy/ESN-Scanner"
+        source = "https://github.com/esn-cy/ESN-Scanner"
+        authors = "Andreas Michael <ateasm03@gmail.com>"
+        license = "Apache 2.0"
         ios.deploymentTarget = libs.versions.minIOS.get()
         name = "ESNScanner"
         podfile = project.file("../iosApp/Podfile")

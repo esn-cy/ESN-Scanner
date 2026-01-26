@@ -19,7 +19,7 @@ class APIService(
 ) {
     suspend fun getLocalInfo(lookupString: String): LocalResponse? {
         try {
-            val response = privateClient.post("https://$sectionDomain/api/esncard/scan") {
+            val response = privateClient.post("https://$sectionDomain/api/memberships/scan") {
                 setBody("{\"card\": \"$lookupString\"}")
             }
             if (response.status.value != 200)
@@ -66,7 +66,7 @@ class APIService(
 
     suspend fun addCard(cardNumber: String): AddCardResponse? {
         try {
-            val response = privateClient.post("https://esncy.org/api/esncard/add") {
+            val response = privateClient.post("https://esncy.org/api/memberships/add") {
                 setBody("{\"card\": \"$cardNumber\"}")
             }
             if (response.status.value != 200)
@@ -79,7 +79,7 @@ class APIService(
 
     suspend fun updateStatus(cardNumber: String, status: String): StatusResponse? {
         try {
-            val response = privateClient.post("https://esncy.org/api/esncard/status") {
+            val response = privateClient.post("https://esncy.org/api/memberships/status") {
                 setBody("{\"card\": \"$cardNumber\",\"status\": \"${status}\"}")
             }
             return response.body()
@@ -90,7 +90,7 @@ class APIService(
 
     suspend fun localOnlineTest(): Boolean {
         try {
-            val response = privateClient.get("https://$sectionDomain/api/status") {
+            val response = privateClient.get("https://$sectionDomain/api/memberships/online") {
                 timeout {
                     requestTimeoutMillis = 500
                 }
