@@ -6,8 +6,8 @@ minAndroid = "26"
 minIOS = "16.6"
 targetAndroid = "36"
 
-versionCode = "19"
-versionName = "2.2.1"
+versionCode = "20"
+versionName = "2.2.2"
 
 ios-mlkit = "9.0.0"
 ios-firebase = "12.8.0"

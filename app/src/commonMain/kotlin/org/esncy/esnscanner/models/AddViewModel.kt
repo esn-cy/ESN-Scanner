@@ -53,9 +53,10 @@ class AddViewModel(
 
         _state.value = AddUIState.Loading
 
-        var card = scannedString
-        val esncardMatch = ESNCardNumberRegex.find(card)
-        val isESNcard = esncardMatch != null
+        var card: String
+        val esncardMatch = ESNCardNumberRegex.find(scannedString)
+        val freePassMatch = FreePassRegex.find(scannedString)
+        val isESNcard = esncardMatch != null && freePassMatch == null
         if (isESNcard)
             card = esncardMatch.value
         else {

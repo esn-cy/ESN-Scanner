@@ -90,11 +90,11 @@ class ScanViewModel(
 
         var identifier: String
         val esncardMatch = ESNCardNumberRegex.find(scannedString)
-        val isESNcard = esncardMatch != null
+        val freePassMatch = FreePassRegex.find(scannedString)
+        val isESNcard = esncardMatch != null && freePassMatch == null
         if (isESNcard)
             identifier = esncardMatch.value
         else {
-            val freePassMatch = FreePassRegex.find(scannedString)
             if (freePassMatch == null) {
                 _state.value = ScanUIState.Error("Invalid", scannedString)
                 return
