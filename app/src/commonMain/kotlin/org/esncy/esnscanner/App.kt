@@ -41,6 +41,7 @@ import org.esncy.esnscanner.ui.components.status.StatusBottomBox
 import org.esncy.esnscanner.ui.components.status.StatusTopBox
 import org.esncy.esnscanner.ui.screens.CameraScreen
 import org.esncy.esnscanner.ui.screens.HomeScreen
+import org.esncy.esnscanner.ui.screens.RegisterScreen
 import org.esncy.esnscanner.ui.screens.SettingsScreen
 import org.esncy.esnscanner.ui.theme.ESNScannerAppTheme
 
@@ -205,6 +206,11 @@ fun ESNcardNavHost(
                 viewModels.blacklistViewModel,
                 TopBox = { uiState, modifier -> StatusTopBox(uiState, modifier) },
                 BottomBox = { uiState, modifier -> StatusBottomBox(uiState, modifier) }
+            )
+        }
+        composable(route = Destinations.Register.spec.route) {
+            RegisterScreen(
+                viewModels.sectionDataViewModel,
             )
         }
         composable(route = Destinations.Settings.spec.route) {

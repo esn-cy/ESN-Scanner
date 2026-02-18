@@ -7,6 +7,8 @@ import esnscanner.app.generated.resources.block_filled
 import esnscanner.app.generated.resources.block_outlined
 import esnscanner.app.generated.resources.camera_filled
 import esnscanner.app.generated.resources.camera_outlined
+import esnscanner.app.generated.resources.contract_edit_filled
+import esnscanner.app.generated.resources.contract_edit_outlined
 import esnscanner.app.generated.resources.edit_filled
 import esnscanner.app.generated.resources.edit_outlined
 import esnscanner.app.generated.resources.hand_package_filled
@@ -97,6 +99,15 @@ enum class Destinations(
             contentDescription = "Navigate to Blacklist Pass Screen",
             enabledCondition = "isLocalOnline",
             permission = "blacklist pass"
+        )
+    ),
+    Register(
+        spec = Destination(
+            route = "register",
+            icons = Pair(Res.drawable.contract_edit_outlined, Res.drawable.contract_edit_filled),
+            label = "Register",
+            contentDescription = "Navigate to Register Screen",
+            enabledCondition = "isLocalOnline"
         )
     ),
     Settings(

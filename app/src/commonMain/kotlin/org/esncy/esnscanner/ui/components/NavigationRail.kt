@@ -80,7 +80,7 @@ fun NavigationRail(
 
                     val isSelected = selectedDestination == destination.spec
 
-                    if (destination.spec.route == "settings")
+                    if (destination.spec.route == "register")
                         Spacer(Modifier.weight(1f))
 
                     NavigationRailItem(
