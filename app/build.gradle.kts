@@ -88,12 +88,12 @@ kotlin {
 
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
+                implementation(libs.runtime)
+                implementation(libs.foundation)
+                implementation(libs.ui)
+                implementation(libs.components.resources)
+                implementation(libs.ui.tooling.preview)
+                implementation(libs.material3)
                 implementation(libs.lifecycle.viewmodel.compose)
                 implementation(libs.lifecycle.runtime.compose)
                 implementation(libs.navigation.compose)

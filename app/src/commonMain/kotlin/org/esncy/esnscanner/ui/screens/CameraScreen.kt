@@ -4,15 +4,20 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,12 +26,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import esnscanner.app.generated.resources.Res
 import esnscanner.app.generated.resources.flash_off_filled
 import esnscanner.app.generated.resources.flash_on_filled
+import esnscanner.app.generated.resources.report_outlined
 import kotlinx.coroutines.flow.StateFlow
+import org.esncy.esnscanner.models.StatusUIState
+import org.esncy.esnscanner.models.StatusViewModel
 import org.esncy.esnscanner.ui.components.camera.CameraScanner
 import org.esncy.esnscanner.ui.components.camera.rememberCameraScannerState
 import org.esncy.esnscanner.ui.theme.ESNCyan
@@ -55,6 +65,7 @@ expect fun CameraPermissionHandler(
  * @param BottomBox A composable lambda for the content to be displayed below the scanner view.
  * @param modifier The modifier to be applied to the layout.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> CameraScreen(
     viewModel: CameraViewModel<T>,
@@ -138,6 +149,64 @@ fun <T> CameraScreen(
                             .fillMaxWidth()
                             .weight(1f)
                     )
+
+                    if (uiState is StatusUIState.AwaitingInput) {
+                        val currentState = uiState as StatusUIState.AwaitingInput
+                        AlertDialog(
+                            icon = {
+                                Icon(
+                                    vectorResource(Res.drawable.report_outlined),
+                                    "Alert",
+                                    Modifier.size(48.dp),
+                                    MaterialTheme.colorScheme.error
+                                )
+                            },
+                            title = {
+                                Text(
+                                    text = currentState.title,
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    textAlign = TextAlign.Center
+                                )
+                            },
+                            text = {
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = currentState.body,
+                                        textAlign = TextAlign.Center
+                                    )
+                                    Text(
+                                        text = "Do you want to proceed?",
+                                        textAlign = TextAlign.Center
+                                    )
+                                    Spacer(Modifier.height(8.dp))
+                                    Text(
+                                        text = "(Note: This is not reversible)",
+                                        textAlign = TextAlign.Center,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            },
+                            onDismissRequest = { (viewModel as StatusViewModel).reset() },
+                            confirmButton = {
+                                TextButton({
+                                    (viewModel as StatusViewModel).updateStatus(
+                                        currentState.identifier,
+                                        currentState.lastScan
+                                    )
+                                }) { Text("Confirm") }
+                            },
+                            dismissButton = {
+                                TextButton(
+                                    onClick = { (viewModel as StatusViewModel).reset() }
+                                ) {
+                                    Text("Dismiss")
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }

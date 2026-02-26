@@ -13,6 +13,12 @@ import org.esncy.esnscanner.ui.screens.CameraViewModel
 sealed interface StatusUIState {
     data object Idle : StatusUIState
     data object Loading : StatusUIState
+    data class AwaitingInput(
+        val identifier: String,
+        val lastScan: String,
+        val title: String,
+        val body: String
+    ) : StatusUIState
     data class Success(val result: StatusResult, val lastScan: String) : StatusUIState
     data class Error(val message: String, val lastScan: String) : StatusUIState
 }
@@ -70,22 +76,53 @@ class StatusViewModel(
             identifier = freePassMatch.value
         }
 
+        when (status) {
+            Statuses.Paid -> {
+                _state.value = StatusUIState.AwaitingInput(
+                    identifier,
+                    scannedString,
+                    "ESNcard Assignment Warning",
+                    "You are about to assign an ESNcard to a person that hasn't paid online."
+                )
+            }
+
+            Statuses.Blacklisted -> {
+                _state.value = StatusUIState.AwaitingInput(
+                    identifier,
+                    scannedString,
+                    "Blacklist Warning",
+                    "You are about to blacklist a pass."
+                )
+            }
+
+            else -> {
+                updateStatus(identifier, scannedString)
+            }
+        }
+
+    }
+
+    fun updateStatus(identifier: String, lastScan: String) {
         viewModelScope.launch {
-            val deliverResponse = apiService.updateStatus(identifier, status.name)
-            if (deliverResponse == null) {
-                _state.value = StatusUIState.Error("Unknown Error", scannedString)
+            val statusResponse = apiService.updateStatus(identifier, status.name)
+            if (statusResponse == null) {
+                _state.value = StatusUIState.Error("Unknown Error", lastScan)
                 return@launch
             }
-            if (deliverResponse.status == "error") {
-                _state.value = StatusUIState.Error(deliverResponse.message, scannedString)
+            if (statusResponse.status == "error") {
+                _state.value = StatusUIState.Error(statusResponse.message, lastScan)
                 return@launch
             }
             _state.value = StatusUIState.Success(
                 StatusResult(
                     identifier,
                     "Success"
-                ), scannedString
+                ), lastScan
             )
         }
+    }
+
+    fun reset() {
+        _state.value = StatusUIState.Idle
     }
 }

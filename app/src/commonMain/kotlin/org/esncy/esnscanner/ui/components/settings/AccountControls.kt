@@ -31,14 +31,15 @@ fun AccountControls(
     Column(
         modifier = modifier
     ) {
-        if ((uiState as? TokenUIState.Success)?.result?.access != "") {
+        if (uiState is TokenUIState.Success && (uiState as TokenUIState.Success).result.access != "") {
+            val name = (uiState as TokenUIState.Success).result.name
             Surface(
                 modifier = Modifier.fillMaxWidth().padding(16.dp, 0.dp),
                 shape = RoundedCornerShape(16.dp),
                 color = MaterialTheme.colorScheme.surfaceContainerHigh
             ) {
                 Text(
-                    text = "Logged in as: " + (uiState as TokenUIState.Success).result.name,
+                    text = "Logged in as: $name",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth().padding(16.dp)
                 )

@@ -20,8 +20,7 @@ fun StatusBottomBox(uiState: StatusUIState, modifier: Modifier) {
     val backgroundColor = when (uiState) {
         is StatusUIState.Success -> MaterialTheme.statusColorScheme.successContainer
         is StatusUIState.Error -> MaterialTheme.colorScheme.errorContainer
-        is StatusUIState.Loading -> MaterialTheme.colorScheme.surfaceContainer
-        is StatusUIState.Idle -> MaterialTheme.colorScheme.surfaceContainer
+        else -> MaterialTheme.colorScheme.surfaceContainer
     }
     Box(
         modifier = modifier
@@ -34,13 +33,13 @@ fun StatusBottomBox(uiState: StatusUIState, modifier: Modifier) {
             is StatusUIState.Error -> uiState.message
             is StatusUIState.Loading -> "LOADING..."
             is StatusUIState.Idle -> "Point camera at a barcode"
+            is StatusUIState.AwaitingInput -> "Check open dialog"
         }
 
         val color = when (uiState) {
             is StatusUIState.Success -> MaterialTheme.statusColorScheme.onSuccessContainer
             is StatusUIState.Error -> MaterialTheme.colorScheme.onErrorContainer
-            is StatusUIState.Loading -> MaterialTheme.colorScheme.onSurface
-            is StatusUIState.Idle -> MaterialTheme.colorScheme.onSurface
+            else -> MaterialTheme.colorScheme.onSurface
         }
         Text(
             text = text,
