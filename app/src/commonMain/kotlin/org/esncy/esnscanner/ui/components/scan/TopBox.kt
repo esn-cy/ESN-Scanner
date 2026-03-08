@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
+import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.rememberAsyncImagePainter
 import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.crossfade
@@ -39,6 +40,7 @@ import org.esncy.esnscanner.ui.theme.ESNCyan
 import org.esncy.esnscanner.ui.theme.ESNDarkBlue
 import org.esncy.esnscanner.ui.theme.statusColorScheme
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ScanTopBox(
     uiState: ScanUIState,

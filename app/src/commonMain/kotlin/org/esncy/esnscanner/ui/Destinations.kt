@@ -98,7 +98,7 @@ enum class Destinations(
             label = "Blacklist",
             contentDescription = "Navigate to Blacklist Pass Screen",
             enabledCondition = "isLocalOnline",
-            permission = "blacklist pass"
+            permission = "blacklist submission"
         )
     ),
     Register(
