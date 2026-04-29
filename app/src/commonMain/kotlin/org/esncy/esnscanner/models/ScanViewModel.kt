@@ -15,9 +15,9 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import org.esncy.esnscanner.data.APIService
-import org.esncy.esnscanner.data.DatasetResponse
-import org.esncy.esnscanner.data.InternationalResponse
 import org.esncy.esnscanner.data.KtorClients
+import org.esncy.esnscanner.data.LocalGuestResponse
+import org.esncy.esnscanner.data.LocalPassResponse
 import org.esncy.esnscanner.data.Section
 import org.esncy.esnscanner.data.dateFormat
 import org.esncy.esnscanner.data.getCardStatus
@@ -35,20 +35,69 @@ sealed interface ScanUIState {
     data class Error(val message: String, val lastScan: String) : ScanUIState
 }
 
-data class ScanResult(
-    var identifier: String,
-    var fullName: String,
+interface ScanResult {
+    var identifier: String
+    var fullName: String
+    var profileImageURL: String
+    var result: String
+}
+
+data class PassScanResult(
+    override var identifier: String,
+    override var fullName: String,
     var nationality: String,
     var lastScanDate: String,
     var cardStatus: String,
     var issuingSection: String,
     var expirationDate: String,
-    var profileImageURL: String,
-    var result: String
-)
+    override var profileImageURL: String,
+    override var result: String
+) : ScanResult
 
-val ESNCardNumberRegex = Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")
-val FreePassRegex = Regex("^[A-F0-9]{32}$")
+data class GuestScanResult(
+    override var identifier: String,
+    override var fullName: String,
+    val refererFullName: String,
+    val refererMobilityStatus: String,
+    val dateRedeemed: String,
+    override var profileImageURL: String,
+    override var result: String
+) : ScanResult
+
+enum class ScanTypes(
+    val regex: Regex
+) {
+    ESNcard(Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")),
+    FreePass(Regex("^[A-F0-9]{32}$")),
+    GuestPass(Regex("^GUEST[A-F0-9]{27}$"));
+
+    companion object {
+        fun getType(scannedString: String): Pair<ScanTypes?, String?> {
+            var identifier: String? = null
+            val type = ScanTypes.entries.find {
+                val currentFind = it.regex.find(scannedString)
+                if (currentFind?.value == null)
+                    return@find false
+
+                identifier = currentFind.value
+
+                var existsElsewhere = false
+                for (otherEntry in ScanTypes.entries) {
+                    if (otherEntry == it)
+                        continue
+                    if (otherEntry.regex.find(scannedString) != null) {
+                        existsElsewhere = true
+                        break
+                    }
+                }
+                return@find !existsElsewhere
+            }
+            if (type == null)
+                identifier = null
+            return Pair(type, identifier)
+        }
+    }
+}
 
 class ScanViewModel(
     private val dataFlow: StateFlow<SectionData>,
@@ -88,18 +137,11 @@ class ScanViewModel(
 
         _state.value = ScanUIState.Loading
 
-        var identifier: String
-        val esncardMatch = ESNCardNumberRegex.find(scannedString)
-        val freePassMatch = FreePassRegex.find(scannedString)
-        val isESNcard = esncardMatch != null && freePassMatch == null
-        if (isESNcard)
-            identifier = esncardMatch.value
-        else {
-            if (freePassMatch == null) {
-                _state.value = ScanUIState.Error("Invalid", scannedString)
-                return
-            }
-            identifier = freePassMatch.value
+        val (type, identifier) = ScanTypes.getType(scannedString)
+
+        if (identifier == null || type == null) {
+            _state.value = ScanUIState.Error("Invalid", scannedString)
+            return
         }
 
         val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
@@ -108,134 +150,201 @@ class ScanViewModel(
         
         viewModelScope.launch {
             val localInfo = apiService.getLocalInfo(identifier)
-            var internationalInfo: InternationalResponse?
-            var datasetInfo: DatasetResponse?
-
-            var fullName: String
-            var nationality: String
-            var issuingSection: String
-            var expirationDate: String
-            var cardStatus: String
-            var lastScan: String
-            var profileImage: String
-            var result: String
 
             if (localInfo?.name == "BLACKLISTED" && localInfo.surname == "BLACKLISTED") {
                 _state.value = ScanUIState.Error("Blacklisted", identifier)
                 return@launch
             }
 
-            if (isESNcard) {
-                internationalInfo = apiService.getInternationalInfo(identifier)
-                datasetInfo = apiService.getDatasetInfo(identifier)
+            var fullName =
+                if (localInfo != null) localInfo.name.trim() + " " + localInfo.surname.trim() else "UNKNOWN"
 
-                val existsLocally = datasetInfo != null || localInfo != null
+            val scanResult = when (type) {
+                ScanTypes.ESNcard -> {
+                    val local = localInfo as? LocalPassResponse?
+                    val internationalInfo = apiService.getInternationalInfo(identifier)
+                    val datasetInfo = apiService.getDatasetInfo(identifier)
 
-                fullName = datasetInfo?.name
-                    ?: (if (localInfo != null) localInfo.name.trim() + " " + localInfo.surname.trim() else "UNKNOWN")
-                nationality = datasetInfo?.nationality ?: (localInfo?.nationality ?: "UNKNOWN")
-                issuingSection = getIssuingSection(
-                    internationalInfo?.sectionCode?.lowercase(),
-                    existsLocally,
-                    sections,
-                    sectionData
-                )
-                expirationDate = getExpirationDate(
-                    localInfo?.datePaid,
-                    datasetInfo?.date,
-                    internationalInfo?.expirationDate
-                )
-                cardStatus = getCardStatus(internationalInfo?.status, existsLocally)
-                lastScan = getOptionalDate(localInfo?.lastScanDate)
-                profileImage = localInfo?.profileImageURL ?: "UNKNOWN"
+                    val existsLocally = datasetInfo != null || local != null
 
-                result =
-                    if (issuingSection == sectionData.localSectionName && !issuingSection.contains("(INCONSISTENT)")) {
-                        if (existsLocally)
-                            "Valid"
-                        else
-                            "Not in our System"
-                    } else {
-                        if (existsLocally)
-                            "Valid"
-                        else {
-                            if (issuingSection != "NOT REGISTERED")
-                                "Valid Foreign Card"
+                    val nationality = if (datasetInfo != null) {
+                        fullName = datasetInfo.name
+                        datasetInfo.nationality
+                    } else
+                        local?.nationality ?: "UNKNOWN"
+
+                    val issuingSection = getIssuingSection(
+                        internationalInfo?.sectionCode?.lowercase(),
+                        existsLocally,
+                        sections,
+                        sectionData
+                    )
+
+                    val expirationDate = getExpirationDate(
+                        local?.datePaid,
+                        datasetInfo?.date,
+                        internationalInfo?.expirationDate
+                    )
+                    val cardStatus = getCardStatus(internationalInfo?.status, existsLocally)
+
+                    val lastScan = getOptionalDate(local?.lastScanDate)
+                    val profileImage = local?.profileImageURL ?: "UNKNOWN"
+                    var result =
+                        if (issuingSection == sectionData.localSectionName && !issuingSection.contains(
+                                "(INCONSISTENT)"
+                            )
+                        ) {
+                            if (existsLocally)
+                                "Valid"
                             else
-                                "Unknown Origin"
+                                "Not in our System"
+                        } else {
+                            if (existsLocally)
+                                "Valid"
+                            else {
+                                if (issuingSection != "NOT REGISTERED")
+                                    "Valid Foreign Card"
+                                else
+                                    "Unknown Origin"
+                            }
                         }
+
+                    if (
+                        lastScan != "UNKNOWN" &&
+                        lastScan != "Not Populated" &&
+                        epochDate - dateFormat.parse(lastScan).toEpochDays() < 2
+                    ) {
+                        result = "Already Scanned"
                     }
 
-                if (
-                    lastScan != "UNKNOWN" &&
-                    lastScan != "Not Populated" &&
-                    epochDate - dateFormat.parse(lastScan).toEpochDays() < 2
-                ) {
-                    result = "Already Scanned"
+                    if (expirationDate != "UNKNOWN" && dateFormat.parse(
+                            expirationDate.removeSuffix(" (INCONSISTENT)")
+                        ).toEpochDays() < epochDate
+                    )
+                        result = "Expired"
+
+                    if (result != "Expired" && cardStatus == "NOT REGISTERED")
+                        result += "/Not Registered"
+                    if (cardStatus != "NOT REGISTERED" && (expirationDate.contains("INCONSISTENT") || issuingSection.contains(
+                            "INCONSISTENT"
+                        ))
+                    )
+                        result += "/Inconsistent"
+
+                    PassScanResult(
+                        identifier = identifier,
+                        fullName = fullName,
+                        nationality = nationality,
+                        lastScanDate = lastScan,
+                        cardStatus = cardStatus,
+                        issuingSection = issuingSection,
+                        expirationDate = expirationDate,
+                        profileImageURL = profileImage,
+                        result = result,
+                    )
                 }
 
-                if (expirationDate != "UNKNOWN" && dateFormat.parse(
-                        expirationDate.removeSuffix(" (INCONSISTENT)")
-                    ).toEpochDays() < epochDate
-                )
-                    result = "Expired"
-            } else {
-                if (localInfo == null) {
-                    _state.value = ScanUIState.Error("Local Data Unavailable", scannedString)
-                    return@launch
+                ScanTypes.FreePass -> {
+                    if (localInfo == null) {
+                        _state.value = ScanUIState.Error("Local Data Unavailable", scannedString)
+                        return@launch
+                    }
+
+                    val local = localInfo as? LocalPassResponse
+                    if (local == null) {
+                        _state.value = ScanUIState.Error("Invalid Data", scannedString)
+                        return@launch
+                    }
+
+                    val nationality = local.nationality
+                    val issuingSection = sectionData.localSectionName
+
+                    var expirationDate: String
+                    var cardStatus: String
+                    if (local.dateApproved != null) {
+                        val expirationDateObject = LocalDate
+                            .parse(local.dateApproved)
+                            .plus(1, DateTimeUnit.YEAR)
+                        expirationDate = expirationDateObject.format(dateFormat)
+
+                        cardStatus =
+                            if (epochDate > expirationDateObject.toEpochDays()) "Expired" else "Valid"
+                    } else {
+                        expirationDate = "UNKNOWN"
+                        cardStatus = "UNKNOWN"
+                    }
+
+                    val lastScan = getOptionalDate(local.lastScanDate)
+
+                    var result = local.mobilityStatus
+
+                    if (
+                        lastScan != "UNKNOWN" &&
+                        lastScan != "Not Populated" &&
+                        epochDate - dateFormat.parse(lastScan).toEpochDays() < 2
+                    ) {
+                        result = "Already Scanned"
+                    }
+
+                    if (cardStatus == "Expired")
+                        result = "Expired"
+
+                    val profileImage = local.profileImageURL
+                        ?: if (cardStatus == "Valid" && result != "Already Scanned") "Valid" else "Invalid"
+
+                    PassScanResult(
+                        identifier = identifier,
+                        fullName = fullName,
+                        nationality = nationality,
+                        lastScanDate = lastScan,
+                        cardStatus = cardStatus,
+                        issuingSection = issuingSection,
+                        expirationDate = expirationDate,
+                        profileImageURL = profileImage,
+                        result = result,
+                    )
                 }
 
-                fullName = localInfo.name.trim() + " " + localInfo.surname.trim()
-                nationality = localInfo.nationality
-                issuingSection = sectionData.localSectionName
+                ScanTypes.GuestPass -> {
+                    if (localInfo == null) {
+                        _state.value = ScanUIState.Error("Local Data Unavailable", scannedString)
+                        return@launch
+                    }
 
-                val expirationDateObject = LocalDate
-                    .parse(localInfo.dateApproved!!)
-                    .plus(1, DateTimeUnit.YEAR)
-                expirationDate = expirationDateObject.format(dateFormat)
+                    val local = localInfo as? LocalGuestResponse
+                    if (local == null) {
+                        _state.value = ScanUIState.Error("Invalid Data", scannedString)
+                        return@launch
+                    }
 
-                cardStatus =
-                    if (epochDate > expirationDateObject.toEpochDays()) "Expired" else "Valid"
+                    val dateRedeemed =
+                        if (local.dateRedeemed == null) "Valid" else (LocalDate.parse(local.dateRedeemed)
+                            .format(dateFormat) + " (REDEEMED)")
 
-                lastScan = getOptionalDate(localInfo.lastScanDate)
+                    var profileImageURL: String
+                    var status: String
+                    if (dateRedeemed == "Valid") {
+                        profileImageURL = "Valid"
+                        status = "Valid"
+                    } else {
+                        profileImageURL = "Invalid"
+                        status = "Already Redeemed"
+                    }
 
-                result = localInfo.mobilityStatus
-
-                if (
-                    lastScan != "UNKNOWN" &&
-                    lastScan != "Not Populated" &&
-                    epochDate - dateFormat.parse(lastScan).toEpochDays() < 2
-                ) {
-                    result = "Already Scanned"
+                    GuestScanResult(
+                        identifier = identifier,
+                        fullName = fullName,
+                        refererFullName = local.refererName.trim() + " " + local.refererSurname.trim(),
+                        refererMobilityStatus = local.refererMobilityStatus,
+                        dateRedeemed = dateRedeemed,
+                        profileImageURL = profileImageURL,
+                        result = status,
+                    )
                 }
-
-                if (cardStatus == "Expired")
-                    result = "Expired"
-
-                profileImage =
-                    if (cardStatus == "Valid" && result != "Already Scanned") "Valid" else "Invalid"
             }
 
-            if (result != "Expired" && cardStatus == "NOT REGISTERED")
-                result += "/Not Registered"
-            if (cardStatus != "NOT REGISTERED" && (expirationDate.contains("INCONSISTENT") || issuingSection.contains(
-                    "INCONSISTENT"
-                ))
-            )
-                result += "/Inconsistent"
-
             _state.value = ScanUIState.Success(
-                ScanResult(
-                    identifier = identifier,
-                    fullName = fullName,
-                    nationality = nationality,
-                    lastScanDate = lastScan,
-                    cardStatus = cardStatus,
-                    issuingSection = issuingSection,
-                    expirationDate = expirationDate,
-                    profileImageURL = profileImage,
-                    result = result,
-                ), scannedString
+                scanResult, scannedString
             )
         }
     }

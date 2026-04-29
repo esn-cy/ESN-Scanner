@@ -35,6 +35,8 @@ import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.crossfade
 import org.esncy.esnscanner.data.KtorClients
 import org.esncy.esnscanner.getPlatformContext
+import org.esncy.esnscanner.models.GuestScanResult
+import org.esncy.esnscanner.models.PassScanResult
 import org.esncy.esnscanner.models.ScanUIState
 import org.esncy.esnscanner.ui.theme.ESNCyan
 import org.esncy.esnscanner.ui.theme.ESNDarkBlue
@@ -101,13 +103,32 @@ fun ScanTopBox(
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly) {
-                    InfoRow("Name:", uiState.result.fullName)
-                    InfoRow("Country:", uiState.result.nationality)
-                    InfoRow("Status:", uiState.result.cardStatus)
-                    InfoRow("Section:", uiState.result.issuingSection)
-                    InfoRow("Expires:", uiState.result.expirationDate)
-                    InfoRow("Last Scan:", uiState.result.lastScanDate)
+                when (uiState.result) {
+                    is PassScanResult -> {
+                        Column(
+                            modifier = Modifier.fillMaxHeight(),
+                            verticalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            InfoRow("Name:", uiState.result.fullName)
+                            InfoRow("Country:", uiState.result.nationality)
+                            InfoRow("Status:", uiState.result.cardStatus)
+                            InfoRow("Section:", uiState.result.issuingSection)
+                            InfoRow("Expires:", uiState.result.expirationDate)
+                            InfoRow("Last Scan:", uiState.result.lastScanDate)
+                        }
+                    }
+
+                    is GuestScanResult -> {
+                        Column(
+                            modifier = Modifier.fillMaxHeight(),
+                            verticalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            InfoRow("Name:", uiState.result.fullName)
+                            InfoRow("Referrer Name:", uiState.result.refererFullName)
+                            InfoRow("Referrer Status:", uiState.result.refererMobilityStatus)
+                            InfoRow("Date Redeemed:", uiState.result.dateRedeemed)
+                        }
+                    }
                 }
             }
         }
@@ -133,7 +154,9 @@ fun InfoRow(label: String, value: String) {
             value.contains("INCONSISTENT")
         )
             MaterialTheme.statusColorScheme.warning
-        else if (value == "EXPIRED")
+        else if (value == "EXPIRED" ||
+            value.contains("REDEEMED")
+        )
             MaterialTheme.colorScheme.error
         else
             MaterialTheme.colorScheme.onSurface

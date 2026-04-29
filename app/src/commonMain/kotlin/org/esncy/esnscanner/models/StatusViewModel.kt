@@ -63,17 +63,19 @@ class StatusViewModel(
 
         _state.value = StatusUIState.Loading
 
-        var identifier: String
-        val esncardMatch = ESNCardNumberRegex.find(scannedString)
-        if (esncardMatch != null)
-            identifier = esncardMatch.value
-        else {
-            val freePassMatch = FreePassRegex.find(scannedString)
-            if (freePassMatch == null) {
+        val (type, identifier) = ScanTypes.getType(scannedString)
+        when (type) {
+            ScanTypes.ESNcard, ScanTypes.FreePass -> {
+                if (identifier == null) {
+                    _state.value = StatusUIState.Error("Invalid", scannedString)
+                    return
+                }
+            }
+
+            else -> {
                 _state.value = StatusUIState.Error("Invalid", scannedString)
                 return
             }
-            identifier = freePassMatch.value
         }
 
         when (status) {

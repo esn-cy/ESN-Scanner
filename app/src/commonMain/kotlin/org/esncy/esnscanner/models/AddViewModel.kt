@@ -53,19 +53,14 @@ class AddViewModel(
 
         _state.value = AddUIState.Loading
 
-        var card: String
-        val esncardMatch = ESNCardNumberRegex.find(scannedString)
-        val freePassMatch = FreePassRegex.find(scannedString)
-        val isESNcard = esncardMatch != null && freePassMatch == null
-        if (isESNcard)
-            card = esncardMatch.value
-        else {
+        val (type, identifier) = ScanTypes.getType(scannedString)
+        if (type != ScanTypes.ESNcard || identifier == null) {
             _state.value = AddUIState.Error("Invalid", scannedString)
             return
         }
 
         viewModelScope.launch {
-            val addResponse = apiService.addCard(card)
+            val addResponse = apiService.addCard(identifier)
             if (addResponse == null) {
                 _state.value = AddUIState.Error("Unknown Error", scannedString)
                 return@launch
@@ -76,7 +71,7 @@ class AddViewModel(
             }
             _state.value = AddUIState.Success(
                 AddResult(
-                    card,
+                    identifier,
                     "Success"
                 ), scannedString
             )

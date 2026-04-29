@@ -10,7 +10,7 @@ import com.google.mlkit.vision.common.InputImage
 
 actual class BarcodeScanner actual constructor(private val onBarcodesScanned: (List<String>) -> Unit) {
     private val options = BarcodeScannerOptions.Builder()
-        .setBarcodeFormats(Barcode.FORMAT_CODE_128, Barcode.FORMAT_QR_CODE)
+        .setBarcodeFormats(Barcode.FORMAT_CODE_128, Barcode.FORMAT_QR_CODE, Barcode.FORMAT_AZTEC)
         .build()
 
     private val scanner = BarcodeScanning.getClient(options)

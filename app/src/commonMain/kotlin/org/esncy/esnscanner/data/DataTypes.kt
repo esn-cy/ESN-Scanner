@@ -3,17 +3,36 @@ package org.esncy.esnscanner.data
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable(with = LocalSerializer::class)
+interface LocalResponse {
+    val name: String
+    val surname: String
+    val dateApproved: String?
+        get() = null
+}
+
 @Serializable
-data class LocalResponse(
-    val name: String,
-    val surname: String,
+data class LocalPassResponse(
+    override val name: String,
+    override val surname: String,
     val nationality: String,
     val mobilityStatus: String,
     val datePaid: String? = null,
-    val dateApproved: String? = null,
+    override val dateApproved: String? = null,
     val lastScanDate: String? = null,
     val profileImageURL: String? = null,
-)
+) : LocalResponse
+
+@Serializable
+data class LocalGuestResponse(
+    override val name: String,
+    override val surname: String,
+    val refererName: String,
+    val refererSurname: String,
+    val refererMobilityStatus: String,
+    override val dateApproved: String? = null,
+    val dateRedeemed: String? = null,
+) : LocalResponse
 
 @Serializable
 data class InternationalResponse(

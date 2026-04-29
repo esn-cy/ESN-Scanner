@@ -2,6 +2,7 @@ package org.esncy.esnscanner
 
 import cnames.structs.opaqueCMSampleBuffer
 import cocoapods.GoogleMLKit.MLKBarcode
+import cocoapods.GoogleMLKit.MLKBarcodeFormatAztec
 import cocoapods.GoogleMLKit.MLKBarcodeFormatCode128
 import cocoapods.GoogleMLKit.MLKBarcodeFormatQRCode
 import cocoapods.GoogleMLKit.MLKBarcodeScanner
@@ -17,7 +18,7 @@ import kotlin.native.runtime.NativeRuntimeApi
 actual class BarcodeScanner actual constructor(private val onBarcodesScanned: (List<String>) -> Unit) {
     @OptIn(ExperimentalForeignApi::class)
     private val options = MLKBarcodeScannerOptions(
-        formats = MLKBarcodeFormatCode128 or MLKBarcodeFormatQRCode
+        formats = MLKBarcodeFormatCode128 or MLKBarcodeFormatQRCode or MLKBarcodeFormatAztec
     )
 
     @OptIn(ExperimentalForeignApi::class)

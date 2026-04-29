@@ -1,6 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
@@ -16,8 +15,8 @@ plugins {
 kotlin {
     jvmToolchain(libs.versions.java.get().toInt())
 
-    androidLibrary {
-        namespace = libs.versions.packageName.get()
+    android {
+        namespace = libs.versions.packageName.get() + ".app"
         compileSdk = libs.versions.targetAndroid.get().toInt()
         minSdk = libs.versions.minAndroid.get().toInt()
 
@@ -84,8 +83,6 @@ kotlin {
 
     sourceSets {
         commonMain {
-            kotlin.srcDir(layout.buildDirectory.dir("generated/esnscanner/kotlin"))
-
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(libs.runtime)
