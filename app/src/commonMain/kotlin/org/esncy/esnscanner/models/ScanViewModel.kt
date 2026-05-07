@@ -65,36 +65,29 @@ data class GuestScanResult(
 ) : ScanResult
 
 enum class ScanTypes(
-    val regex: Regex
+    val regex: Regex,
+    val exactMatchRequired: Boolean
 ) {
-    ESNcard(Regex("\\d\\d\\d\\d\\d\\d\\d[A-Z][A-Z][A-Z][A-Z0-9]")),
-    FreePass(Regex("^[A-F0-9]{32}$")),
-    GuestPass(Regex("^GUEST[A-F0-9]{27}$"));
+    ESNcard(Regex("\\d{7}[A-Z]{3}[A-Z0-9]"), false),
+    FreePass(Regex("^[A-F0-9]{32}$"), true),
+    GuestPass(Regex("^GUEST[A-F0-9]{27}$"), true);
 
     companion object {
         fun getType(scannedString: String): Pair<ScanTypes?, String?> {
-            var identifier: String? = null
-            val type = ScanTypes.entries.find {
-                val currentFind = it.regex.find(scannedString)
-                if (currentFind?.value == null)
-                    return@find false
-
-                identifier = currentFind.value
-
-                var existsElsewhere = false
-                for (otherEntry in ScanTypes.entries) {
-                    if (otherEntry == it)
-                        continue
-                    if (otherEntry.regex.find(scannedString) != null) {
-                        existsElsewhere = true
-                        break
-                    }
+            for (type in entries.filter { it.exactMatchRequired }) {
+                if (type.regex.matches(scannedString)) {
+                    return Pair(type, scannedString)
                 }
-                return@find !existsElsewhere
             }
-            if (type == null)
-                identifier = null
-            return Pair(type, identifier)
+
+            for (type in entries.filter { !it.exactMatchRequired }) {
+                val match = type.regex.find(scannedString)
+                if (match != null) {
+                    return Pair(type, match.value)
+                }
+            }
+
+            return Pair(null, null)
         }
     }
 }
