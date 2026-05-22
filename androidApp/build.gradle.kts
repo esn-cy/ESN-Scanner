@@ -14,7 +14,7 @@ plugins {
 android {
     namespace = libs.versions.packageName.get()
     compileSdk = libs.versions.targetAndroid.get().toInt()
-    ndkVersion = "29.0.14206865"
+    ndkVersion = "30.0.14904198"
 
     defaultConfig {
         applicationId = libs.versions.packageName.get()

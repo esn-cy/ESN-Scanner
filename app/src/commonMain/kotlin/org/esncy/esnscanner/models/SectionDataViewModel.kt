@@ -27,7 +27,7 @@ sealed interface SectionDataUIState {
     data class Error(val error: Exception? = null) : SectionDataUIState
 }
 
-class SectionDataViewModel() : ViewModel() {
+class SectionDataViewModel : ViewModel() {
     private val KEY_LOCAL_SECTION_NAME = stringPreferencesKey("localSectionName")
     private val KEY_LOCAL_SECTION_CODE = stringPreferencesKey("localSectionCode")
     private val KEY_LOCAL_SECTION_DOMAIN = stringPreferencesKey("localSectionDomain")

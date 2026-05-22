@@ -68,7 +68,7 @@ enum class Destinations(
             label = "Mark as Paid",
             contentDescription = "Navigate to Mark as Paid Screen",
             enabledCondition = "isLocalOnline",
-            permission = "mark submission as paid"
+            permission = "mark applications as paid"
         )
     ),
     Issue(
@@ -78,7 +78,7 @@ enum class Destinations(
             label = "Issue",
             contentDescription = "Navigate to Issue Card Screen",
             enabledCondition = "isLocalOnline",
-            permission = "issue card"
+            permission = "issue cards"
         )
     ),
     Deliver(
@@ -88,7 +88,7 @@ enum class Destinations(
             label = "Deliver",
             contentDescription = "Navigate to Deliver Card Screen",
             enabledCondition = "isLocalOnline",
-            permission = "deliver card"
+            permission = "deliver cards"
         )
     ),
     Blacklist(
@@ -98,7 +98,7 @@ enum class Destinations(
             label = "Blacklist",
             contentDescription = "Navigate to Blacklist Pass Screen",
             enabledCondition = "isLocalOnline",
-            permission = "blacklist submission"
+            permission = "blacklist applications"
         )
     ),
     Register(

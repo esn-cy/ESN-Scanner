@@ -35,7 +35,7 @@ actual class BarcodeScanner actual constructor(private val onBarcodesScanned: (L
                 return@processImage
             }
 
-            if (barcodes != null && barcodes.isNotEmpty()) {
+            if (!barcodes.isNullOrEmpty()) {
                 val results = barcodes.mapNotNull {
                     (it as? MLKBarcode)?.rawValue
                 }

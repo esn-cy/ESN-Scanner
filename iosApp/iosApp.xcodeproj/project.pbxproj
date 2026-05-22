@@ -30,6 +30,8 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		89AD82726346DF3DF5390433 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = Configuration;
 			sourceTree = "<group>";
 		};
@@ -98,8 +100,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 80280614EF952C3801255FD0 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
-				A1B9FA032EF56BE60075AE31 /* Generate Version File */,
 				E510159C257FBF00D5F8C1FE /* [CP] Check Pods Manifest.lock */,
+				A1B9FA032EF56BE60075AE31 /* Generate Version File */,
 				CFF4F24205D3214E449002A3 /* Frameworks */,
 				1C34FF4308D59B99C36E16BC /* [CP] Embed Pods Frameworks */,
 				9F0B768E442872CFBC4AA9A6 /* Sources */,
@@ -172,13 +174,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -235,13 +233,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -1,6 +1,7 @@
 package org.esncy.esnscanner.models
 
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.Foundation.NSBundle
 import platform.Foundation.NSJSONSerialization
 import platform.Foundation.NSURL
@@ -8,12 +9,11 @@ import platform.Foundation.NSURLSession
 import platform.Foundation.dataTaskWithURL
 import platform.UIKit.UIApplication
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 actual class UpdateChecker {
     @OptIn(ExperimentalForeignApi::class)
     actual suspend fun checkForUpdate(context: Any?): UpdateResult =
-        suspendCoroutine { continuation ->
+        suspendCancellableCoroutine { continuation ->
             val bundleId = NSBundle.mainBundle.bundleIdentifier
             val currentVersion =
                 NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String

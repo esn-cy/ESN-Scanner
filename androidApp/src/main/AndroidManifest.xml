@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESNScannerApp"
         tools:replace="android:name,android:allowBackup"
-        tools:targetApi="36">
+        tools:targetApi="37">
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
