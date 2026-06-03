@@ -26,9 +26,14 @@ fun ScanBottomBox(uiState: ScanUIState, modifier: Modifier) {
                 "Valid Foreign Card" -> MaterialTheme.statusColorScheme.warningContainer
                 "Expired" -> MaterialTheme.colorScheme.errorContainer
                 else -> {
-                    if (uiState.result.result.contains("Not Registered") || uiState.result.result.contains(
-                            "Inconsistent"
-                        )
+                    if (
+                        uiState.result.result.contains("Already Scanned") ||
+                        uiState.result.result.contains("Expired")
+                    )
+                        MaterialTheme.colorScheme.errorContainer
+                    else if (
+                        uiState.result.result.contains("Not Registered") ||
+                        uiState.result.result.contains("Inconsistent")
                     )
                         MaterialTheme.statusColorScheme.warningContainer
                     else
